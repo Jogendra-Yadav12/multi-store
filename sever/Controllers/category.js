@@ -6,13 +6,17 @@ import {
   deleteCategory
 } from '../Model/category.js';
 
+
 export const addCategory = (req, res) => {
-  const { name, slug, parent_id, meta_title, meta_desc, image, description, status } = req.body;
-  const values = [name, slug, parent_id, meta_title, meta_desc, image, description, status];
+  const { name, slug, parent_id, meta_title, meta_desc, description, status } = req.body;
+  const image = req.file ? req.file.filename : null; 
+  const parentId = parent_id === '' ? null : parent_id;
+  const statusValue = status === 'active' ? 1 : 0;
+  const values = [name, slug, parentId, meta_title, meta_desc, image, description, statusValue];
 
   insertCategory(values, (err, result) => {
     if (err) return res.status(500).json({ error: 'Database error' });
-    res.status(201).json({ message: 'Category added successfully', categoryId: result.insertId });
+    res.status(201).json({ status: 'success',message: 'Category added successfully', categoryId: result.insertId });
   });
 };
 
