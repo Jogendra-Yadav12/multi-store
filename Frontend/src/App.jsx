@@ -1,9 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Admin from './pages/admin/Admin'
-import Dashboard from './pages/admin/Dashboard'
-import AddProducts from './pages/admin/AddProducts'
-import Profile from './pages/admin/Profile'
-import AddCategory from './pages/admin/AddCategory'
+import Dashboard from './components/admin/dashboard/Dashboard'
+import AddCategory from './components/admin/category/AddCategory'
+import AddProducts from './components/admin/product/AddProducts'
+import Profile from './components/admin/profile/Profile'
+import Admin from './components/admin/Admin'
+
+
 
 function App() {
   return (
@@ -12,11 +14,11 @@ function App() {
       <Route path="/" element={<Navigate to="/admin" />} />
 
       {/* Admin layout with nested routes */}
-      <Route path="/admin" element={<Admin />}>
-        <Route index element={<Dashboard />} /> 
-        <Route path='add-category' element={<AddCategory />} />
-        <Route path="add-products" element={<AddProducts />} />
-        <Route path="profile" element={<Profile />} />
+      <Route path="/admin" element={<Admin/>}>
+        <Route index element={<Dashboard/>} /> 
+        <Route path='add-category' element={<AddCategory/>} />
+        <Route path="add-products" element={<AddProducts/>} />
+        <Route path="profile" element={<Profile/>} />
       </Route>
     </Routes>
   )
