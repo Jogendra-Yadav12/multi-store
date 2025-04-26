@@ -4,11 +4,6 @@ import HeadingTag from '../HeadingNav';
 
 const AddCategory = () => {
 
-    const [category, setCategory] = useState('');
-    const [slug, setSlug] = useState('')
-
-
-
     const [formData, setFormData] = useState({
         name: '',
         slug: '',
@@ -18,7 +13,7 @@ const AddCategory = () => {
         status: '',
         meta_title: '',
         meta_desc: ''
-    })
+    });
 
     const generateSlug = (name) => {
         return name
@@ -29,40 +24,42 @@ const AddCategory = () => {
             .replace(/-+/g, '-');
     }
 
-    const handleCategoryChange = (e) => {
-        const value = e.target.value;
-        setCategory(value);
-        setSlug(generateSlug(value))
-    }
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        if (name === "name") {
-            const newSlug = generateSlug(value)
-            setFormData({ ...formData, [name]: value, slug: newSlug });
-        }
-        else {
-            setFormData({ ...formData, [name]: value });
+        if (name === 'name') {
+            const newSlug = generateSlug(value);
+            setFormData(prev => ({
+                ...prev,
+                name: value,
+                slug: newSlug
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }));
         }
     }
+
     const handleImageChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+        setFormData(prev => ({
+            ...prev,
+            image: e.target.files[0]
+        }));
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
-        data.append('name', formData.name || category);
-        data.append('slug', slug);
-        data.append('parent_id', formData.parent_id);
-        data.append('status', formData.status);
+        data.append('name', formData.name);
+        data.append('slug', formData.slug);
+        data.append('parent_id', formData.parent_id || null);
+        data.append('status', formData.status || 'active');
         data.append('description', formData.description);
         data.append('meta_title', formData.meta_title);
         data.append('meta_desc', formData.meta_desc);
         data.append('image', formData.image);
-        for (let [key, value] of data.entries()) {
-            console.log(`${key}:`, value);
-          }
         try {
             const res = await axios.post("http://localhost:5000/api/add-category", data, {
                 headers: {
@@ -70,7 +67,7 @@ const AddCategory = () => {
               }
             });
             console.log('Server Response:', res.data);
-            alert(`✅ Category added successfully! ID: ${res.data.categoryId}`);
+            alert(`Category added successfully! ID: ${res.data.categoryId}`);
             // Reset the form
             setCategory('');
             setSlug('');
@@ -89,7 +86,6 @@ const AddCategory = () => {
             alert('Something went wrong!');
         }
     };
-    
     return (
         <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
             <HeadingTag title="Category Management" path="Add Category" />
@@ -99,12 +95,12 @@ const AddCategory = () => {
                     <div className='flex flex-col md:flex-row items-center gap-5'>
                         <div className='w-full'>
                             <label className='block mb-2 text-gray-600'>Category Name</label>
-                            <input type='text' name='name' value={category} onChange={handleCategoryChange} required className='w-full p-2 border rounded' />
+                            <input type='text' name='name' value={formData.name} onChange={handleChange} required className='w-full p-2 border rounded' />
                         </div>
 
                         <div className='w-full'>
                             <label className='block mb-2 text-gray-600'>Slug</label>
-                            <input type='text' name='slug' id='slug' value={slug} className='w-full p-2 border rounded' readOnly />
+                            <input type='text' name='slug' id='slug' value={formData.slug} className='w-full p-2 border rounded' readOnly />
                         </div>
                         <div className='w-full'>
                             <label className='block mb-2 text-gray-600'>Parent Category</label>
