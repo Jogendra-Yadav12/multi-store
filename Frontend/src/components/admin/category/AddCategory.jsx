@@ -51,8 +51,10 @@ const AddCategory = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         console.log('category data', formData);
-        
+
+
         const data = new FormData();
         data.append('name', formData.name);
         data.append('slug', formData.slug);
@@ -62,14 +64,24 @@ const AddCategory = () => {
         data.append('meta_title', formData.meta_title);
         data.append('meta_desc', formData.meta_desc);
         data.append('image', formData.image);
-
+        for (let [key, value] of data.entries()) {
+            console.log(`${key}:`, value);
+        }
         try {
-            const res = await axios.post('http://localhost:5000/api/add-category', data, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
 
+
+            const res = await axios.post("http://localhost:5000/api/add-category", data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             console.log('Category added', res.data);
             alert('Category Successfully added!');
+
+
+            console.log('Server Response:', res.data);
+            alert(`✅ Category added successfully! ID: ${res.data.categoryId}`);
+            
             setFormData({
                 name: '',
                 slug: '',
@@ -80,76 +92,82 @@ const AddCategory = () => {
                 meta_title: '',
                 meta_desc: ''
             });
-
         } catch (err) {
-            console.log('Error adding category', err);
+
+            console.error('Error adding category', err);
             alert('Something went wrong!');
         }
     }
-    return (
-        <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
-            <HeadingTag title="Category Management" path="Add Category" />
 
-            <div className='w-full bg-gray-100 p-6 rounded shadow'>
-                <form onSubmit={handleSubmit} className='space-y-5 mt-5'>
-                    <div className='flex flex-col md:flex-row items-center gap-5'>
-                        <div className='w-full'>
-                            <label className='block mb-2 text-gray-600'>Category Name</label>
-                            <input type='text' name='name' value={formData.name} onChange={handleChange} required className='w-full p-2 border rounded' />
-                        </div>
+    
 
-                        <div className='w-full'>
-                            <label className='block mb-2 text-gray-600'>Slug</label>
-                            <input type='text' name='slug' id='slug' value={formData.slug} className='w-full p-2 border rounded' readOnly />
-                        </div>
-                        <div className='w-full'>
-                            <label className='block mb-2 text-gray-600'>Parent Category</label>
-                            <select name='parent_id' value={formData.parent_id} onChange={handleChange} className='w-full p-2.5 border rounded'>
-                                <option value=''>None</option>
-                                <option value='fashion'>Fashion</option>
-                                <option value='electronics'>Electronics</option>
-                                <option value='books'>Books</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className='flex flex-col md:flex-row items-center gap-5'>
-                        <div className='w-full'>
-                            <label className='block mb-2 text-gray-600'>Status</label>
-                            <select name='status' value={formData.status} onChange={handleChange} className='w-full p-2.5 border rounded placeholder-gray-200 text-gray-600'>
-                                <option value='active'>Active</option>
-                                <option value='inactive'>Inactive</option>
-                            </select>
-                        </div>
-                        <div className='w-full'>
-                            <label className='block mb-2 text-gray-600'>Category Image</label>
-                            <input type='file' name='image' onChange={handleImageChange} className='w-full p-2 border rounded bg-white' />
-                        </div>
+
+
+return (
+    <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
+        <HeadingTag title="Category Management" path="Add Category" />
+
+        <div className='w-full bg-gray-100 p-6 rounded shadow'>
+            <form onSubmit={handleSubmit} className='space-y-5 mt-5'>
+                <div className='flex flex-col md:flex-row items-center gap-5'>
+                    <div className='w-full'>
+                        <label className='block mb-2 text-gray-600'>Category Name</label>
+                        <input type='text' name='name' value={formData.name} onChange={handleChange} required className='w-full p-2 border rounded' />
                     </div>
 
-
-
-                    <div>
-                        <label className='block mb-2 text-gray-600'>Description</label>
-                        <textarea name='description' value={formData.description} onChange={handleChange} className='w-full p-2 border rounded'></textarea>
+                    <div className='w-full'>
+                        <label className='block mb-2 text-gray-600'>Slug</label>
+                        <input type='text' name='slug' id='slug' value={formData.slug} className='w-full p-2 border rounded' readOnly />
                     </div>
-
-
-
-                    <div>
-                        <label className='block mb-2 text-gray-700'>Meta Title</label>
-                        <input type='text' name='meta_title' value={formData.meta_title} onChange={handleChange} className='w-full p-2 border rounded' />
+                    <div className='w-full'>
+                        <label className='block mb-2 text-gray-600'>Parent Category</label>
+                        <select name='parent_id' value={formData.parent_id} onChange={handleChange} className='w-full p-2.5 border rounded'>
+                            <option value='null'>None</option>
+                            <option value='fashion'>Fashion</option>
+                            <option value='electronics'>Electronics</option>
+                            <option value='books'>Books</option>
+                        </select>
                     </div>
-
-                    <div>
-                        <label className='block mb-2 text-gray-700'>Meta Description</label>
-                        <textarea name='meta_desc' value={formData.meta_desc} onChange={handleChange} className='w-full p-2 border rounded'></textarea>
+                </div>
+                <div className='flex flex-col md:flex-row items-center gap-5'>
+                    <div className='w-full'>
+                        <label className='block mb-2 text-gray-600'>Status</label>
+                        <select name='status' value={formData.status} onChange={handleChange} className='w-full p-2.5 border rounded placeholder-gray-200 text-gray-600'>
+                            <option>Status</option>
+                            <option value='0'>Active</option>
+                            <option value='1'>Inactive</option>
+                        </select>
                     </div>
+                    <div className='w-full'>
+                        <label className='block mb-2 text-gray-600'>Category Image</label>
+                        <input type='file' name='image' onChange={handleImageChange} className='w-full p-2 border rounded bg-white' />
+                    </div>
+                </div>
 
-                    <button type='submit' className='bg-indigo-600 text-white px-6 py-2 rounded'>Submit Category</button>
-                </form>
-            </div>
+
+
+                <div>
+                    <label className='block mb-2 text-gray-600'>Description</label>
+                    <textarea name='description' value={formData.description} onChange={handleChange} className='w-full p-2 border rounded'></textarea>
+                </div>
+
+
+
+                <div>
+                    <label className='block mb-2 text-gray-700'>Meta Title</label>
+                    <input type='text' name='meta_title' value={formData.meta_title} onChange={handleChange} className='w-full p-2 border rounded' />
+                </div>
+
+                <div>
+                    <label className='block mb-2 text-gray-700'>Meta Description</label>
+                    <textarea name='meta_desc' value={formData.meta_desc} onChange={handleChange} className='w-full p-2 border rounded'></textarea>
+                </div>
+
+                <button type='submit' className='bg-indigo-600 text-white px-6 py-2 rounded'>Submit Category</button>
+            </form>
         </div>
-    )
+    </div>
+)
 }
 
 export default AddCategory

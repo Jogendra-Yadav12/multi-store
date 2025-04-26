@@ -41,9 +41,20 @@ const AddProducts = () => {
     <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
       <HeadingTag title="General Product Info" path="Add Product" />
       {/* tabs */}
-      <div className='flex gap-3'>
-        <button className={`px-4 py-2 rounded ${activeTab === 'general' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`} onClick={() => setActiveTab('general')}>General Info</button>
-        <button className={`px-4 py-2 rounded ${activeTab === 'images' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`} onClick={() => setActiveTab('images')} >Images</button>
+      <div className='flex justify-between'>
+        <div className='flex gap-3'>
+          <button className={`px-4 py-2 rounded ${activeTab === 'general' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`} onClick={() => setActiveTab('general')}>General Info</button>
+          <button className={`px-4 py-2 rounded ${activeTab === 'images' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`} onClick={() => setActiveTab('images')} >Images</button>
+        </div>
+        <div>
+          {/* Submit Button */}
+          <button
+            type='submit'
+            className='bg-indigo-600 text-white px-4 py-2 rounded'
+          >
+            Submit Product
+          </button>
+        </div>
       </div>
 
       {/* tab content */}
@@ -166,6 +177,7 @@ const AddProducts = () => {
                 <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                   {formData.images.map((img, index) => (
                     <img
+                      multiple
                       key={index}
                       src={URL.createObjectURL(img)}
                       alt={`preview-${index}`}
@@ -179,13 +191,7 @@ const AddProducts = () => {
 
 
 
-          {/* Submit Button */}
-          <button
-            type='submit'
-            className='bg-indigo-600 text-white px-4 py-2 rounded'
-          >
-            Submit Product
-          </button>
+
         </form>
 
 
