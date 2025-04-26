@@ -4,7 +4,12 @@ import cors from "cors";
 const port = 5000;
 const app = express();
 
+
+
 app.use(express.json());
+
+// Serve uploads folder statically
+app.use('/uploads', express.static('uploads')); 
 
 app.use(cors({
     origin: 'http://localhost:5173',

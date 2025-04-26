@@ -4,6 +4,7 @@ import AddCategory from './components/admin/category/AddCategory'
 import AddProducts from './components/admin/product/AddProducts'
 import Profile from './components/admin/profile/Profile'
 import Admin from './components/admin/Admin'
+import CategoryList from './components/admin/category/CategoryList'
 
 
 
@@ -16,6 +17,9 @@ function App() {
       {/* Admin layout with nested routes */}
       <Route path="/admin" element={<Admin/>}>
         <Route index element={<Dashboard/>} /> 
+
+        <Route path='view-category' element={<CategoryList/>} />
+
         <Route path='add-category' element={<AddCategory/>} />
         <Route path="add-products" element={<AddProducts/>} />
         <Route path="profile" element={<Profile/>} />

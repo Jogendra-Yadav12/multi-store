@@ -13,7 +13,8 @@ export const addCategory = (req, res) => {
   const parentId = parent_id === '' ? null : parent_id;
   const statusValue = status === 'active' ? 1 : 0;
   const values = [name, slug, parentId, meta_title, meta_desc, image, description, statusValue];
-
+  console.log(values);
+  debugger;
   insertCategory(values, (err, result) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.status(201).json({ status: 'success',message: 'Category added successfully', categoryId: result.insertId });
