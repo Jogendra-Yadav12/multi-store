@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { assets } from '../../../assets/assets'
+import axios from 'axios';
 
 const Dashboard = () => {
+
+
+  const [categoryCount, setCategoryCount] = useState(0);
+
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/categories/count')
+      .then(res => {
+        console.log(res); // should log { total: x }
+        setCategoryCount(res.data.total);
+      })
+      .catch(err => {
+        console.error('API error:', err);
+      });
+  }, []);
+  
+
+
   return (
-    <div className='min-h-screen flex flex-col items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-8 pb-0'>
+    <div className='min-h-screen flex flex-col items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-6 pb-0'>
       <div className='space-y-5'>
         <div className='flex flex-wrap gap-5 items-center'>
             <div className='flex items-center gap-3 shadow-card border border-blue-500 p-4 w-64 rounded-md'>
@@ -21,7 +40,7 @@ const Dashboard = () => {
             <div className='flex items-center gap-3 shadow-card border border-blue-500 p-4 w-64 rounded-md'>
                 <img src={assets.patients_icon} alt='patients icons' />
                 <div>
-                  <p>Category</p>
+                  <p>{categoryCount}</p>
                 </div>
             </div>
             <div className='flex items-center gap-3 shadow-card border border-blue-500 p-4 w-64 rounded-md'>
