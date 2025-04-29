@@ -13,7 +13,7 @@ const SearchBar = ({path='current path'}) => {
             <div>
                 <form className='mx-w-xl p-2 w-full md:h-14 flex items-center bg-white border border-gray-500/20 rounded'>
                     <SearchIcon color='disabled' className='' />
-                    <input value="" type='text' placeholder='Serach for Category' className='w-full h-full outline-none text-gray-500/800 mx-2' />
+                    <input  type='text' placeholder='Serach for Category' className='w-full h-full outline-none text-gray-500/800 mx-2' />
 
                 </form>
             </div>
