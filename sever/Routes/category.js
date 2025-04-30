@@ -26,6 +26,7 @@ router.delete('/categories/:id', deleteCategoryById);
 
 // ✅ New route for category count
 router.get('/categories', getCategories);
+
 router.get('/categories/count', async (req, res) => {
   try {
     const [result] = await db.query('SELECT COUNT(*) AS total FROM categories');
