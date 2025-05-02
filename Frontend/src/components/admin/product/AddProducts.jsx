@@ -58,10 +58,10 @@ const AddProducts = () => {
     data.append('stock', formData.stock);
     data.append('quantity', formData.quantity);
     data.append('description', formData.description);
-    data.append('images', formData.images);
-    for(let [key, value] of data.entries()){
-      console.log(`${key}`, value);
-      
+    if (formData.images && formData.images.length > 0) {
+      for (let i = 0; i < formData.images.length; i++) {
+        data.append('images', formData.images[i]);
+      }
     }
 
     try {

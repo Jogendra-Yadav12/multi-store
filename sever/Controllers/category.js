@@ -37,7 +37,7 @@ export const getCategory = (req, res) => {
 
 export const updateCategoryById = (req, res) => {
   const { id } = req.params;
-  const { name, parent_id, image, description, status } = req.body;
+  const { name,meta_title,meta_desc, parent_id, image, description, status } = req.body;
 
   // Generate slug
   const slug = name
@@ -47,16 +47,30 @@ export const updateCategoryById = (req, res) => {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-');
 
-  //  Get final image
+  // Get final image
   const imageFile = req.file ? req.file.filename : image;
 
-  const values = [name, slug, imageFile || '', description || '', status || 1, id || '',parent_id ];
+  const finalParentId = parent_id === '' ? 0 : parseInt(parent_id);
+  const finalStatus = status === '' ? 1 : parseInt(status);
+
+  const values = [
+    name,
+    meta_title,
+    meta_desc,
+    slug,
+    finalParentId,
+    imageFile || '',
+    description || '',
+    finalStatus,
+    id
+  ];
 
   updateCategory(values, (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ message: 'Category updated' });
   });
 };
+
 
 
 export const deleteCategoryById = (req, res) => {

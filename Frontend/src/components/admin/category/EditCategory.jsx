@@ -132,10 +132,10 @@ const EditCategory = () => {
                     </select>
 
                     <select name="parent_id" value={formData.parent_id} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
-                        <option value="">None</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="books">Books</option>
+                        <option value="0">None</option>
+                        <option value="1">Fashion</option>
+                        <option value="2">Electronics</option>
+                        <option value="3">Books</option>
                     </select>
                 </div>
 
