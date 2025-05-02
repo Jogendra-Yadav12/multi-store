@@ -44,7 +44,7 @@ export const getCategoryById = (id, callback) => {
 
 export const updateCategory = (values, callback) => {
   const sql = `
-    UPDATE category SET name = ?, slug = ?, image = ?, description = ?, status = ? 
+    UPDATE category SET name = ?, slug = ?, parent_id = ?, image = ?, description = ?, status = ? 
     WHERE id = ?
   `;
   db.query(sql, values, callback);

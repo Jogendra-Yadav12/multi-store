@@ -1,4 +1,7 @@
 import logo from './logo.svg'
+import category from './category.png'
+import product from './product.png'
+import orders from './orders.png'
 import logo_dark from './logo_dark.svg'
 import search_icon from './search_icon.svg'
 import cross_icon from './cross_icon.svg'
@@ -42,6 +45,9 @@ import lesson_icon from './lesson_icon.svg'
 export const assets = {
     logo,
     search_icon,
+    category,
+    product,
+    orders,
     sketch,
     microsoft_logo,
     walmart_logo,

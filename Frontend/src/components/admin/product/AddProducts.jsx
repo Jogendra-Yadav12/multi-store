@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import HeadingTag from '../HeadingNav';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AddProducts = () => {
   const [activeTab, setActiveTab] = useState('general');
+  const [imagePreview, setImagePreview] = useState(null)
+  const filesInputRef = useRef(null);
+
 
   const [formData, setFormData] = useState({
-    productname: '',
+    name: '',
     category: '',
-    brandname: '',
-    size: '',
+    brand: '',
     price: '',
-    pdate: '',
-    availability: '',
-    discount: '',
-    color: '',
+    discount_price: '',
     status: '',
+    stock: '',
+    quantity: '',
     description: '',
     images: []
   })
@@ -25,18 +28,76 @@ const AddProducts = () => {
   }
 
   const handleImageChange = (e) => {
-    const selectedFiles = Array.from(e.target.files)
-    setFormData((prev => ({
-      ...prev,
-      images: (prev.images || []), ...selectedFiles
-    })))
-  }
+    const selectedFiles = Array.from(e.target.files);
 
-  const handleSubmit = (e) => {
+    if (selectedFiles.length > 0) {
+      const previews = selectedFiles.map((file) => URL.createObjectURL(file));
+
+      setImagePreview(previews); // set array of preview URLs
+
+      setFormData((prev) => ({
+        ...prev,
+        images: selectedFiles, // store actual file objects
+      }));
+    }
+  };
+
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('Final Product Data', formData);
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('category', formData.category);
+    data.append('brand', formData.brand);
+    data.append('price', formData.price);
+    data.append('discount_price',formData.discount_price);
+    data.append('status', formData.status || 'active');
+    data.append('stock', formData.stock);
+    data.append('quantity', formData.quantity);
+    data.append('description', formData.description);
+    data.append('images', formData.images);
+    for(let [key, value] of data.entries()){
+      console.log(`${key}`, value);
+      
+    }
+
+    try {
+      await axios.post('http://localhost:5000/api/add-product', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      toast.success('Product Successfully added!');
+
+      setFormData({
+        name: '',
+        category: '',
+        brand: '',
+        price: '',
+        discount_price: '',
+        status: '',
+        stock: '',
+        quantity: '',
+        description: '',
+        images: []
+      })
+
+    } catch (err) {
+      console.error('Error adding product', err);
+      alert('Something went wrong!');
+    }
 
   }
+
+  const handleImageClick = () => {
+    if (filesInputRef.current) {
+      filesInputRef.current.click()
+    }
+  }
+
   return (
     <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
       <HeadingTag title="General Product Info" path="Add Product" />
@@ -48,11 +109,8 @@ const AddProducts = () => {
         </div>
         <div>
           {/* Submit Button */}
-          <button
-            type='submit'
-            className='bg-indigo-600 text-white px-4 py-2 rounded'
-          >
-            Submit Product
+          <button type='submit' form='addProductForm' className='bg-indigo-600 text-white px-4 py-2 rounded'>
+            Save
           </button>
         </div>
       </div>
@@ -61,13 +119,13 @@ const AddProducts = () => {
 
       <div className='w-full bg-gray-100 p-6 rounded shadow'>
 
-        <form onSubmit={handleSubmit} className='spacy-y-4'>
+        <form id='addProductForm' onSubmit={handleSubmit} className='spacy-y-4'>
           {activeTab === 'general' && (
             <>
               <div className='flex flex-col md:flex-row items-center gap-5'>
                 <div className='w-full md:mb-5'>
                   <label htmlFor="product_name" className='block mb-2 text-gray-600'>Product Name</label>
-                  <input type='text' id='productname' value={formData.productname} onChange={handleChange} name='productname' className='w-full p-2 border border-gray-300 rounded' required />
+                  <input type='text' id='name' value={formData.name} onChange={handleChange} name='name' className='w-full p-2 border border-gray-300 rounded' required />
                 </div>
                 <div className='w-full mb-5'>
                   <label htmlFor="category" className="block mb-2 text-gray-600">Category</label>
@@ -85,57 +143,46 @@ const AddProducts = () => {
               <div className='flex flex-col md:flex-row items-center gap-5'>
                 <div className='w-full md:mb-5'>
                   <label htmlFor="Barnd_name" className='block mb-2 text-gray-600'>Brand Name</label>
-                  <input type='text' id='brandname' value={formData.brandname} onChange={handleChange} name='brandname' className='w-full p-2 border border-gray-300 rounded' required />
+                  <input type='text' id='brand' value={formData.brand} onChange={handleChange} name='brand' className='w-full p-2 border border-gray-300 rounded' required />
                 </div>
 
                 <div className='w-full md:mb-5'>
-                  <label htmlFor="Size" className='block mb-2 text-gray-600'>Size</label>
-                  <input type='text' id='size' value={formData.size} onChange={handleChange} name='size' className='w-full p-2 border border-gray-300 rounded' required />
-                </div>
-                <div className='w-full mb-5'>
                   <label htmlFor="Price" className='block mb-2 text-gray-600'>Price</label>
                   <input type='text' id='price' value={formData.price} onChange={handleChange} name='price' className='w-full p-2 border border-gray-300 rounded' required />
                 </div>
+
+                <div className='w-full md:mb-5'>
+                  <label htmlFor="Discount_Price" className='block mb-2 text-gray-600'>Discount Price</label>
+                  <input type='text' name='discount_price' id='discount_price' value={formData.discount_price} onChange={handleChange} className='w-full p-2 border border-gray-300 rounded' required />
+                </div>
+
               </div>
 
 
               <div className='flex flex-col md:flex-row items-center gap-5'>
-                <div className='w-full md:mb-5'>
-                  <label htmlFor="Publish_Date" className='block mb-2 text-gray-600'>Publish Date</label>
-                  <input type='date' id='pdate' value={formData.pdate} onChange={handleChange} name='pdate' className='w-full p-2 border border-gray-300 text-gray-600 rounded' required />
+                <div className='w-full mb-5'>
+                  <label htmlFor="Status" className='block mb-2 text-gray-600'>Status</label>
+                  <select name='status' id='status' value={formData.status} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
+                    <option value='1'>Active</option>
+                    <option value='0'>InActive</option>
+                  </select>
                 </div>
 
                 <div className='w-full mb-5'>
                   <label htmlFor="Availability" className='block mb-2 text-gray-600'>Availability</label>
-                  <select name='availability' id='availability' value={formData.availability} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
-                    <option value=''>Select Category</option>
-                    <option value='electronics'>In Stock</option>
-                    <option value='fashion'>Out of Stock</option>
+                  <select name='stock' id='stock' value={formData.stock} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
+                    <option value=''>Stock</option>
+                    <option value='Stock'>In Stock</option>
+                    <option value='Out of Stock'>Out of Stock</option>
                   </select>
                 </div>
 
-              </div>
-
-              <div className='flex flex-col md:flex-row items-center gap-5'>
                 <div className='w-full md:mb-5'>
-                  <label htmlFor="Discount_Price" className='block mb-2 text-gray-600'>Discount Price</label>
-                  <input type='text' name='discount' id='discount' value={formData.discount} onChange={handleChange} className='w-full p-2 border border-gray-300 rounded' required />
+                  <label htmlFor="Quantity" className='block mb-2 text-gray-600'>Quantity</label>
+                  <input type='number' name='quantity' id='quantity' value={formData.quantity} onChange={handleChange} className='w-full p-2 border border-gray-300 rounded' required />
                 </div>
 
-                <div className='w-full md:mb-5'>
-                  <label htmlFor="Color" className='block mb-2 text-gray-600'>Color</label>
-                  <input type='text' name='color' id='color' value={formData.color} onChange={handleChange} className='w-full p-2 border border-gray-300 rounded' required />
-                </div>
-                <div className='w-full mb-5'>
-                  <label htmlFor="Status" className='block mb-2 text-gray-600'>Status</label>
-                  <select name='status' id='status' value={formData.status} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
-                    <option value=''>Select Category</option>
-                    <option value='electronics'>Active</option>
-                    <option value='fashion'>InActive</option>
-                  </select>
-                </div>
               </div>
-
               <div className='flex flex-col md:flex-row items-center gap-5'>
                 <div className='w-full mb-5'>
                   <label htmlFor="Product_Description" className='block mb-2 text-gray-600'>Product Description</label>
@@ -164,9 +211,18 @@ const AddProducts = () => {
                   onChange={handleImageChange}
                   type='file'
                   multiple
-                  className='w-full p-2 border border-gray-300 rounded'
-                  required
+                  className='w-full p-2 border border-gray-300 rounded hidden'
+                  ref={filesInputRef}
                 />
+                <div onClick={handleImageClick} className="cursor-pointer w-32 h-32 border rounded overflow-hidden flex items-center justify-center bg-white">
+                  <img
+                    src={imagePreview && imagePreview.length > 0 ? imagePreview[0] : 'http://localhost:5000/uploads/dummy.jpg'}
+                    alt="Product Preview"
+                    className="object-contain w-full h-full"
+                  />
+
+                </div>
+
                 <p className='text-sm text-gray-600 mt-1'>
                   You can select multiple images
                 </p>
@@ -177,24 +233,18 @@ const AddProducts = () => {
                 <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                   {formData.images.map((img, index) => (
                     <img
-                      multiple
                       key={index}
                       src={URL.createObjectURL(img)}
                       alt={`preview-${index}`}
-                      className="w-full h-32 object-cover rounded border"
+                      className="w-full h-full object-cover shadow-lg rounded border"
                     />
                   ))}
                 </div>
               )}
+
             </>
           )}
-
-
-
-
         </form>
-
-
       </div>
     </div>
   )

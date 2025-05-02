@@ -11,10 +11,8 @@ export const addCategory = (req, res) => {
   const { name, slug, parent_id, meta_title, meta_desc, description, status } = req.body;
   const image = req.file ? req.file.filename : null; 
   const parentId = parent_id === '' ? null : parent_id;
-  const statusValue = status === 'active' ? 1 : 0;
+  const statusValue = status === '1' ? 1 : 0;
   const values = [name, slug, parentId, meta_title, meta_desc, image, description, statusValue];
-  console.log(values);
-  debugger;
   insertCategory(values, (err, result) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.status(201).json({ status: 'success',message: 'Category added successfully', categoryId: result.insertId });
@@ -39,9 +37,9 @@ export const getCategory = (req, res) => {
 
 export const updateCategoryById = (req, res) => {
   const { id } = req.params;
-  const { name, image, description, status } = req.body;
+  const { name, parent_id, image, description, status } = req.body;
 
-  // 🟢 Generate slug
+  // Generate slug
   const slug = name
     .toLowerCase()
     .trim()
@@ -49,10 +47,10 @@ export const updateCategoryById = (req, res) => {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-');
 
-  // 🟢 Get final image
+  //  Get final image
   const imageFile = req.file ? req.file.filename : image;
 
-  const values = [name, slug, imageFile || '', description || '', status || 1, id];
+  const values = [name, slug, imageFile || '', description || '', status || 1, id || '',parent_id ];
 
   updateCategory(values, (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });

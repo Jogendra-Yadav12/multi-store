@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import HeadingTag from '../HeadingNav';
 import { toast } from 'react-toastify';
-// import { assets } from '../../../assets/assets'
+
 
 const AddCategory = () => {
   const fileInputRef = useRef(null);
