@@ -13,7 +13,6 @@ const Profile = () => {
           <div className='flex flex-col lg:flex-row items-center gap-5 pb-5 md:pb-0'>
             <div className='w-26 h-full overflow-hidden p-1 object-cover border border-gray-400 rounded-full'>
               <img src={assets.profile_img} className='cursor-pointer' />
-
             </div>
             <div className="w-full">
               <div className="max-w-md mx-auto md:mx-0 text-center md:text-left">
@@ -21,7 +20,6 @@ const Profile = () => {
                 <p className="text-base text-gray-500">Seller</p>
               </div>
             </div>
-
           </div>
 
           <div className='flex flex-col lg:flex-row items-center gap-5 md:mt-0'>

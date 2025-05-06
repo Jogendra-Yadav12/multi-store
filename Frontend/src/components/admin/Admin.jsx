@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'
 import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 
-const Seller = () => {
+const Admin = () => {
     return (
         <>
             <div className='text-default min-h-screen bg-white'>
@@ -21,4 +21,4 @@ const Seller = () => {
     )
 }
 
-export default Seller
+export default Admin

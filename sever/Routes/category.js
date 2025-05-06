@@ -1,4 +1,3 @@
-// routes/categoryRoutes.js
 import express from 'express';
 import multer from 'multer';
 import {
@@ -16,7 +15,17 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only .png, .jpg, and .jpeg format allowed!'));
+    }
+  }
+});
 
 router.post('/add-category', upload.single('image'), addCategory);
 router.get('/categories', getCategories);
