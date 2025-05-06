@@ -191,8 +191,8 @@ const AddProducts = () => {
                   <label htmlFor="Availability" className='block mb-2 text-gray-600'>Availability</label>
                   <select name='stock' id='stock' value={formData.stock} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
 
-                    <option value='stock'>Stock</option>
-                    <option value='out of stock'>Out of Stock</option>
+                    <option value='1'>In Stock</option>
+                    <option value='0'>Out of Stock</option>
                   </select>
                 </div>
 

@@ -75,7 +75,7 @@ const ProductList = () => {
            
               const productImageArray = product.images ? product.images.split(',') : [];
               const firstImage = productImageArray.slice(0,1)[0]
-
+              console.log(product);
               return (
                 <tr key={product.id} className='border-b border-gray-500/20'>
                   <td className='px-2 py-3'>

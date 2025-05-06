@@ -75,7 +75,7 @@ export const updateProductById = (req, res) => {
     description,
     existing_images
   } = req.body;
-
+  console.log(req.body);
   const uploadedImages = req.files ? req.files.map(file => file.filename) : [];
   const preservedImages = existing_images ? existing_images.split(',') : [];
   const finalImages = [...preservedImages, ...uploadedImages].join(',');
@@ -86,14 +86,14 @@ export const updateProductById = (req, res) => {
     brand,
     parseFloat(price),
     parseFloat(discount_price),
-    stock?.toLowerCase() === 'stock' ? 1 : 0,
+    stock === '1' ? 1 : 0,
     parseInt(quantity),
     status === '1' ? 1 : 0,
     description,
     finalImages,
     id
   ];
-
+  console.log(values)
   updateProduct(values, (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ message: 'Product updated successfully' });

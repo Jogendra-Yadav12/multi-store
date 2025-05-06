@@ -104,7 +104,7 @@ const EditProduct = () => {
         if (existingImageList.length > 0) {
           data.append("existing_images", existingImageList.join(','));
         }
-      
+      console.log(data)
         try {
           await axios.put(`http://localhost:5000/api/product/${id}`, data, {
             headers: {
@@ -112,7 +112,7 @@ const EditProduct = () => {
             }
           });
           toast.success('Product updated successfully!');
-          navigate('/admin/products');
+          navigate('/admin/view-products');
         } catch (err) {
           console.log('Update error', err.response?.data || err);
           toast.error('Failed to update product!');
@@ -191,7 +191,7 @@ const EditProduct = () => {
                                     <label htmlFor="category" className="block mb-2 text-gray-600">Category</label>
                                     <select name='category' id='category' value={formData.category} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm placeholder-gray-200' required>
                                         {categories.map((cat) => (
-                                            <option key={cat.id} value={cat.name}>
+                                            <option key={cat.id} value={cat.id}>
                                                 {cat.name}
                                             </option>
                                         ))}
