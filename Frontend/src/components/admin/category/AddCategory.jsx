@@ -90,9 +90,7 @@ const AddCategory = () => {
       console.log(`${key}:`, value);
     }
     try {
-
-
-        await axios.post("http://localhost:5000/api/add-category", data, {
+      await axios.post("http://localhost:5000/api/add-category", data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -126,8 +124,11 @@ const AddCategory = () => {
   return (
     <div className="min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8">
       <HeadingTag title="Category Management" path="Add Category" />
+      <div className='flex justify-end'>
+        <button type="submit" form="addCategoryForm" className="bg-indigo-600 text-white px-6 py-2 rounded">Save</button>
+      </div>
       <div className="w-full bg-gray-100 p-6 rounded shadow">
-        <form onSubmit={handleSubmit} className="space-y-5 mt-5">
+        <form id='addCategoryForm' onSubmit={handleSubmit} className="space-y-5 mt-5">
           <div className="flex flex-col md:flex-row items-center gap-5">
             <div className="w-full">
               <label className="block mb-2 text-gray-600">Category Name</label>
@@ -197,7 +198,7 @@ const AddCategory = () => {
               />
             </div>
           </div>
-          <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded">Submit Category</button>
+
         </form>
       </div>
     </div>

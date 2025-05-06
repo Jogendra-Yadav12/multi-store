@@ -102,7 +102,7 @@ const EditCategory = () => {
                 }
             });
             toast.success('Category updated successfully!')
-            navigate('/admin/view-category'); // Adjust route as per your app
+            navigate('/admin/view-category');
         } catch (err) {
             console.error('Update error:', err);
             toast.error('Failed to update category!')
@@ -156,7 +156,7 @@ const EditCategory = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded">Update Category</button>
+                <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded">Update</button>
             </form>
         </div>
     );
