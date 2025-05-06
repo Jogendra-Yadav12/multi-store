@@ -7,7 +7,7 @@ const Sidebar = () => {
   const menuItems =  [
     {name: 'Dashboard', path: '/admin', icon: assets.home_icon },
     {name: 'Category', path: '/admin/view-category', icon: assets.add_icon },
-    {name: 'Product', path: '/admin/add-products', icon: assets.add_icon },
+    {name: 'Product', path: '/admin/view-products', icon: assets.add_icon },
     {name: 'My Profile', path: '/admin/profile', icon: assets.user_icon },
     
   ];

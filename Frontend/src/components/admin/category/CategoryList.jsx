@@ -55,7 +55,7 @@ const CategoryList = () => {
         <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
             <HeadingTag title="Categories" path="Categories" />
 
-            <SearchBar path='Add' />
+            <SearchBar path='Add' to='/admin/add-category' />
             <table className='md:table-auto table-fixed w-full overflow-hidden'>
                 <thead className='bg-indigo-100 text-gray-900 border-b border-gray-500/20 text-sm text-left'>
                     <tr>

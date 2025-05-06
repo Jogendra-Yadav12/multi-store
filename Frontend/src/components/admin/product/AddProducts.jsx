@@ -1,12 +1,16 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HeadingTag from '../HeadingNav';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 const AddProducts = () => {
   const [activeTab, setActiveTab] = useState('general');
   const [imagePreview, setImagePreview] = useState(null)
   const filesInputRef = useRef(null);
+  const [categories, setCategories] = useState([]);
+  const { id } = useParams()
+
 
 
   const [formData, setFormData] = useState({
@@ -43,35 +47,50 @@ const AddProducts = () => {
   };
 
 
-
+  useEffect(() => {
+    //  Fetch categories
+    axios.get('http://localhost:5000/api/categories')
+      .then(res => {
+        setCategories(res.data); // should be an array
+      })
+      .catch(err => {
+        console.error('Error fetching categories', err);
+      });
+  }, [id])
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     console.log('Final Product Data', formData);
+  
     const data = new FormData();
+  
+    // Append all fields except images
     data.append('name', formData.name);
     data.append('category', formData.category);
     data.append('brand', formData.brand);
     data.append('price', formData.price);
-    data.append('discount_price',formData.discount_price);
-    data.append('status', formData.status || 'active');
+    data.append('discount_price', formData.discount_price);
+    data.append('status', formData.status || '1');
     data.append('stock', formData.stock);
     data.append('quantity', formData.quantity);
     data.append('description', formData.description);
+  
+    // Append images separately
     if (formData.images && formData.images.length > 0) {
-      for (let i = 0; i < formData.images.length; i++) {
-        data.append('images', formData.images[i]);
-      }
+      formData.images.forEach((img) => {
+        data.append('images', img);  // ✅ This must match multer field
+      });
     }
-
+  
     try {
       await axios.post('http://localhost:5000/api/add-product', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      })
+      });
+  
       toast.success('Product Successfully added!');
-
+  
       setFormData({
         name: '',
         category: '',
@@ -83,15 +102,14 @@ const AddProducts = () => {
         quantity: '',
         description: '',
         images: []
-      })
-
+      });
+  
     } catch (err) {
       console.error('Error adding product', err);
       alert('Something went wrong!');
     }
-
-  }
-
+  };
+  
   const handleImageClick = () => {
     if (filesInputRef.current) {
       filesInputRef.current.click()
@@ -131,10 +149,11 @@ const AddProducts = () => {
                   <label htmlFor="category" className="block mb-2 text-gray-600">Category</label>
                   <select name='category' id='category' value={formData.category} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm placeholder-gray-200' required>
                     <option value=''>Select Category</option>
-                    <option value='electronics'>Electronics</option>
-                    <option value='fashion'>Fashion</option>
-                    <option value='home'>Home</option>
-                    <option value='books'>Books</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.name}>
+                        {cat.name}
+                      </option>
+                    ))}
                   </select>
 
                 </div>
@@ -171,9 +190,9 @@ const AddProducts = () => {
                 <div className='w-full mb-5'>
                   <label htmlFor="Availability" className='block mb-2 text-gray-600'>Availability</label>
                   <select name='stock' id='stock' value={formData.stock} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
-                    <option value=''>Stock</option>
-                    <option value='Stock'>In Stock</option>
-                    <option value='Out of Stock'>Out of Stock</option>
+
+                    <option value='stock'>Stock</option>
+                    <option value='out of stock'>Out of Stock</option>
                   </select>
                 </div>
 

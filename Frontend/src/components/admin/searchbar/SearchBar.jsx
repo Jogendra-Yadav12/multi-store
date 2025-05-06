@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { NavLink } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
-const SearchBar = ({path='current path'}) => {
+const SearchBar = ({path='current path', to='current path'}) => {
 
     
     return (
@@ -16,7 +16,7 @@ const SearchBar = ({path='current path'}) => {
                 </form>
             </div>
             <div>
-                <NavLink to='/admin/add-category'>
+                <NavLink to={to}>
                     
                     <button className='bg-indigo-600 text-white px-3 py-2 rounded flex items-center gap-1'><AddIcon /> <span className='text-sm md:text-lg max-sm:hidden'>{path}</span></button>
                 </NavLink>

@@ -71,22 +71,28 @@ const Profile = () => {
         </div>
 
         <div className='w-full h-full border-2 border-gray-300 rounded-lg md:p-5 p-3 shadow'>
-          <div>
-            <h4 className="text-lg font-semibold text-gray-800 mb-3 lg:mb-4">Address</h4>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32"><div>
-              <p className="mb-2 text-xs leading-normal text-gray-500">Country</p>
-              <p className="text-sm font-medium text-gray-800">Uttar Pradesh.</p>
-            </div>
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500">City/State</p>
-                <p className="text-sm font-medium text-gray-800">Farrukhabad, Uttar Pradesh</p></div>
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500">Postal Code</p>
-                <p className="text-sm font-medium text-gray-800">208012</p>
+          <div className='flex items-start justify-between'>
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3 lg:mb-4">Address</h4>
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32"><div>
+                <p className="mb-2 text-xs leading-normal text-gray-500">Country</p>
+                <p className="text-sm font-medium text-gray-800">Uttar Pradesh.</p>
               </div>
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500">TAX ID</p>
-                <p className="text-sm font-medium text-gray-800">JY4568384</p></div>
+                <div>
+                  <p className="mb-2 text-xs leading-normal text-gray-500">City/State</p>
+                  <p className="text-sm font-medium text-gray-800">Farrukhabad, Uttar Pradesh</p></div>
+                <div>
+                  <p className="mb-2 text-xs leading-normal text-gray-500">Postal Code</p>
+                  <p className="text-sm font-medium text-gray-800">208012</p>
+                </div>
+                <div>
+                  <p className="mb-2 text-xs leading-normal text-gray-500">TAX ID</p>
+                  <p className="text-sm font-medium text-gray-800">JY4568384</p></div>
+              </div>
+            </div>
+
+            <div>
+              <button className="flex w-full md:text-lg items-center justify-center gap-2 rounded-full border border-gray-600 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 lg:inline-flex lg:w-auto"><CreateIcon sx={{ fontSize: 18 }} /> Edit</button>
             </div>
           </div>
         </div>

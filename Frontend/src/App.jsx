@@ -8,6 +8,8 @@ import CategoryList from './components/admin/category/CategoryList'
 import EditCategory from './components/admin/category/EditCategory'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProductList from './components/admin/product/ProductList'
+import EditProduct from './components/admin/product/EditProduct'
 
 
 
@@ -25,7 +27,10 @@ function App() {
           <Route path='view-category' element={<CategoryList />} />
           <Route path='edit-category/:id' element={<EditCategory />} />
           <Route path='add-category' element={<AddCategory />} />
-          <Route path="add-products" element={<AddProducts />} />
+          <Route path='add-products' element={<AddProducts />} />
+          <Route path="view-products" element={<ProductList />} />
+          <Route path="edit-product/:id" element={<EditProduct />} />
+
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
