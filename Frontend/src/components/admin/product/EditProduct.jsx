@@ -68,13 +68,13 @@ const EditProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
-
-        Object.keys(formData).forEach((key) => {
+        
+        Object.entries(formData).forEach(([key, value]) => {
             if (key !== "images") {
-                data.append(key, formData[key]);
+                data.append(key, value);
             }
         });
-
+        console.log(data);
         let hasValidImages = false;
 
         if (formData.images && formData.images.length > 0) {
@@ -90,7 +90,7 @@ const EditProduct = () => {
                 }
             });
         }
-
+        
         if (!hasValidImages) {
             data.append("images", ''); // send empty key
         }
@@ -100,7 +100,7 @@ const EditProduct = () => {
         } else {
             data.append("existing_images", '');
         }
-        console.log(data)
+
         try {
             await axios.put(`http://localhost:5000/api/product/${id}`, data, {
                 headers: {

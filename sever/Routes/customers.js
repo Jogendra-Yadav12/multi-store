@@ -4,6 +4,7 @@ import {
     addCustomer,
     getCustomers,
     getCustomer,
+    loginCustomer,
     updateCustomerById,
     deleteCustomerById
 } from '../Controllers/customers.js';
@@ -27,6 +28,7 @@ const upload = multer({
     }
 });
 
+router.post('/admin', loginCustomer);
 router.post('/add-customer', upload.single('image'), addCustomer);
 router.get('/customers', getCustomers);
 router.get('/customer/:id', getCustomer);

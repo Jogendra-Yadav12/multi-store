@@ -25,6 +25,13 @@ const createCustomerTable = () => {
 };
 createCustomerTable();
 
+
+// Get customer by email
+export const getCustomerByEmail = (email, callback) => {
+  const query = "SELECT * FROM customers WHERE email = ?";
+  db.query(query, [email], callback);
+};
+
 // Add Customer
 export const insertCustomer = (values, callback) => {
   const sql = `
