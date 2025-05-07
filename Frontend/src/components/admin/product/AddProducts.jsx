@@ -150,7 +150,7 @@ const AddProducts = () => {
                   <select name='category' id='category' value={formData.category} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm placeholder-gray-200' required>
                     <option value=''>Select Category</option>
                     {categories.map((cat) => (
-                      <option key={cat.id} value={cat.name}>
+                      <option key={cat.id} value={cat.id}>
                         {cat.name}
                       </option>
                     ))}

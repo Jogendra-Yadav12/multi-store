@@ -1,58 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import { assets } from '../../../assets/assets'
-// import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { assets } from '../../../assets/assets';
+import axios from 'axios';
 
 const Dashboard = () => {
+  const [categoryCount, setCategoryCount] = useState(0);
+  const [productCount, setProductCount] = useState(0);
 
-
-  // const [categoryCount, setCategoryCount] = useState(0);
-
-
-  // useEffect(() => {
-  //    axios.get('http://localhost:5000/api/categories/count')
-  //     .then(res => {
-  //       console.log(res); // should log { total: x }
-  //       setCategoryCount(res.data.total);
-  //     })
-  //     .catch(err => {
-  //       console.error('API error:', err);
-  //     });
-  // }, []);
   
 
+  useEffect(() => {
+    // get category count
+    axios.get(`http://localhost:5000/api/categories`)
+      .then(res => {
+      
+        setCategoryCount(res.data.length); 
+      })
+      .catch(err => {
+        console.error('API error:', err);
+        setCategoryCount(0);  // Fallback in case of an error
+      });
+
+    // get product count
+    axios.get(`http://localhost:5000/api/product`)
+      .then(res => {
+      
+        setProductCount(res.data.length); 
+      })
+      .catch(err => {
+        console.error('API error:', err);
+        setProductCount(0);  // Fallback in case of an error
+      });
+
+
+    
+  }, []);
 
   return (
-    <div className='min-h-screen flex flex-col items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-6 pb-0'>
-      <div className='space-y-5'>
+    <div className='min-h-screen bg-gray-100 flex flex-col items-start justify-between gap-8 md:p-4 md:pb-0 p-4 pt-6 pb-0'>
+      <div className='p-4 rounded-2xl border border-gray-300 bg-gray-50'>
+        <h3 class="text-lg pb-6 font-semibold text-gray-800">Overview</h3>
         <div className='flex flex-wrap gap-5 items-center justify-center'>
-            <div className='flex items-center gap-3 border border-gray-300 shadow-md p-4 w-72 rounded'>
-                <img src={assets.patients_icon} alt='patients icons' />
-                <div>
-                  <p>Users</p>
-                </div>
+          <div className='flex items-center gap-3 border border-gray-300 p-4 w-72 rounded-lg'>
+            <img src={assets.patients_icon} alt='patients icons' />
+            <div>
+              <p>Active Users</p>
             </div>
-            <div className='flex items-center gap-3 border border-gray-300 shadow-md p-4 w-72 rounded'>
-                <img src={assets.product} className='w-14' alt='patients icons' />
-                <div>
-                  <p>Product</p>
-                </div>
+          </div>
+          <div className='flex items-center gap-3 border bg-white border-gray-300 p-4 w-72 rounded-lg'>
+            <img src={assets.product} className='w-14' alt='patients icons' />
+            <div>
+              <p className='flex items-center gap-3'>Product  <span className='text-lg text-red-600'>{productCount}</span></p>
             </div>
-            <div className='flex items-center gap-3 border border-gray-300 shadow-md p-4 w-72 rounded'>
-                <img src={assets.category} className='w-14' alt='patients icons' />
-                <div>
-                  <p>Category {0}</p>
-                </div>
+          </div>
+          <div className='flex items-center gap-3 border  border-gray-300 p-4 w-72 rounded-lg'>
+            <img src={assets.category} className='w-14' alt='patients icons' />
+            <div>
+              <p className='flex items-center gap-3'>Category <span className='text-lg text-red-600'>{categoryCount}</span></p>
             </div>
-            <div className='flex items-center gap-3 border border-gray-300 shadow-md p-4 w-72 rounded'>
-                <img src={assets.orders} className='w-14' alt='patients icons' />
-                <div>
-                  <p>Orders</p>
-                </div>
+          </div>
+          <div className='flex items-center gap-3 border border-gray-300 p-4 w-72 rounded-lg'>
+            <img src={assets.orders} className='w-14' alt='patients icons' />
+            <div>
+              <p>Orders</p>
             </div>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

@@ -30,49 +30,45 @@ const EditProduct = () => {
     })
 
     useEffect(() => {
+        let fetchedProduct = null;
+
+        // Step 1: Fetch product
         axios.get(`http://localhost:5000/api/product/${id}`)
             .then(res => {
-                const product = res.data;
-                console.log("Fetched product:", product);
+                fetchedProduct = res.data;
+                return axios.get('http://localhost:5000/api/categories'); // Step 2: Fetch categories
+            })
+            .then(res => {
+                const fetchedCategories = res.data;
+                setCategories(fetchedCategories);
 
+                // ✅ Directly use category ID from product data
                 setFormData({
-                    name: product.name || '',
-                    category: product.category || '',
-                    brand: product.brand || '',
-                    price: product.price || '',
-                    discount_price: product.discount_price || '',
-                    status: product.status || '',
-                    stock: product.stock || '',
-                    quantity: product.quantity || '',
-                    description: product.description || '',
-                    images: [], // clear for file input
+                    name: fetchedProduct.name || '',
+                    category: fetchedProduct.category || '', // ✅ Direct ID
+                    brand: fetchedProduct.brand || '',
+                    price: fetchedProduct.price || '',
+                    discount_price: fetchedProduct.discount_price || '',
+                    status: fetchedProduct.status || '',
+                    stock: fetchedProduct.stock || '',
+                    quantity: fetchedProduct.quantity || '',
+                    description: fetchedProduct.description || '',
+                    images: [],
                 });
 
-                //  Assuming product.images is comma separated string: "img1.jpg,img2.jpg"
-                const imagesArray = product.images
-                    ? product.images.split(',').map(img => `http://localhost:5000/uploads/${img.trim()}`)
+                const imagesArray = fetchedProduct.images
+                    ? fetchedProduct.images.split(',').map(img => `http://localhost:5000/uploads/${img.trim()}`)
                     : [];
 
-                    setExistingImageList(product.image ? product.image.split(',') : []);
-
-                setImagePreview(imagesArray); // multiple preview
+                setExistingImageList(fetchedProduct.image ? fetchedProduct.image.split(',') : []);
+                setImagePreview(imagesArray);
                 setLoading(false);
             })
             .catch(err => {
-                console.error('Error fetching products', err);
+                console.error('Error fetching product or categories', err);
                 setLoading(false);
-            });
-
-        // Categories load
-        axios.get('http://localhost:5000/api/categories')
-            .then(res => {
-                setCategories(res.data);
-            })
-            .catch(err => {
-                console.error('Error fetching categories', err);
             });
     }, [id]);
-
 
 
 
@@ -80,45 +76,46 @@ const EditProduct = () => {
         e.preventDefault();
         console.log("product form data", formData);
         const data = new FormData();
-      
+
         for (let key in formData) {
-          if (key === "images") {
-            if (formData.images.length > 0) {
-              formData.images.forEach((img) => {
-                if (img instanceof File) {
-                  const validTypes = ["image/png", "image/jpg", "image/jpeg"];
-                  if (validTypes.includes(img.type)) {
-                    data.append("images", img);
-                  } else {
-                    alert("Only PNG, JPG, and JPEG files are allowed.");
-                  }
+            if (key === "images") {
+                if (formData.images.length > 0) {
+                    formData.images.forEach((img) => {
+                        if (img instanceof File) {
+                            const validTypes = ["image/png", "image/jpg", "image/jpeg"];
+                            if (validTypes.includes(img.type)) {
+                                data.append("images", img);
+                            } else {
+                                alert("Only PNG, JPG, and JPEG files are allowed.");
+                            }
+                        }
+                    });
                 }
-              });
+            } else {
+                data.append(key, formData[key]);
             }
-          } else {
-            data.append(key, formData[key]);
-          }
         }
-      
+
         //  Append existing images
         if (existingImageList.length > 0) {
-          data.append("existing_images", existingImageList.join(','));
+            data.append("existing_images", existingImageList.join(','));
         }
-      console.log(data)
+
+        console.log(data)
         try {
-          await axios.put(`http://localhost:5000/api/product/${id}`, data, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-          toast.success('Product updated successfully!');
-          navigate('/admin/view-products');
+            await axios.put(`http://localhost:5000/api/product/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            toast.success('Product updated successfully!');
+            navigate('/admin/view-products');
         } catch (err) {
-          console.log('Update error', err.response?.data || err);
-          toast.error('Failed to update product!');
+            console.log('Update error', err.response?.data || err);
+            toast.error('Failed to update product!');
         }
-      };
-      
+    };
+
 
 
     // Handle form input change
@@ -138,18 +135,19 @@ const EditProduct = () => {
         }
     };
 
-    // Handle image change
-    // Handle Image Change
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
+
         setFormData(prev => ({
             ...prev,
             images: files
         }));
 
-        // Overwrite existing preview if uploading new images
-        setImagePreview([]);
+        const newImagePreviews = files.map(file => URL.createObjectURL(file));
+
+        setImagePreview(prev => [...prev, ...newImagePreviews]);
     };
+
 
 
     const handleImageClick = () => {
@@ -190,12 +188,14 @@ const EditProduct = () => {
                                 <div className='w-full mb-5'>
                                     <label htmlFor="category" className="block mb-2 text-gray-600">Category</label>
                                     <select name='category' id='category' value={formData.category} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm placeholder-gray-200' required>
+                                        <option value=''>Select Category</option> {/* ✅ default option */}
                                         {categories.map((cat) => (
                                             <option key={cat.id} value={cat.id}>
                                                 {cat.name}
                                             </option>
                                         ))}
                                     </select>
+
 
                                 </div>
                             </div>
@@ -232,8 +232,8 @@ const EditProduct = () => {
                                     <label htmlFor="Availability" className='block mb-2 text-gray-600'>Availability</label>
                                     <select name='stock' id='stock' value={formData.stock} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 placeholder-gray-200 text-sm' required>
 
-                                        <option value='stock'>In Stock</option>
-                                        <option value='out of stock'>Out of Stock</option>
+                                        <option value='1'>In Stock</option>
+                                        <option value='0'>Out of Stock</option>
                                     </select>
                                 </div>
 

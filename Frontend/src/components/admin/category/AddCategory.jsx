@@ -145,6 +145,7 @@ const AddCategory = () => {
                 <option value="fashion">Fashion</option>
                 <option value="electronics">Electronics</option>
                 <option value="books">Books</option>
+                <option value="beauty">Beauty</option>
               </select>
             </div>
           </div>
@@ -153,7 +154,6 @@ const AddCategory = () => {
             <div className="w-full">
               <label className="block mb-2 text-gray-600">Status</label>
               <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
-                <option value="">Status</option>
                 <option value="1">Active</option>
                 <option value="0">Inactive</option>
               </select>

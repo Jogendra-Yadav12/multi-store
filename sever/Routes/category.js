@@ -33,15 +33,5 @@ router.get('/categories/:id', getCategory);
 router.put('/categories/:id', upload.single('image'), updateCategoryById);
 router.delete('/categories/:id', deleteCategoryById);
 
-//  New route for category count
-// router.get('/categories/count', async (req, res) => {
-//   try {
-//     const [result] = await db.query('SELECT COUNT(*) AS total FROM categories');
-//     res.json(result[0]);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Database error' });
-//   }
-// });
 
 export default router;
