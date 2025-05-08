@@ -84,7 +84,7 @@ const CategoryList = () => {
                                     <img
                                         src={`http://localhost:5000/uploads/${cat.image}`}
                                         alt='Category'
-                                        className='w-full h-full object-cover rounded'
+                                        className='w-full h-full object-contain rounded'
                                     />
                                 </div>
                             </td>

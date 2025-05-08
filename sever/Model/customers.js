@@ -1,6 +1,6 @@
 import db from '../config/db.js';
 
-// 🔨 Create Customer Table
+//  Create Customer Table
 const createCustomerTable = () => {
   const sql = `
     CREATE TABLE IF NOT EXISTS customers (
@@ -11,6 +11,7 @@ const createCustomerTable = () => {
       email VARCHAR(150) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL,
       number VARCHAR(20) NOT NULL,
+      user_type VARCHAR(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `;

@@ -32,22 +32,24 @@ const EditProduct = () => {
         axios.get(`http://localhost:5000/api/product/${id}`)
             .then(res => {
                 fetchedProduct = res.data;
+
                 return axios.get('http://localhost:5000/api/categories');
             })
             .then(res => {
                 const fetchedCategories = res.data;
                 setCategories(fetchedCategories);
+                console.log(fetchedProduct);
 
                 setFormData({
-                    name: fetchedProduct.name || '',
-                    category: fetchedProduct.category || '',
-                    brand: fetchedProduct.brand || '',
-                    price: fetchedProduct.price || '',
-                    discount_price: fetchedProduct.discount_price || '',
-                    status: fetchedProduct.status || '',
-                    stock: fetchedProduct.stock || '',
-                    quantity: fetchedProduct.quantity || '',
-                    description: fetchedProduct.description || '',
+                    name: fetchedProduct.name,
+                    category: fetchedProduct.category,
+                    brand: fetchedProduct.brand,
+                    price: fetchedProduct.price,
+                    discount_price: fetchedProduct.discount_price,
+                    status: fetchedProduct.status,
+                    stock: fetchedProduct.stock,
+                    quantity: fetchedProduct.quantity,
+                    description: fetchedProduct.description,
                     images: [],
                 });
 
@@ -67,7 +69,10 @@ const EditProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const data = new FormData();
+        console.log(data);
+
 
         Object.keys(formData).forEach((key) => {
             if (key !== "images") {
@@ -100,7 +105,7 @@ const EditProduct = () => {
         } else {
             data.append("existing_images", '');
         }
-        console.log(data)
+        console.log(data);
         try {
             await axios.put(`http://localhost:5000/api/product/${id}`, data, {
                 headers: {
@@ -117,6 +122,8 @@ const EditProduct = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        console.log(name, value);
+
         setFormData(prev => ({
             ...prev,
             [name]: value
@@ -193,15 +200,15 @@ const EditProduct = () => {
                                 <div className='w-full mb-5'>
                                     <label htmlFor="status" className='block mb-2 text-gray-600'>Status</label>
                                     <select name='status' id='status' value={formData.status} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm' required>
-                                        <option value='1'>Active</option>
-                                        <option value='0'>Inactive</option>
+                                        <option value={1}>Active</option>
+                                        <option value={0}>Inactive</option>
                                     </select>
                                 </div>
                                 <div className='w-full mb-5'>
                                     <label htmlFor="stock" className='block mb-2 text-gray-600'>Availability</label>
                                     <select name='stock' id='stock' value={formData.stock} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm' required>
-                                        <option value='1'>In Stock</option>
-                                        <option value='0'>Out of Stock</option>
+                                        <option value={1}>Stock</option>
+                                        <option value={0}>Out of Stock</option>
                                     </select>
                                 </div>
                                 <div className='w-full md:mb-5'>

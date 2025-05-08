@@ -19,8 +19,8 @@ const AddProducts = () => {
     brand: '',
     price: '',
     discount_price: '',
-    status: '',
-    stock: '',
+    status: '1',
+    stock: '1',
     quantity: '',
     description: '',
     images: []
@@ -70,7 +70,7 @@ const AddProducts = () => {
     data.append('brand', formData.brand);
     data.append('price', formData.price);
     data.append('discount_price', formData.discount_price);
-    data.append('status', formData.status || '1');
+    data.append('status', formData.status);
     data.append('stock', formData.stock);
     data.append('quantity', formData.quantity);
     data.append('description', formData.description);
@@ -78,7 +78,7 @@ const AddProducts = () => {
     // Append images separately
     if (formData.images && formData.images.length > 0) {
       formData.images.forEach((img) => {
-        data.append('images', img);  // ✅ This must match multer field
+        data.append('images', img);  // This must match multer field
       });
     }
   

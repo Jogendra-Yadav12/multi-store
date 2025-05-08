@@ -10,19 +10,27 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductList from './components/admin/product/ProductList'
 import EditProduct from './components/admin/product/EditProduct'
+import { useState } from 'react'
+import Login from './components/admin/login-register/Login'
 
 
 
 
 function App() {
+
+  const [isLoggedIn, setLoggedIn] = useState(() => {
+    return !!localStorage.getItem('adminToken')
+  })
+
   return (
     <>
       <Routes>
         {/* Redirect root to /admin */}
-        <Route path="/" element={<Navigate to="/admin" />} />
+
+        <Route path='/' element={isLoggedIn ? <Navigate to="/admin" /> : <Login setLoggedIn={setLoggedIn}/>} />
 
         {/* Admin layout with nested routes */}
-        <Route path="/admin" element={<Admin />}>
+        <Route path="/admin/*" element={isLoggedIn ? <Admin/> : <Navigate to="/"/>}>
           <Route index element={<Dashboard />} />
           <Route path='view-category' element={<CategoryList />} />
           <Route path='edit-category/:id' element={<EditCategory />} />
