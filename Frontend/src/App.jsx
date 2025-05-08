@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductList from './components/admin/product/ProductList'
 import EditProduct from './components/admin/product/EditProduct'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Login from './components/admin/login-register/Login'
 
 
@@ -18,10 +18,15 @@ import Login from './components/admin/login-register/Login'
 
 function App() {
 
-  const [isLoggedIn, setLoggedIn] = useState(() => {
-    return !!localStorage.getItem('adminToken')
-  })
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      setLoggedIn(true);
+    }
+  }, []);
+  
   return (
     <>
       <Routes>

@@ -38,7 +38,7 @@ const Dashboard = () => {
   return (
     <div className='min-h-screen bg-gray-100 flex flex-col items-start justify-between gap-8 md:p-4 md:pb-0 p-4 pt-6 pb-0'>
       <div className='p-4 rounded-2xl border border-gray-300 bg-gray-50'>
-        <h3 class="text-lg pb-6 font-semibold text-gray-800">Overview</h3>
+        <h3 className="text-lg pb-6 font-semibold text-gray-800">Overview</h3>
         <div className='flex flex-wrap gap-5 items-center justify-center'>
           <div className='flex items-center gap-3 border border-gray-300 p-4 w-72 rounded-lg'>
             <img src={assets.patients_icon} alt='patients icons' />

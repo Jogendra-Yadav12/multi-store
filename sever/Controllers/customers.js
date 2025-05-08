@@ -4,11 +4,42 @@ import {
   getAllCustomers,
   getCustomerById,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  getCustomerByEmail 
 } from '../Model/customers.js';
 
 
 const SALT_ROUNDS = 10;
+
+export const loginCustomer = async (req, res) => {
+  const { email, password } = req.body;
+
+  getCustomerByEmail(email, async (err, results) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    if (results.length === 0) return res.status(401).json({ error: 'Invalid email or password' });
+
+    const customer = results[0];
+
+    try {
+      if(password != customer.password){
+        return res.status(401).json({ error: 'Invalid email or password' });
+      }
+
+      // Exclude password from response
+      // const { password: _, ...customerWithoutPassword } = customer;
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Login successful',
+        token: 'some-jwt-token'
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Password comparison failed', details: error.message });
+    }
+  });
+};
+
+
 
 // Add Customer
 export const addCustomer = async (req, res) => {
