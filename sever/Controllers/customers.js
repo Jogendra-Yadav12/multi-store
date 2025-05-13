@@ -21,18 +21,19 @@ export const loginCustomer = async (req, res) => {
     const customer = results[0];
 
     try {
-      if(password != customer.password){
+      if (password !== customer.password) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
 
-      // Exclude password from response
-      // const { password: _, ...customerWithoutPassword } = customer;
+      const { password: _, ...userWithoutPassword } = customer;
 
       res.status(200).json({
-        status: 'success',
+        success: true,
         message: 'Login successful',
-        token: 'some-jwt-token'
+        token: 'some-jwt-token',
+        user: userWithoutPassword
       });
+
     } catch (error) {
       res.status(500).json({ error: 'Password comparison failed', details: error.message });
     }
