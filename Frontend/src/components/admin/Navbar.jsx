@@ -22,7 +22,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='flex items-center gap-5 text-gray-500 relative'>
-        <p>{user?.user_type === 'A' ? 'Admin' : 'Seller'}</p>
+        <b>{user?.f_name}</b>
         <img src={assets.profile_img} className='max-w-8' alt="Profile" />
         <button onClick={handleLogout} className='text-red-500 font-medium border border-red-400  p-2 rounded-lg hover:shadow-inner shadow transition-all'>Logout</button>
       </div>
