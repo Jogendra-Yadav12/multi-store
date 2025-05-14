@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+
 const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate(); // ✅ Navigation hook
@@ -11,7 +14,7 @@ const Navbar = () => {
   const handleLogout = () => {
   logout();
   toast.success("Logged out");
-  navigate('/admin/login');
+  navigate('login');
 };
 
   return (
@@ -22,9 +25,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='flex items-center gap-5 text-gray-500 relative'>
-        <p>{user?.user_type === 'A' ? 'Admin' : 'Seller'}</p>
+        <p>{user?.f_name}</p>
         <img src={assets.profile_img} className='max-w-8' alt="Profile" />
-        <button onClick={handleLogout} className='text-red-500 font-medium border border-red-400  p-2 rounded-lg hover:shadow-inner shadow transition-all'>Logout</button>
+        <button onClick={handleLogout} className='flex items-center gap-2 text-red-400 font-medium  border-red-400  p-2 rounded-lg hover:shadow-inner shadow transition-all'><span>Logout</span> <LogoutIcon/></button>
       </div>
     </div>
   );

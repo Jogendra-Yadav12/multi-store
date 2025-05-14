@@ -21,14 +21,18 @@ const Login = () => {
             });
 
             if (response.data.success) {
-                login(response.data.user); 
+                login(response.data.user);
                 toast.success('Logged in successfully')
-                navigate("/admin/dashboard");
+                navigate("/dashboard");
             }
 
+
         } catch (error) {
-            console.error("Login error:", error);
-            toast.error("Login error");
+            if (error.response && error.response.status === 401) {
+                toast.error("Email or Password does not match!");
+            } else {
+                toast.error("Something went wrong. Please try again.");
+            }
         }
     };
 
