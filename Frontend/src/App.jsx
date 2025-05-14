@@ -17,14 +17,14 @@ function App() {
   return (
     <>
       <Routes>
-        {/* Redirect root to /admin/login */}
-        <Route path="/" element={<Navigate to="/admin/login" />} />
+        {/* Redirect root to login */}
+        <Route path="/" element={<Navigate to="/login" />} />
 
         {/* Public login route */}
-        <Route path="/admin/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
         {/* Protected Admin Layout with nested routes */}
-        <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}>
+        <Route path="/" element={<PrivateRoute><Admin /></PrivateRoute>}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="view-category" element={<CategoryList />} />
           <Route path="edit-category/:id" element={<EditCategory />} />
