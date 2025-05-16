@@ -11,29 +11,15 @@ const Profile = () => {
       <div className='w-full h-full border-2 border-gray-300 rounded-lg md:p-5 p-3 shadow'>
         <div className='flex flex-col lg:flex-row items-center justify-between '>
           <div className='flex flex-col lg:flex-row items-center gap-5 pb-5 md:pb-0'>
-            <div className='w-26 h-full overflow-hidden p-1 object-cover border border-gray-400 rounded-full'>
-              <img src={assets.profile_img} className='cursor-pointer' />
-            </div>
             <div className="w-full">
               <div className="max-w-md mx-auto md:mx-0 text-center md:text-left">
                 <h4 className="mb-2 text-lg font-semibold text-gray-800">Jogendra Yadav</h4>
-                <p className="text-base text-gray-500">Seller</p>
+                <p className="text-base text-gray-500">fireboyaj12@gmail.com</p>
               </div>
             </div>
           </div>
 
           <div className='flex flex-col lg:flex-row items-center gap-5 md:mt-0'>
-            <div className='flex items-center gap-4 md:gap-3 mt-3 lg:mt-0 max-md:mt-0'>
-              <a href='#'>
-                <img src={assets.facebook_icon} className='w-12 h-12' alt='facebook icon' />
-              </a>
-              <a href='#'>
-                <img src={assets.twitter_icon} className='w-12 h-12' alt='twitter icon' />
-              </a>
-              <a href='#'>
-                <img src={assets.instagram_icon} className='w-12 h-12' alt='instagram icon' />
-              </a>
-            </div>
             <button className="flex w-full md:text-lg items-center justify-center gap-2 rounded-full border border-gray-600 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 lg:inline-flex lg:w-auto"><CreateIcon sx={{ fontSize: 18 }} /> Edit</button>
           </div>
         </div>
@@ -45,19 +31,19 @@ const Profile = () => {
       <div className='flex flex-col gap-3 md:flex-row'>
         <div className='w-full h-full border-2 border-gray-300 rounded-lg md:p-5 p-3 shadow'>
           <div className=''>
-            <h4 className="mb-2 text-lg font-semibold text-gray-800">Personal Information</h4>
+            <h4 className="mb-2 text-lg font-semibold text-gray-800">Store Information</h4>
             <div className='mt-4'>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32"><div>
-                <p className="mb-2 text-xs leading-normal text-gray-500">First Name</p>
-                <p className="text-sm font-medium text-gray-800 ">Jogendra</p>
+                <p className="mb-2 text-xs leading-normal text-gray-500">Name</p>
+                <p className="text-sm font-medium text-gray-800 ">SabKuch</p>
               </div>
                 <div>
-                  <p className="mb-2 text-xs leading-normal text-gray-500">Last Name</p>
-                  <p className="text-sm font-medium text-gray-800">Yadav</p>
+                  <p className="mb-2 text-xs leading-normal text-gray-500">Email</p>
+                  <p className="text-sm font-medium text-gray-800">store@gmail.com</p>
                 </div>
                 <div>
-                  <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Email address</p>
-                  <p className="text-sm font-medium text-gray-800">jogendra@seller.com</p>
+                  <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Type</p>
+                  <p className="text-sm font-medium text-gray-800">Garments</p>
                 </div>
                 <div>
                   <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Phone</p><p className="text-sm font-medium text-gray-800">+09 363 398 46</p>

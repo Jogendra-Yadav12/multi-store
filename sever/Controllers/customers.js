@@ -8,9 +8,6 @@ import {
   getCustomerByEmail 
 } from '../Model/customers.js';
 
-
-const SALT_ROUNDS = 10;
-
 export const loginCustomer = async (req, res) => {
   const { email, password } = req.body;
 
@@ -21,10 +18,12 @@ export const loginCustomer = async (req, res) => {
     const customer = results[0];
 
     try {
-      if (password !== customer.password) {
+      const isMatch = await bcrypt.compare(password, customer.password);
+      if (!isMatch) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
 
+      // Exclude password from the response
       const { password: _, ...userWithoutPassword } = customer;
 
       res.status(200).json({
@@ -41,15 +40,12 @@ export const loginCustomer = async (req, res) => {
 };
 
 
-
 // Add Customer
 export const addCustomer = async (req, res) => {
-  const { f_name, l_name, email, password, number } = req.body;
-  const image = req.file ? req.file.filename : null;
-
+  const { f_name, l_name, email, password, number, user_type } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const values = [f_name, l_name, image, email, hashedPassword, number];
+    const values = [f_name, l_name, email, hashedPassword, number,user_type];
 
     insertCustomer(values, (err, result) => {
       if (err) return res.status(500).json({ error: 'Database error' });

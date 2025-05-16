@@ -110,7 +110,7 @@ const EditProduct = () => {
                 }
             });
             toast.success('Product updated successfully!');
-            navigate('/admin/view-products');
+            navigate('/view-products');
         } catch (err) {
             console.log('Update error', err.response?.data || err);
             toast.error('Failed to update product!');

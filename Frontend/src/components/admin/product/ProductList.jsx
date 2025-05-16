@@ -30,7 +30,7 @@ const ProductList = () => {
   }, [])
 
   const editProduct = (id) => {
-     navigate(`/admin/edit-product/${id}`)
+     navigate(`/edit-product/${id}`)
   }
 
   const deleteProduct = async (id) => {
@@ -49,7 +49,7 @@ const ProductList = () => {
   return (
     <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
       <HeadingTag title="Products" path="Products" />
-      <SearchBar path='Add' to='/admin/add-products' />
+      <SearchBar path='Add' to='/add-products' />
 
       <table className='md:table-auto table-fixed w-full overflow-hidden'>
         <thead className='bg-indigo-100 text-gray-900 border-b border-gray-500/20 text-sm text-left'>

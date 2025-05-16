@@ -102,7 +102,7 @@ const EditCategory = () => {
                 }
             });
             toast.success('Category updated successfully!')
-            navigate('/admin/view-category');
+            navigate('/view-category');
         } catch (err) {
             console.error('Update error:', err);
             toast.error('Failed to update category!')
