@@ -40,6 +40,8 @@ export const loginCustomer = async (req, res) => {
   });
 };
 
+
+
 // Add Customer
 export const addCustomer = async (req, res) => {
   const { f_name, l_name, email, password, number } = req.body;
