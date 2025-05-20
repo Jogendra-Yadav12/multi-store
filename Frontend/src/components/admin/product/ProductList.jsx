@@ -94,19 +94,19 @@ const ProductList = () => {
                     </div>
                   </td>
 
-                  <td className='px-2 py-3 text-xs md:text-lg'>
+                  <td className='px-2 py-3 text-xs md:text-base'>
                     {product.name}
                   </td>
-                  <td className='px-2 py-3 text-xs md:text-lg'>
+                  <td className='px-2 py-3 text-xs md:text-base'>
                     {product.price}
                   </td>
-                  <td className='px-2 py-3 text-xs md:text-lg'>
+                  <td className='px-2 py-3 text-xs md:text-base'>
                     {product.stock === 1 ? 'Stock' : 'Out of Stock'}
                   </td>
-                  <td className='px-2 py-3 text-xs md:text-lg'>
+                  <td className='px-2 py-3 text-xs md:text-base'>
                     {product.quantity}
                   </td>
-                  <td className='px-4 md:px-4 py-3 text-xs md:text-lg'>
+                  <td className='px-4 md:px-4 py-3 text-xs md:text-base'>
                     {product.status === 1 ? 'Active' : 'Inactive'}
                   </td>
 

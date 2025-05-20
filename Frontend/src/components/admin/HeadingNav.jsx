@@ -12,7 +12,7 @@ const HeadingTag = ({title='Page Title', path='Current Path'}) => {
         </div>
 
         <div className='flex items-center gap-1'>
-                <NavLink to='/' className='text-xs md:text-lg font-semibold hover:text-blue-600 text-gray-600'>Dashboard</NavLink><span><KeyboardArrowRightIcon color='disabled'/></span>
+                <NavLink to='/dashboard' className='text-xs md:text-lg font-semibold hover:text-blue-600 text-gray-600'>Dashboard</NavLink><span><KeyboardArrowRightIcon color='disabled'/></span>
                 <p className='text-gray-500 md:text-base font-semibold text-xs'>{path}</p>
         </div>
     </div>

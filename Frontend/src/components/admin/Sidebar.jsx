@@ -8,6 +8,7 @@ const Sidebar = () => {
     {name: 'Dashboard', path: 'dashboard', icon: assets.home_icon },
     {name: 'Category', path: 'view-category', icon: assets.add_icon },
     {name: 'Product', path: 'view-products', icon: assets.add_icon },
+    {name: 'Customer', path: 'view-customer', icon: assets.add_icon },
     {name: 'My Profile', path: 'profile', icon: assets.user_icon },
     
   ];

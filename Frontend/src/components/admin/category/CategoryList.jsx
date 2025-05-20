@@ -88,13 +88,13 @@ const CategoryList = () => {
                                     />
                                 </div>
                             </td>
-                            <td className='px-2 py-3 text-xs md:text-lg'>
+                            <td className='px-2 py-3 text-xs md:text-base'>
                                 {cat.name}
                             </td>
-                            <td className='px-2 py-3 text-xs md:text-lg'>
+                            <td className='px-2 py-3 text-xs md:text-base'>
                                 {cat.parent_id}
                             </td>
-                            <td className='px-4 md:px-4 py-3 text-xs md:text-lg'>
+                            <td className='px-4 md:px-4 py-3 text-xs md:text-base'>
                                 {cat.status === 1 ? 'Active' : 'Inactive'}
                             </td>
                             {/* <td className='px-4 py-3 max-sm:hidden'>

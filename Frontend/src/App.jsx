@@ -12,6 +12,9 @@ import PrivateRoute from './components/admin/PrivateRoute/PrivateRoute';
 import Login from './components/admin/login-register/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AddCustomer from './components/admin/customer/AddCustomer';
+import CustomerList from './components/admin/customer/CustomerList';
+import EditCustomer from './components/admin/customer/EditCustomer';
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
           <Route path="add-products" element={<AddProducts />} />
           <Route path="view-products" element={<ProductList />} />
           <Route path="edit-product/:id" element={<EditProduct />} />
+          <Route path='view-customer' element={<CustomerList/>} />
+          <Route path='add-customer' element={<AddCustomer/>} />
+          <Route path="edit-customer/:id" element={<EditCustomer />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

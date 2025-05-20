@@ -109,7 +109,7 @@ const EditCategory = () => {
         }
     };
 
-    if (loading) return <p className="text-center mt-10 text-gray-500">Loading category data...</p>;
+    if (loading) return <p className="text-center mt-10 text-gray-500">Loading customer data...</p>;
 
     return (
         <div className="min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8">
