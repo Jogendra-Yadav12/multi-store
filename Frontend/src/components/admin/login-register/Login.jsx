@@ -15,7 +15,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("`http://localhost:5000/api/admin`", {
+            const response = await axios.post(`http://localhost:5000/api/admin`, {
                 email,
                 password,
             });
@@ -41,8 +41,8 @@ const Login = () => {
 
     return (
         <div>
-            <section className="bg-gray-50 dark:bg-gray-900">
-                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <section className="flex items-center w-full min-h-screen bg-gray-50 dark:bg-gray-900">
+                <div className="flex flex-col w-full items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <a href="#" className="flex items-center mb-6 bg-gray-200 p-2 rounded-lg">
                         <img className="w-full h-full mr-2 text-center" src={assets.logo} alt="logo" />
                     </a>

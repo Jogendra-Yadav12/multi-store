@@ -14,27 +14,26 @@ const EditCustomer = () => {
         f_name: '',
         l_name: '',
         email: '',
-        password: '',
         number: '',
         user_type: ''
     })
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/api/customer/${id}`)
-            .then(res => {
-                const { password, ...rest } = res.data;
-                setFormData({
-                    ...rest,
-                    password: '', // Don't preload hashed password
-                });
+   useEffect(() => {
+    axios.get(`http://localhost:5000/api/customer/${id}`)
+        .then(res => {
+            const { password, ...rest } = res.data;
 
-                setLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                setLoading(false);
-            });
-    }, [id]);
+            // Set form data excluding password
+            setFormData(rest);
+
+            setLoading(false);
+        })
+        .catch(err => {
+            console.log(err);
+            setLoading(false);
+        });
+}, [id]);
+
 
 
     // form submit function
@@ -96,23 +95,7 @@ const EditCustomer = () => {
                             </div>
 
                         </div>
-                        <div className="w-full">
-                            <div>
-                                <label className="block mb-2 text-gray-700">Password</label>
-                                <input
-                                    type="text"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className="w-full p-2 border rounded"
-                                    placeholder="Leave blank to keep current password"
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="flex flex-col md:flex-row items-center gap-5">
-                        <div className="w-full">
+                         <div className="w-full">
                             <div>
                                 <label className="block mb-2 text-gray-700">Number</label>
                                 <input type="number" name="number" value={formData.number} onChange={handleChange} className="w-full p-2 border rounded" />
@@ -131,6 +114,7 @@ const EditCustomer = () => {
                             </select>
                         </div>
                     </div>
+             
                 </form>
             </div>
         </div>
