@@ -5,7 +5,7 @@ import {
   getCustomerById,
   updateCustomer,
   deleteCustomer,
-  getCustomerByEmail
+  getCustomerByEmail 
 } from '../Model/customers.js';
 
 const SALT_ROUNDS = 10;
@@ -47,7 +47,7 @@ export const addCustomer = async (req, res) => {
   const { f_name, l_name, email, password, number, user_type } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const values = [f_name, l_name, email, hashedPassword, number, user_type];
+    const values = [f_name, l_name, email, hashedPassword, number,user_type];
 
     insertCustomer(values, (err, result) => {
       if (err) return res.status(500).json({ error: 'Database error' });
@@ -81,48 +81,23 @@ export const getCustomer = (req, res) => {
 };
 
 // Update Customer
-// controller
 export const updateCustomerById = async (req, res) => {
   const { id } = req.params;
-  const { f_name, l_name, email, password, number, user_type } = req.body;
+  const { f_name, l_name, email, number,user_type} = req.body;
 
   try {
-    let sql = '';
-    let values = [];
+    const values = [f_name, l_name, email, number, user_type,id];
 
-    if (password && password.trim() !== '') {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      sql = `
-    UPDATE customers 
-    SET f_name=?, l_name=?, email=?, password=?, number=?, user_type=? 
-    WHERE id=?
-  `;
-      values = [f_name, l_name, email, hashedPassword, number, user_type, id];
-    } else {
-      sql = `
-    UPDATE customers 
-    SET f_name=?, l_name=?, email=?, number=?, user_type=? 
-    WHERE id=?
-  `;
-      values = [f_name, l_name, email, number, user_type, id]; // ✅ CORRECT ORDER
-    }
-
-
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Database error:', err);
-        return res.status(500).json({ success: false, error: 'Database error' });
-      }
-
-      res.json({ success: true, message: 'Customer updated successfully' });
+    updateCustomer(values, (err) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      res.json({
+        success : true, 
+        message: 'Customer updated successfully' });
     });
-
   } catch (error) {
-    console.error('Catch Error:', error);
-    res.status(500).json({ success: false, error: 'Internal server error', details: error.message });
+    res.status(500).json({ error: 'Password hashing failed', details: error.message });
   }
 };
-
 
 // Delete Customer
 export const deleteCustomerById = (req, res) => {

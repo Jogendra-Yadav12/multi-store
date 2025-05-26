@@ -44,7 +44,7 @@ const EditCustomer = () => {
         try {
             const res = await axios.put(`http://localhost:5000/api/customer/${id}`, formData);
             if (res.data.success) {
-                toast.success("Customer updated successfully");
+                toast.success(res.data.message);
                 navigate('/view-customer');
             } else {
                 toast.error("Failed to update customer");

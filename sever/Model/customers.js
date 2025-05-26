@@ -56,10 +56,10 @@ export const getCustomerById = (id, callback) => {
 export const updateCustomer = (values, callback) => {
   const sql = `
     UPDATE customers 
-    SET f_name = ?, l_name = ?, image = ?, email = ?, password = ?, number = ?
+    SET f_name = ?, l_name = ?, email = ?, number = ?,user_type=?
     WHERE id = ?
   `;
-  db.query(sql, values, callback);
+ db.query(sql, values, callback);
 };
 
 // Delete Customer
