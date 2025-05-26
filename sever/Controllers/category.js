@@ -35,7 +35,7 @@ export const getCategory = (req, res) => {
   });
 };
 
-export const updateCategoryById = (req, res) => {
+  export const updateCategoryById = (req, res) => {
   const { id } = req.params;
   const { name,meta_title,meta_desc, parent_id, image, description, status } = req.body;
 

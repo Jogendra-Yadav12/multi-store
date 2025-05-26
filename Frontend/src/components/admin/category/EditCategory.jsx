@@ -114,7 +114,10 @@ const EditCategory = () => {
     return (
         <div className="min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8">
             <HeadingTag title="Edit Category" path='Edit Category' />
-            <form onSubmit={handleSubmit} className="space-y-5 bg-gray-100 p-6 rounded shadow">
+            <div className='flex items-center justify-end'>
+                <button type="submit" form='updateCategoryForm' className="bg-indigo-600 text-white px-6 py-2 rounded">Update</button>
+            </div>
+            <form id='updateCategoryForm' onSubmit={handleSubmit} className="space-y-5 bg-gray-100 p-6 rounded shadow">
                 <div className="flex flex-col md:flex-row gap-5">
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Category Name" className="w-full p-2 border rounded" />
                     <input type="text" name="slug" value={formData.slug} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-500" />
@@ -156,7 +159,7 @@ const EditCategory = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded">Update</button>
+                
             </form>
         </div>
     );

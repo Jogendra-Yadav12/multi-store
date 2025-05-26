@@ -81,7 +81,7 @@ const AddCategory = () => {
     data.append('name', formData.name);
     data.append('slug', formData.slug);
     data.append('parent_id', formData.parent_id || null);
-    data.append('status', formData.status || 'active');
+    data.append('status', formData.status || '1');
     data.append('description', formData.description);
     data.append('meta_title', formData.meta_title);
     data.append('meta_desc', formData.meta_desc);
@@ -141,11 +141,11 @@ const AddCategory = () => {
             <div className="w-full">
               <label className="block mb-2 text-gray-600">Parent Category</label>
               <select name="parent_id" value={formData.parent_id} onChange={handleChange} className="w-full p-2.5 border rounded">
-                <option value="">None</option>
-                <option value="fashion">Fashion</option>
-                <option value="electronics">Electronics</option>
-                <option value="books">Books</option>
-                <option value="beauty">Beauty</option>
+                <option value="0">None</option>
+                <option value="1">Fashion</option>
+                <option value="2">Electronics</option>
+                <option value="3">Books</option>
+                <option value="4">Beauty</option>
               </select>
             </div>
           </div>
@@ -154,8 +154,8 @@ const AddCategory = () => {
             <div className="w-full">
               <label className="block mb-2 text-gray-600">Status</label>
               <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
-                <option value="1">Active</option>
-                <option value="0">Inactive</option>
+                <option value={1}>Active</option>
+                <option value={0}>Inactive</option>
               </select>
             </div>
 
