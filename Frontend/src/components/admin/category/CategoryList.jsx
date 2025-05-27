@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import HeadingTag from '../HeadingNav'
+import HeadingTag from '../layout/HeadingNav'
 import axios from 'axios';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';

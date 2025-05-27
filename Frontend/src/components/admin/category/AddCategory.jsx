@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import HeadingTag from '../HeadingNav';
+import HeadingTag from '../layout/HeadingNav';
 import { toast } from 'react-toastify';
 
 

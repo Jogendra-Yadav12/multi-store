@@ -1,5 +1,5 @@
 import React from 'react'
-import HeadingTag from '../HeadingNav'
+import HeadingTag from '../layout/HeadingNav'
 import { assets } from '../../../assets/assets'
 import CreateIcon from '@mui/icons-material/Create';
 

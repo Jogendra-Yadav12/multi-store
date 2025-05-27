@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { assets } from '../../assets/assets';
-import { useAuth } from '../../context/AuthContext';
+import { assets } from '../../../assets/assets';
+import { useAuth } from '../../../context/AuthContext';
 import { toast } from 'react-toastify';
 import LogoutIcon from '@mui/icons-material/Logout';
 

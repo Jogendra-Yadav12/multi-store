@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import HeadingTag from '../HeadingNav';
+import HeadingTag from '../layout/HeadingNav';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -43,7 +43,7 @@ const EditCustomer = () => {
         try {
             const res = await axios.put(`http://localhost:5000/api/customer/${id}`, formData);
             if (res.data.success) {
-                toast.success("Customer updated successfully");
+                toast.success(res.data.message);
                 navigate('/view-customer');
             } else {
                 toast.error("Failed to update customer");

@@ -1,4 +1,4 @@
-import logo from './logo.svg'
+import logo from './logo.png'
 import category from './category.png'
 import product from './product.png'
 import orders from './orders.png'

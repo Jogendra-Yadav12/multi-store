@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import HeadingTag from '../HeadingNav';
+import HeadingTag from '../layout/HeadingNav';
 import { toast } from 'react-toastify';
 
 const EditCategory = () => {

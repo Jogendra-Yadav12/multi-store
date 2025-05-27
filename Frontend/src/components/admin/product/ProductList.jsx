@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import HeadingTag from '../HeadingNav'
+import HeadingTag from '../layout/HeadingNav'
 import SearchBar from '../searchbar/SearchBar'
 import axios from 'axios';
 import CreateIcon from '@mui/icons-material/Create';

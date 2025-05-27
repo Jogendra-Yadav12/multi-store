@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import HeadingTag from '../HeadingNav';
+import HeadingTag from '../layout/HeadingNav';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';

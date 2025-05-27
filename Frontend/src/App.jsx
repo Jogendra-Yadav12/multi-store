@@ -3,7 +3,7 @@ import Dashboard from './components/admin/dashboard/Dashboard';
 import AddCategory from './components/admin/category/AddCategory';
 import AddProducts from './components/admin/product/AddProducts';
 import Profile from './components/admin/profile/Profile';
-import Admin from './components/admin/Admin';
+import Admin from './components/admin/layout/Admin';
 import CategoryList from './components/admin/category/CategoryList';
 import EditCategory from './components/admin/category/EditCategory';
 import ProductList from './components/admin/product/ProductList';
@@ -15,13 +15,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import AddCustomer from './components/admin/customer/AddCustomer';
 import CustomerList from './components/admin/customer/CustomerList';
 import EditCustomer from './components/admin/customer/EditCustomer';
+import Homepage from './components/website/pages/Homepage';
 
 function App() {
   return (
     <>
       <Routes>
-        {/* Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        {/* website routes */}
+        <Route path='/' element={<Homepage/>} />
 
         {/* Public login route */}
         <Route path="/login" element={<Login />} />

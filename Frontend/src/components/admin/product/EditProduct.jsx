@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import HeadingTag from '../HeadingNav';
+import HeadingTag from '../layout/HeadingNav';
 import { toast } from 'react-toastify';
 
 const EditProduct = () => {
