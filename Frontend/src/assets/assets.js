@@ -40,6 +40,10 @@ import profile_img from './profile_img.png'
 import profile_img2 from './profile_img2.png'
 import profile_img3 from './profile_img3.png'
 import lesson_icon from './lesson_icon.svg'
+import bg_1 from './bg1.jpg'
+import bg_2 from './bg2.jpg'
+import bg_3 from './bg3.jpg'
+
 
 
 export const assets = {
@@ -84,6 +88,10 @@ export const assets = {
     profile_img3,
     play_icon,
     blue_tick_icon,
-    lesson_icon
+    lesson_icon,
+    bg_1,
+    bg_2,
+    bg_3,
+
 }
 

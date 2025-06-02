@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import { assets } from '../../../assets/assets';
 
 const images = [
-  "https://img.freepik.com/free-psd/black-friday-big-sale-social-media-post-design-template_47987-25239.jpg",
-  "https://img.freepik.com/free-vector/set-cosmetic-with-place-text-palm-leaf-skin-care-eucalyptus-extract-realistic_1268-15066.jpg",
-  "https://img.freepik.com/free-vector/realistic-sunscreen-product-promo_52683-62426.jpg"
+  assets.bg_1,
+  assets.bg_2,
+  assets.bg_3,
+
 ];
 
 const Hero = () => {
@@ -21,13 +23,13 @@ const Hero = () => {
 
   // Auto-slide (optional)
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000); // 5 seconds
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative w-full  mx-auto px-12 py-4">
-      <div className="relative h-64 md:h-96 rounded-lg">
+    <div className="relative w-full mx-auto px-12 py-4">
+      <div className="relative md:h-96  rounded-lg">
         <img
           src={images[current]}
           alt={`Slide ${current + 1}`}

@@ -9,13 +9,14 @@ import EditCategory from './components/admin/category/EditCategory';
 import ProductList from './components/admin/product/ProductList';
 import EditProduct from './components/admin/product/EditProduct';
 import PrivateRoute from './components/admin/PrivateRoute/PrivateRoute';
-import Login from './components/admin/login-register/Login';
+import AdminLogin from './components/admin/login-register/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddCustomer from './components/admin/customer/AddCustomer';
 import CustomerList from './components/admin/customer/CustomerList';
 import EditCustomer from './components/admin/customer/EditCustomer';
 import Homepage from './components/website/pages/Homepage';
+import WebsiteLogin from './components/website/pages/Login';
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
       <Routes>
         {/* website routes */}
         <Route path='/' element={<Homepage/>} />
+        <Route path='/login' element={<WebsiteLogin />} />
 
         {/* Public login route */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
 
         {/* Protected Admin Layout with nested routes */}
         <Route path="/" element={<PrivateRoute><Admin /></PrivateRoute>}>
