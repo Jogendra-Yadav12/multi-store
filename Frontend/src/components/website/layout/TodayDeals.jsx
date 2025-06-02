@@ -23,6 +23,15 @@ const TodayDeals = () => {
             })
     }, [])
 
+    const shortedProduct = topProducts
+    .map(product => ({
+        ...product,
+        discountPercentage:Math.round(((product.price - product.discount_price) / product.price) * 100)
+    }))
+    .sort((a,b) => b.discountPercentage - a.discountPercentage);
+
+    
+    
     return (
 
         <div className='w-full mx-auto px-12 py-4'>
@@ -42,7 +51,7 @@ const TodayDeals = () => {
                 className='mySwiper py-5 p-5 w-full'
             >
                 {
-                    topProducts.map((items) => {
+                    shortedProduct.map((items) => {
                         const productImageArray = items.images ? items.images.split(',') : []
                         const firstImage = productImageArray.slice(0, 1)[0]
                         const percentOff = Math.round(((items.price - items.discount_price) / items.price) * 100);

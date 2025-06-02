@@ -10,7 +10,7 @@ const NavBar = () => {
 
     const navigate = useNavigate()
     return (
-        <div className='flex items-center w-full justify-between gap-10 px-12 py-1 pt-1 border-b border-gray-200'>
+        <div className='fixed bg-white z-10 flex items-center w-full justify-between gap-10 px-12 py-1 pt-1 border-b border-gray-200'>
             <div className='w-full'>
                 <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-52 cursor-pointer' />
             </div>
