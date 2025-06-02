@@ -26,6 +26,12 @@ const createCategoryTable = () => {
 createCategoryTable();
 
 
+export const getAllCategoriesWithSub = (callback) => {
+  const sql = `SELECT id, name, parent_id FROM category ORDER BY name ASC`;
+  db.query(sql, callback);
+};
+
+
 export const insertCategory = (values, callback) => {
   const sql = `
     INSERT INTO category (name, slug, parent_id, meta_title, meta_desc, image, description, status) 

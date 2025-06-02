@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import HeadingTag from '../layout/HeadingNav'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -8,6 +9,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 const AddCustomer = () => {
 
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         f_name: '',
@@ -17,6 +19,7 @@ const AddCustomer = () => {
         number: '',
         user_type: ''
     })
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,7 +35,7 @@ const AddCustomer = () => {
             const res = await axios.post('http://localhost:5000/api/add-customer', formData);
             if (res.data && (res.data.success === true || res.data.status === 'success')) {
                 toast.success("Customer Added Successfully!");
-                setFormData({ f_name: '', l_name: '', email: '', password: '', number: '', user_type: '' })
+                navigate('/view-customer');
             } else {
                 toast.error("Failed to add customer!");
             }

@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import HeadingTag from '../layout/HeadingNav';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams } from 'react-router-dom';
 
 const AddProducts = () => {
   const [activeTab, setActiveTab] = useState('general');
   const [imagePreview, setImagePreview] = useState(null)
   const filesInputRef = useRef(null);
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const { id } = useParams()
 
@@ -90,6 +91,7 @@ const AddProducts = () => {
       });
   
       toast.success('Product Successfully added!');
+      navigate('/view-products');
   
       setFormData({
         name: '',

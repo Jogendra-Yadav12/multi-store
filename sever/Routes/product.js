@@ -5,7 +5,8 @@ import {
   getProduct,
   getProducts,
   updateProductById,
-  deleteProductById
+  deleteProductById,
+  bestDeals
 } from '../Controllers/product.js';
 
 const router = express.Router();
@@ -28,6 +29,8 @@ const upload = multer({
   }
 });
 
+
+router.get('/best-deals', bestDeals);
 router.post('/add-product', upload.array('images', 5), addProduct);
 router.get('/product', getProducts);
 router.get('/product/:id', getProduct);

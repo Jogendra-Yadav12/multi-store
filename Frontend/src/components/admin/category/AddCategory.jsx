@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import HeadingTag from '../layout/HeadingNav';
 import { toast } from 'react-toastify';
 
 
 const AddCategory = () => {
   const fileInputRef = useRef(null);
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -62,15 +64,6 @@ const AddCategory = () => {
     }
   };
 
-
-
-  // const handleImageChange = (e) => {
-  //     setFormData(prev => ({
-  //         ...prev,
-  //         image: e.target.files[0]
-  //     }));
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -97,10 +90,7 @@ const AddCategory = () => {
       });
       // console.log('Category added', res.data);
       toast.success('Category Successfully added!');
-
-
-      // console.log('Server Response:', res.data);
-      // toast.success(`✅ Category added successfully! ID: ${res.data.categoryId}`)
+      navigate('/view-category');
 
       setFormData({
         name: '',

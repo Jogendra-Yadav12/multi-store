@@ -5,7 +5,8 @@ import {
   getCategories,
   getCategory,
   updateCategoryById,
-  deleteCategoryById
+  deleteCategoryById,
+  getCategoryTree
 } from '../Controllers/category.js';
 
 const router = express.Router();
@@ -27,6 +28,7 @@ const upload = multer({
   }
 });
 
+router.get('/category-tree', getCategoryTree);
 router.post('/add-category', upload.single('image'), addCategory);
 router.get('/categories', getCategories);
 router.get('/categories/:id', getCategory);

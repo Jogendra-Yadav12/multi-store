@@ -72,6 +72,21 @@ export const updateProduct = (values, callback) => {
   db.query(sql, values, callback);
 };
 
+// In product.js model
+
+export const getBestDeals = (callback) => {
+  const sql = `
+    SELECT *,
+      ROUND(((price - discount_price) / price) * 100, 2) AS discount_percentage
+    FROM product
+    WHERE discount_price > 0 AND price > 0
+    ORDER BY discount_percentage DESC
+  `;
+  db.query(sql, callback);
+};
+
+
+
 export const deleteProduct = (id, callback) => {
   db.query('DELETE FROM product WHERE id = ?', [id], callback);
 };

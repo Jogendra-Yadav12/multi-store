@@ -3,7 +3,8 @@ import {
   getAllProduct,
   getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getBestDeals
 } from '../Model/product.js';
 
 export const addProduct = (req, res) => {
@@ -41,6 +42,16 @@ export const addProduct = (req, res) => {
       status: 'success',
       message: 'Product added successfully',
       productId: result.insertId
+    });
+  });
+};
+
+export const bestDeals = (req, res) => {
+  getBestDeals((err, results) => {
+    if (err) return res.status(500).json({ error: 'Database error', details: err });
+    res.status(200).json({
+      status: 'success',
+      data: results
     });
   });
 };

@@ -3,8 +3,27 @@ import {
   getAllCategories,
   getCategoryById,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getAllCategoriesWithSub
 } from '../Model/category.js';
+
+function buildCategoryTree(categories, parentId = 0) {
+  return categories
+    .filter(cat => cat.parent_id === parentId)
+    .map(cat => ({
+      ...cat,
+      children: buildCategoryTree(categories, cat.id)
+    }));
+}
+
+export const getCategoryTree = (req, res) => {
+  getAllCategoriesWithSub((err, results) => {
+    if (err) return res.status(500).json({ error: 'Database error', details: err });
+
+    const tree = buildCategoryTree(results);
+    res.json({ status: 'success', data: tree });
+  });
+};
 
 
 export const addCategory = (req, res) => {

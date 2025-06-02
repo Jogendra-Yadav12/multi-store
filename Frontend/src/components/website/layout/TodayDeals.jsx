@@ -12,9 +12,10 @@ const TodayDeals = () => {
     const [topProducts, setTopProductes] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/product')
+        axios.get('http://localhost:5000/api/best-deals')
             .then((response) => {
-                setTopProductes(response.data);
+                console.log(response.data.data);
+                setTopProductes(response.data.data);
             })
             .catch(err => {
                 console.error("Error fetching Products:", err);
