@@ -6,13 +6,13 @@ import {
     getCustomer,
     loginCustomer,
     updateCustomerById,
-    deleteCustomerById
+    deleteCustomerById,
+    loginFrontend
 } from '../Controllers/customers.js';
 
 const router = express.Router();
 
-res.redirect('/admin-login');
-
+router.post('/login', loginFrontend);
 router.post('/admin', loginCustomer);
 router.post('/add-customer', addCustomer);
 router.get('/customers', getCustomers);

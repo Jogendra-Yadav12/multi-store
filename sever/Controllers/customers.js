@@ -5,10 +5,42 @@ import {
   getCustomerById,
   updateCustomer,
   deleteCustomer,
-  getCustomerByEmail 
+  getCustomerByEmail,
+  getCustomerLoginByEmail 
 } from '../Model/customers.js';
 
 const SALT_ROUNDS = 10;
+
+export const loginFrontend = async (req, res) => {
+  const { email, password } = req.body;
+
+  getCustomerLoginByEmail(email, async (err, results) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    if (results.length === 0) return res.status(401).json({ error: 'Invalid email or password' });
+
+    const customer = results[0];
+
+    try {
+      const isMatch = await bcrypt.compare(password, customer.password);
+      if (!isMatch) {
+        return res.status(401).json({ error: 'Invalid email or password' });
+      }
+
+      // Exclude password from the response
+      const { password: _, ...userWithoutPassword } = customer;
+
+      res.status(200).json({
+        success: true,
+        message: 'Login successful',
+        token: 'some-jwt-token',
+        user: userWithoutPassword
+      });
+
+    } catch (error) {
+      res.status(500).json({ error: 'Password comparison failed', details: error.message });
+    }
+  });
+};
 
 export const loginCustomer = async (req, res) => {
   const { email, password } = req.body;

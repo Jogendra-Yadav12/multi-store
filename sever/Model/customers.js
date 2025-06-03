@@ -32,6 +32,11 @@ export const getCustomerByEmail = (email, callback) => {
   db.query(query, [email], callback);
 };
 
+// Get customer by email
+export const getCustomerLoginByEmail = (email, callback) => {
+  const query = "SELECT * FROM customers WHERE email = ? AND user_type IN ('C')";
+  db.query(query, [email], callback);
+};
 
 // Add Customer
 export const insertCustomer = (values, callback) => {
