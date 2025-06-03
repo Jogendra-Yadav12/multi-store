@@ -11,6 +11,8 @@ import {
 
 const router = express.Router();
 
+res.redirect('/admin-login');
+
 router.post('/admin', loginCustomer);
 router.post('/add-customer', addCustomer);
 router.get('/customers', getCustomers);

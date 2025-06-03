@@ -1,55 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+
 import { assets } from '../../../assets/assets';
 
-const images = [
-  assets.bg_1,
-  assets.bg_2,
-  assets.bg_3,
-
-];
+const images = [assets.bg_1, assets.bg_2, assets.bg_3];
 
 const Hero = () => {
-  const [current, setCurrent] = useState(0);
+  const swiperRef = useRef(null);
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % images.length);
+  const handlePrev = () => {
+    if (swiperRef.current) swiperRef.current.slidePrev();
   };
 
-  const prevSlide = () => {
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+  const handleNext = () => {
+    if (swiperRef.current) swiperRef.current.slideNext();
   };
-
-  // Auto-slide (optional)
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 6000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <div className="relative w-full mx-auto px-12 py-4">
-      <div className="relative md:h-96  rounded-lg">
-        <img
-          src={images[current]}
-          alt={`Slide ${current + 1}`}
-          className="w-full h-full object-cover rounded-md transition-all duration-500 ease"
-        />
+    <div className="relative w-full mx-auto px-12 py-4 pt-24">
+      <div className="relative md:h-96 rounded-lg">
+        <Swiper
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          modules={[Autoplay]}
+          autoplay={{ delay: 5000 }}
+          loop={true}
+          className="w-full h-full rounded-lg"
+        >
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={image}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-full object-cover rounded-md transition-all duration-500 ease-in-out"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
         {/* Left Arrow */}
         <button
-          onClick={prevSlide}
-          className="absolute top-1/2 -left-8 transform -translate-y-1/2 bg-white shadow-md text-2xl text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
+          onClick={handlePrev}
+          className="absolute top-1/2 -left-8 z-10 transform -translate-y-1/2 bg-white shadow-md text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
         >
-          <KeyboardArrowLeftOutlinedIcon sx={{ color: '#3FA8E9', fontSize:30 }} />
+          <KeyboardArrowLeftOutlinedIcon sx={{ color: '#3FA8E9', fontSize: 30 }} />
         </button>
 
         {/* Right Arrow */}
         <button
-          onClick={nextSlide}
-          className="absolute top-1/2 -right-8 transform -translate-y-1/2 bg-white shadow-md text-2xl text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
+          onClick={handleNext}
+          className="absolute top-1/2 -right-8 z-10 transform -translate-y-1/2 bg-white shadow-md text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
         >
-          <KeyboardArrowRightOutlinedIcon sx={{ color: '#3FA8E9', fontSize:30 }} />
+          <KeyboardArrowRightOutlinedIcon sx={{ color: '#3FA8E9', fontSize: 30 }} />
         </button>
       </div>
     </div>

@@ -23,12 +23,7 @@ const TodayDeals = () => {
             })
     }, [])
 
-    const shortedProduct = topProducts
-    .map(product => ({
-        ...product,
-        discountPercentage:Math.round(((product.price - product.discount_price) / product.price) * 100)
-    }))
-    .sort((a,b) => b.discountPercentage - a.discountPercentage);
+   
 
     
     
@@ -42,8 +37,8 @@ const TodayDeals = () => {
 
             <Swiper modules={[Navigation, Autoplay]}
                 autoplay={{ delay: 3000 }}
-                loop
-                slidesPerView={6}
+                loop={true}
+                slidesPerView={5}
                 spaceBetween={20}
                 navigation={false}
                 pagination={{ clickable: true }}
@@ -51,7 +46,7 @@ const TodayDeals = () => {
                 className='mySwiper py-5 p-5 w-full'
             >
                 {
-                    shortedProduct.map((items) => {
+                    topProducts.map((items) => {
                         const productImageArray = items.images ? items.images.split(',') : []
                         const firstImage = productImageArray.slice(0, 1)[0]
                         const percentOff = Math.round(((items.price - items.discount_price) / items.price) * 100);
@@ -73,7 +68,7 @@ const TodayDeals = () => {
 
                                     {/* Product Info */}
                                     <div className="px-4 py-3 border-t">
-                                        <h3 className="text-gray-800 font-semibold text-1xl">{items.name.slice(0,20)}</h3>
+                                        <h4 className="text-gray-800 font-semibold text-lg">{items.name.slice(0,20)}..</h4>
 
                                         <div className="flex gap-2 mt-1">
                                             <span className="text-lg font-bold text-black">₹{items.discount_price}</span>

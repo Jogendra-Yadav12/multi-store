@@ -43,7 +43,7 @@ const Login = () => {
         <div>
             <section className="flex items-center w-full min-h-screen bg-gray-50 dark:bg-gray-900">
                 <div className="flex flex-col w-full items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                    <a href="#" className="flex items-center mb-6 bg-gray-200 p-2 rounded-lg">
+                    <a href="/" className="flex items-center mb-6 p-2 rounded-lg">
                         <img className="w-full h-full mr-2 text-center" src={assets.logo} alt="logo" />
                     </a>
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">

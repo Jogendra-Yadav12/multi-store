@@ -8,13 +8,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
   const { logout } = useAuth();
-  const navigate = useNavigate(); // ✅ Navigation hook
+  const navigate = useNavigate(); 
   const {user} = useAuth()
 
   const handleLogout = () => {
   logout();
   toast.success("Logged out");
-  navigate('login');
+  navigate('/admin-login');
 };
 
   return (

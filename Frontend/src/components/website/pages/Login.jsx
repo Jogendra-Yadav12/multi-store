@@ -1,9 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from '../layout/NavBar'
 import Footer from '../layout/Footer'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useAuth } from '../../../context/AuthContext'
+import axios from 'axios'
 
 const Login = () => {
+
+     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(`http://localhost:5000/api/admin`, {
+                email,
+                password,
+            });
+
+            if (response.data.success) {
+                login(response.data.user);
+                toast.success('Logged in successfully')
+                navigate("/");
+            }
+
+
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                toast.error("Email or Password does not match!");
+            } else {
+                toast.error("Something went wrong. Please try again.");
+            }
+        }
+    };
     return (
         <>
             <NavBar />
@@ -15,16 +48,24 @@ const Login = () => {
                         <div>
                             <h2 className="text-3xl font-bold text-gray-800 mb-6">Sign in now</h2>
 
-                            <form className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-4">
 
                                 <input
                                     type="email"
+                                    name="email"
+                                    id="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Email address"
                                     className="w-full border border-gray-300 rounded px-4 py-2"
                                 />
                                 <input
                                     type="password"
-                                    placeholder="Password"
+                                    name="password"
+                                    id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="••••••••"
                                     className="w-full border border-gray-300 rounded px-4 py-2"
                                 />
 
@@ -38,7 +79,7 @@ const Login = () => {
                             </form>
 
                             {/* <p className="text-sm text-center mt-6 text-gray-500">or sign up with:</p>  */}
-                          
+
                             <div className="flex justify-center mt-4 gap-6 text-blue-600 text-xl">
                                 <i className="fab fa-facebook-f cursor-pointer"></i>
                                 <i className="fab fa-google cursor-pointer"></i>
@@ -47,7 +88,7 @@ const Login = () => {
                             </div>
 
                             <div className='text-center'>
-                                  <NavLink to="/SignUp" className="pt-5">New to <span className='text-blue-500'>SabMilega</span>? Create an account</NavLink>
+                                <NavLink to="/sign-up" className="pt-5">New to <span className='text-blue-500'>SabMilega</span>? Create an account</NavLink>
                             </div>
                         </div>
                     </div>

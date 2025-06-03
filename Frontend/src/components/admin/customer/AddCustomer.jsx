@@ -10,7 +10,7 @@ const AddCustomer = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
-
+    
     const [formData, setFormData] = useState({
         f_name: '',
         l_name: '',

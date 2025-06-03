@@ -17,6 +17,7 @@ import CustomerList from './components/admin/customer/CustomerList';
 import EditCustomer from './components/admin/customer/EditCustomer';
 import Homepage from './components/website/pages/Homepage';
 import WebsiteLogin from './components/website/pages/Login';
+import SignUp from './components/website/pages/SignUp';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         {/* website routes */}
         <Route path='/' element={<Homepage/>} />
         <Route path='/login' element={<WebsiteLogin />} />
+        <Route path='/sign-up' element={<SignUp/>} />
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />
@@ -45,7 +47,7 @@ function App() {
         </Route>
       </Routes>
 
-      <ToastContainer position="top-center" theme="dark" autoClose={3000} />
+      <ToastContainer position="bottom-right" theme="dark" autoClose={3000} />
     </>
   );
 }
