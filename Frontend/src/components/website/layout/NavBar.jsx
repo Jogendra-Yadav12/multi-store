@@ -11,13 +11,15 @@ import { toast } from 'react-toastify';
 const NavBar = () => {
 
     const { user } = useAuth()
-    const { logout } = useAuth()
+    const { logoutCustomer } = useAuth()
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        logout();
+        logoutCustomer();
         toast.success("Logged out");
         navigate('/');
+        
+        
     }
 
     return (

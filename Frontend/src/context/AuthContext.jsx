@@ -3,35 +3,59 @@ import React, { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  let storedUser = localStorage.getItem("user");
-  let initialUser = null;
+  let storedAdminUser = localStorage.getItem("adminUser");
+  let storedCustomerUser = localStorage.getItem("user");
+
+  let initialAdminUser = null;
+  let initalCustomerUser = null;
 
   try {
-    // Check if storedUser is not "undefined" or invalid
-    if (storedUser && storedUser !== "undefined") {
-      initialUser = JSON.parse(storedUser);
+    // Check if storedAdminUser is not "undefined" or invalid
+    if (storedAdminUser && storedAdminUser !== "undefined") {
+      initialAdminUser = JSON.parse(storedAdminUser);
     } else {
+      localStorage.removeItem("adminUser");
+    }
+
+    // // Check if storedCustomerUser is not "undefined" or invalid
+    if(storedCustomerUser && storedCustomerUser !== "undefined"){
+      initalCustomerUser = JSON.parse(storedCustomerUser);
+    }else{
       localStorage.removeItem("user");
     }
+
   } catch (e) {
     console.error("Invalid user data in localStorage", e);
-    localStorage.removeItem("user"); // Clean up invalid data
+    localStorage.removeItem("adminUser"); 
+    localStorage.removeItem("user");
   }
 
-  const [user, setUser] = useState(initialUser);
+  const [adminUser, setAdminUser] = useState(initialAdminUser);
+  const [user, setUser] = useState(initalCustomerUser);
 
   const login = (userData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
-    setUser(userData);
+    localStorage.setItem("adminUser", JSON.stringify(userData));
+    setAdminUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    localStorage.removeItem("adminUser");
+    setAdminUser(null);
   };
 
+  const loginCustomer = (userData) => {
+      localStorage.setItem("user"), JSON.stringify(userData);
+      setUser(userData)
+  }
+
+  const logoutCustomer = () => {
+    localStorage.removeItem("user");
+    setUser(null)
+  }
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ adminUser, login, logout,
+      user, loginCustomer, logoutCustomer 
+     }}>
       {children}
     </AuthContext.Provider>
   );

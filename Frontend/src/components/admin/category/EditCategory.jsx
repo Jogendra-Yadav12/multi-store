@@ -7,15 +7,17 @@ import { toast } from 'react-toastify';
 const EditCategory = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
 
     const fileInputRef = useRef(null)
+
 
     const [formData, setFormData] = useState({
         name: '',
         slug: '',
         description: '',
         status: '',
-        parent_id:'',
+        parent_id: '',
         meta_title: '',
         meta_desc: '',
         image: '',
@@ -36,26 +38,39 @@ const EditCategory = () => {
 
     // Fetch existing category data
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/categories/${id}`)
-            .then(res => {
-                const cat = res.data;
+        const fetchCategoryAndCategories = async () => {
+            try {
+                const [catRes, allCatsRes] = await Promise.all([
+                    axios.get(`http://localhost:5000/api/categories/${id}`),
+                    axios.get("http://localhost:5000/api/categories")
+                ]);
+
+                const cat = catRes.data;
                 setFormData({
                     ...cat,
                     slug: cat.slug || generateSlug(cat.name),
                 });
                 setImagePreview(`http://localhost:5000/uploads/${cat.image}`);
+
+                // remove self from parent dropdown
+                const filtered = allCatsRes.data.filter(c => c.id !== parseInt(id));
+                setCategories(filtered);
+
                 setLoading(false);
-            })
-            .catch(err => {
-                console.error('Error fetching category', err);
+            } catch (err) {
+                console.error("Error loading data", err);
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchCategoryAndCategories();
     }, [id]);
+
 
     // Handle form input change
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+
         if (name === 'name') {
             setFormData(prev => ({
                 ...prev,
@@ -89,7 +104,7 @@ const EditCategory = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('category full data:', formData);
-        
+
         const data = new FormData();
         for (const key in formData) {
             data.append(key, formData[key]);
@@ -134,12 +149,20 @@ const EditCategory = () => {
                         <option value="0">Inactive</option>
                     </select>
 
-                    <select name="parent_id" value={formData.parent_id} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
+                    <select
+                        name="parent_id"
+                        value={formData.parent_id || 0}
+                        onChange={handleChange}
+                        className="w-full p-2.5 border rounded text-gray-600"
+                    >
                         <option value="0">None</option>
-                        <option value="1">Fashion</option>
-                        <option value="2">Electronics</option>
-                        <option value="3">Books</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
                     </select>
+
                 </div>
 
 
@@ -159,7 +182,7 @@ const EditCategory = () => {
                     </div>
                 </div>
 
-                
+
             </form>
         </div>
     );

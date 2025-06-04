@@ -7,7 +7,7 @@ import {
     loginCustomer,
     updateCustomerById,
     deleteCustomerById,
-    loginFrontend
+    loginFrontend,
 } from '../Controllers/customers.js';
 
 const router = express.Router();
@@ -20,4 +20,4 @@ router.get('/customer/:id', getCustomer);
 router.put('/customer/:id', updateCustomerById);
 router.delete('/customer/:id', deleteCustomerById);
 
-export default router;
+export default router

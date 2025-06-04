@@ -10,20 +10,20 @@ const Login = () => {
 
      const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login } = useAuth();
+    const { loginCustomer } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/admin`, {
+            const response = await axios.post(`http://localhost:5000/api/login`, {
                 email,
                 password,
             });
 
             if (response.data.success) {
-                login(response.data.user);
+                loginCustomer(response.data.user);
                 toast.success('Logged in successfully')
                 navigate("/");
             }

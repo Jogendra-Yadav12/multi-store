@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import HeadingTag from '../layout/HeadingNav';
@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 const AddCategory = () => {
   const fileInputRef = useRef(null);
   const navigate = useNavigate()
+
+  const [categories, setCategories] = useState([])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -110,6 +112,22 @@ const AddCategory = () => {
   }
 
 
+  // fetch category 
+
+  const fetchCategories = async () => {
+    try {
+      // console.log("new");
+      const res = await axios.get("http://localhost:5000/api/categories");
+      // console.log(res);
+      setCategories(res.data);
+    } catch (err) {
+      console.error('Fetch error:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
 
   return (
     <div className="min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8">
@@ -130,14 +148,21 @@ const AddCategory = () => {
             </div>
             <div className="w-full">
               <label className="block mb-2 text-gray-600">Parent Category</label>
-              <select name="parent_id" value={formData.parent_id} onChange={handleChange} className="w-full p-2.5 border rounded">
+              <select
+                name="parent_id"
+                value={formData.parent_id}
+                onChange={handleChange}
+                className="w-full p-2.5 border rounded"
+              >
                 <option value="0">None</option>
-                <option value="1">Fashion</option>
-                <option value="2">Electronics</option>
-                <option value="3">Books</option>
-                <option value="4">Beauty</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
             </div>
+
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-5">
