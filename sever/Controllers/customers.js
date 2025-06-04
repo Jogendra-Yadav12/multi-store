@@ -19,7 +19,7 @@ export const loginFrontend = async (req, res) => {
     if (results.length === 0) return res.status(401).json({ error: 'Invalid email or password' });
 
     const customer = results[0];
-
+    
     try {
       const isMatch = await bcrypt.compare(password, customer.password);
       if (!isMatch) {

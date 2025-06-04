@@ -54,6 +54,10 @@ export const getProductById = (id, callback) => {
   db.query('SELECT * FROM product WHERE id = ?', [id], callback);
 };
 
+export const getProductByCatroyId = (id, callback) => {
+  db.query('SELECT * FROM product WHERE category = ?', [id], callback);
+};
+
 export const updateProduct = (values, callback) => {
   const sql = `
     UPDATE product SET
