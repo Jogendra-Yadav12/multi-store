@@ -4,7 +4,8 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  getBestDeals
+  getBestDeals,
+  getProductByCategoryById
 } from '../Model/product.js';
 
 export const addProduct = (req, res) => {
@@ -69,6 +70,15 @@ export const getProduct = (req, res) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     if (results.length === 0) return res.status(404).json({ error: 'Product not found' });
     res.json(results[0]);
+  });
+};
+
+export const getProductByCategory = (req, res) => {
+  const { id } = req.params;
+  getProductByCategoryById(id, (err, results) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    if (results.length === 0) return res.status(404).json({ error: 'Product not found' });
+    res.json(results);
   });
 };
 
