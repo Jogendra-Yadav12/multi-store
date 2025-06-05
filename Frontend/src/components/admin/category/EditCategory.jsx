@@ -102,19 +102,19 @@ const EditCategory = () => {
     };
     // Submit update
     const handleSubmit = async (e) => {
-        
+
         e.preventDefault();
         console.log('category full data:', formData);
 
         const data = new FormData();
-        
+
         for (const key in formData) {
             data.append(key, formData[key]);
         }
 
         try {
             console.log(data);
-            
+
             await axios.put(`http://localhost:5000/api/categories/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -123,7 +123,7 @@ const EditCategory = () => {
 
             toast.success('Category updated successfully!')
             navigate('/view-category');
-            
+
         } catch (err) {
             console.error('Update error:', err);
             toast.error('Failed to update category!')
@@ -139,42 +139,66 @@ const EditCategory = () => {
                 <button type="submit" form='updateCategoryForm' className="bg-indigo-600 text-white px-6 py-2 rounded">Update</button>
             </div>
             <form id='updateCategoryForm' onSubmit={handleSubmit} className="space-y-5 bg-gray-100 p-6 rounded shadow">
-                <div className="flex flex-col md:flex-row gap-5">
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Category Name" className="w-full p-2 border rounded" />
-                    <input type="text" name="slug" value={formData.slug} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-500" />
+                <div className="flex items-center flex-col md:flex-row gap-5">
+                    <div className='w-full'>
+                        <label className="block mb-2 text-gray-600">Category Name</label>
+                        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Category Name" className="w-full p-2 border rounded" />
+                    </div>
+                    <div className='w-full'>
+                        <label className="block mb-2 text-gray-600">Slug</label>
+                        <input type="text" name="slug" value={formData.slug} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-500" />
+                    </div>
+
 
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-5">
-                    <input type="text" name="meta_title" value={formData.meta_title} onChange={handleChange} placeholder="Meta Title" className="w-full p-2 border rounded" />
+                    <div className='w-full'>
+                        <label className="block mb-2 text-gray-700">Meta Title</label>
+                        <input type="text" name="meta_title" value={formData.meta_title} onChange={handleChange} placeholder="Meta Title" className="w-full p-2 border rounded" />
+                    </div>
+                    <div className='w-full'>
+                        <label className="block mb-2 text-gray-600">Status</label>
+                        <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    </div>
 
+                    <div className='w-full'>
+                        <label className="block mb-2 text-gray-600">Parent Category</label>
+                        <select
+                            name="parent_id"
+                            value={formData.parent_id || 0}
+                            onChange={handleChange}
+                            className="w-full p-2.5 border rounded text-gray-600"
+                        >
+                            <option value="0">None</option>
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-                    <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
-                        <option value="">Select Status</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-
-                    <select
-                        name="parent_id"
-                        value={formData.parent_id || 0}
-                        onChange={handleChange}
-                        className="w-full p-2.5 border rounded text-gray-600"
-                    >
-                        <option value="0">None</option>
-                        {categories.map((cat) => (
-                            <option key={cat.id} value={cat.id}>
-                                {cat.name}
-                            </option>
-                        ))}
-                    </select>
 
                 </div>
 
 
-                <textarea name="meta_desc" value={formData.meta_desc} onChange={handleChange} className="w-full p-2 border rounded" placeholder="Meta Description" ></textarea>
+                <div className='w-full'>
+                <label className="block mb-2 text-gray-700">Meta Description</label>
+                    <textarea name="meta_desc" value={formData.meta_desc} onChange={handleChange} className="w-full p-2 border rounded" placeholder="Meta Description" ></textarea>
+                </div>
 
-                <textarea name="description" value={formData.description} onChange={handleChange} className="w-full p-2 border rounded" placeholder="Description"></textarea>
+                <div className='w-full'>
+                <label className="block mb-2 text-gray-600">Description</label>
+                    <textarea name="description" value={formData.description} onChange={handleChange} className="w-full p-2 border rounded" placeholder="Description"></textarea>
+                </div>
+
+
+
 
                 <div>
                     <label className="block mb-2 text-gray-700">Update Image</label>

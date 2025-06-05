@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import axios from 'axios';
 
 const Categories = () => {
 
     const [Categories, setCategories] = useState([]);
+  
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -37,10 +37,14 @@ const Categories = () => {
             <div className='flex items-center gap-5 py-5'>
                 {
                     Categories.map((cate) => (
-                        <div key={cate.id} className="border p-4 w-40 h-40 cursor-pointer rounded-full overflow-hidden shadow-md text-center bg-gray-50 hover:border-amber-500 transition-all duration-100 ease-in">
-                            <img src={`http://localhost:5000/uploads/${cate.image}`} alt={cate.name} className="h-24 w-24 mx-auto mb-2 rounded-full object-cover" />
-                            <p className="text-xs">{cate.name}</p>
-                        </div>
+                        <NavLink to={`/category/${cate.id}`} key={cate.id} >
+                            <div className="border p-4 w-40 h-40 cursor-pointer rounded-full overflow-hidden shadow-md text-center bg-gray-50 hover:border-amber-500 transition-all duration-100 ease-in">
+
+                                <img src={`http://localhost:5000/uploads/${cate.image}`} alt={cate.name} className="h-24 w-24 mx-auto mb-2 rounded-full object-cover" />
+                                <p className="text-xs">{cate.name}</p>
+
+                            </div>
+                        </NavLink>
 
                     ))
                 }

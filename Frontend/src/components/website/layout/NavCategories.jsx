@@ -82,7 +82,7 @@ const NavCategories = () => {
     };
 
     return (
-        <div className="flex items-center gap-5 w-full px-2 md:px-6 lg:px-12 pt-24 py-5 border-b border-gray-200 relative">
+        <div className="flex items-center gap-5 w-full px-2 md:px-6 lg:px-12 py-5 border-b border-gray-200 relative">
             {renderAllCategories(allCategories)}
         </div>
     );

@@ -94,8 +94,12 @@ const ProductList = () => {
                     </div>
                   </td>
 
-                  <td className='px-2 py-3 text-xs md:text-base'>
-                    {product.name}
+                  <td className='px-2 py-3 text-xs md:text-base wrap'>
+                    {
+                      
+                      product.name.slice(0,35)
+                    
+                    }
                   </td>
                   <td className='px-2 py-3 text-xs md:text-base'>
                     {product.price}

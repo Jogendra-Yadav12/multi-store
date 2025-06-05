@@ -79,6 +79,8 @@ export const getProductByCategory = (req, res) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     if (results.length === 0) return res.status(404).json({ error: 'Product not found' });
     res.json(results);
+    // console.log(results);
+    
   });
 };
 
@@ -96,7 +98,7 @@ export const updateProductById = (req, res) => {
     description,
     existing_images
   } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   const uploadedImages = req.files ? req.files.map(file => file.filename) : [];
   const preservedImages = existing_images ? existing_images.split(',') : [];
   const finalImages = [...preservedImages, ...uploadedImages].join(',');
@@ -114,7 +116,7 @@ export const updateProductById = (req, res) => {
     finalImages,
     id
   ];
-  console.log(values)
+  // console.log(values)
   updateProduct(values, (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ message: 'Product updated successfully' });

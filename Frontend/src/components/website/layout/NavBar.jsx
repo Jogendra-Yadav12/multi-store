@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { assets } from '../../../assets/assets'
 import SearchBar from './SearchBar'
@@ -14,6 +14,9 @@ const NavBar = () => {
     const { logoutCustomer } = useAuth()
     const navigate = useNavigate()
 
+
+    const [isSticky, setSticky] = useState(false);
+
     const handleLogout = () => {
         logoutCustomer();
         toast.success("Logged out");
@@ -22,8 +25,25 @@ const NavBar = () => {
         
     }
 
+    const handleScroll = () => {
+        const scrollTop = window.scrollY;
+        if(scrollTop > 100){
+            setSticky(true)
+        }else{
+            setSticky(false)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return() => {
+            window.addEventListener('scroll', handleScroll)
+        }
+    },[])
+
     return (
-        <div className='fixed backdrop-blur-md bg-white/40 z-30 flex items-center w-full justify-between gap-10 px-2 md:px-6 lg:px-12 py-1 pt-1 border-b border-gray-200'>
+        <div className={`${isSticky ? 'fixed top-0 left-0 w-full shadow-md z-50' : ''} backdrop-blur-md bg-white/40 flex items-center w-full justify-between gap-10 px-2 md:px-6 lg:px-12 py-1 pt-1 border-b border-gray-200  transition-all duration-500 ease-in`}>
             <div className='w-full'>
                 <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-52 cursor-pointer' />
             </div>
