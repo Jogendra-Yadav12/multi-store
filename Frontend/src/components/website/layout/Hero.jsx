@@ -1,9 +1,13 @@
 import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
+import { Autoplay, Pagination } from 'swiper/modules';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
 
 import { assets } from '../../../assets/assets';
 
@@ -21,13 +25,15 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative w-full mx-auto px-12 py-4 pt-24">
+    <div className="relative w-full mx-auto px-2 md:px-6 lg:px-12 py-4 ">
       <div className="relative md:h-96 rounded-lg">
         <Swiper
+          pagination={{
+          dynamicBullets: true,
+        }}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
-          modules={[Autoplay]}
+          modules={[Autoplay,Pagination]}
           autoplay={{ delay: 5000 }}
-          loop={true}
           className="w-full h-full rounded-lg"
         >
           {images.map((image, index) => (
@@ -44,7 +50,7 @@ const Hero = () => {
         {/* Left Arrow */}
         <button
           onClick={handlePrev}
-          className="absolute top-1/2 -left-8 z-10 transform -translate-y-1/2 bg-white shadow-md text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
+          className="absolute  invisible lg:visible top-1/2 -left-8 z-10 transform -translate-y-1/2 bg-white shadow-md text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
         >
           <KeyboardArrowLeftOutlinedIcon sx={{ color: '#3FA8E9', fontSize: 30 }} />
         </button>
@@ -52,7 +58,7 @@ const Hero = () => {
         {/* Right Arrow */}
         <button
           onClick={handleNext}
-          className="absolute top-1/2 -right-8 z-10 transform -translate-y-1/2 bg-white shadow-md text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
+          className="absolute invisible lg:visible top-1/2 -right-8 z-10 transform -translate-y-1/2 bg-white shadow-md text-gray-600 hover:bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300"
         >
           <KeyboardArrowRightOutlinedIcon sx={{ color: '#3FA8E9', fontSize: 30 }} />
         </button>

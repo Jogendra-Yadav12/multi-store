@@ -23,7 +23,7 @@ const NavBar = () => {
     }
 
     return (
-        <div className='fixed backdrop-blur-md bg-white/40 z-10 flex items-center w-full justify-between gap-10 px-12 py-1 pt-1 border-b border-gray-200'>
+        <div className='fixed backdrop-blur-md bg-white/40 z-30 flex items-center w-full justify-between gap-10 px-2 md:px-6 lg:px-12 py-1 pt-1 border-b border-gray-200'>
             <div className='w-full'>
                 <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-52 cursor-pointer' />
             </div>

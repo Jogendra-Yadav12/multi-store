@@ -102,22 +102,28 @@ const EditCategory = () => {
     };
     // Submit update
     const handleSubmit = async (e) => {
+        
         e.preventDefault();
         console.log('category full data:', formData);
 
         const data = new FormData();
+        
         for (const key in formData) {
             data.append(key, formData[key]);
         }
 
         try {
+            console.log(data);
+            
             await axios.put(`http://localhost:5000/api/categories/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+
             toast.success('Category updated successfully!')
             navigate('/view-category');
+            
         } catch (err) {
             console.error('Update error:', err);
             toast.error('Failed to update category!')

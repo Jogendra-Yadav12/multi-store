@@ -19,9 +19,12 @@ function buildCategoryTree(categories, parentId = 0) {
 export const getCategoryTree = (req, res) => {
   getAllCategoriesWithSub((err, results) => {
     if (err) return res.status(500).json({ error: 'Database error', details: err });
-
+    // console.log(results);
+    
     const tree = buildCategoryTree(results);
     res.json({ status: 'success', data: tree });
+    // console.log(tree);
+    
   });
 };
 
@@ -42,6 +45,8 @@ export const getCategories = (req, res) => {
   getAllCategories((err, results) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json(results);
+    console.log(results);
+    
   });
 };
 

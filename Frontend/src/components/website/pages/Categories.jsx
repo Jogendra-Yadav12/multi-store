@@ -14,7 +14,7 @@ const Categories = () => {
                 const data = res.data;
                 // console.log('Fetched categories:', data);
 
-                const onlyParents = data.filter(cate => !cate.parent_id);
+                const onlyParents = data.filter(cate => cate.parent_id === 0);
                 setCategories(onlyParents);
             } catch (err) {
                 console.error('Error fetching categories:', err);
@@ -29,10 +29,9 @@ const Categories = () => {
 
 
     return (
-        <div className='w-full mx-auto px-12 py-4'>
-            <div className='flex justify-between items-center text-gray-600 border-b border-gray-300 py-2'>
+        <div className='w-full mx-auto px-2 md:px-6 lg:px-12 py-4'>
+            <div className='text-left text-gray-600 border-b border-gray-300 py-2'>
                 <h1 className='text-2xl'>Shop From <span className='text-blue-600 font-semibold'>Top Categories</span></h1>
-                <NavLink to="" className="flex items-center">View All <KeyboardArrowRightIcon color="primary" /></NavLink>
             </div>
 
             <div className='flex items-center gap-5 py-5'>

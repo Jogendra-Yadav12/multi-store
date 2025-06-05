@@ -18,15 +18,15 @@ export const AuthProvider = ({ children }) => {
     }
 
     // // Check if storedCustomerUser is not "undefined" or invalid
-    if(storedCustomerUser && storedCustomerUser !== "undefined"){
+    if (storedCustomerUser && storedCustomerUser !== "undefined") {
       initalCustomerUser = JSON.parse(storedCustomerUser);
-    }else{
+    } else {
       localStorage.removeItem("user");
     }
 
   } catch (e) {
     console.error("Invalid user data in localStorage", e);
-    localStorage.removeItem("adminUser"); 
+    localStorage.removeItem("adminUser");
     localStorage.removeItem("user");
   }
 
@@ -44,18 +44,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginCustomer = (userData) => {
-      localStorage.setItem("user"), JSON.stringify(userData);
-      setUser(userData)
-  }
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
+  };
+
 
   const logoutCustomer = () => {
     localStorage.removeItem("user");
     setUser(null)
   }
   return (
-    <AuthContext.Provider value={{ adminUser, login, logout,
-      user, loginCustomer, logoutCustomer 
-     }}>
+    <AuthContext.Provider value={{
+      adminUser, login, logout,
+      user, loginCustomer, logoutCustomer
+    }}>
       {children}
     </AuthContext.Provider>
   );

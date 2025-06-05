@@ -14,7 +14,7 @@ const TodayDeals = () => {
     useEffect(() => {
         axios.get('http://localhost:5000/api/best-deals')
             .then((response) => {
-                console.log(response.data.data);
+                // console.log(response.data.data);
                 setTopProductes(response.data.data);
             })
             .catch(err => {
@@ -23,25 +23,39 @@ const TodayDeals = () => {
             })
     }, [])
 
-   
 
-    
-    
+
+
+
     return (
 
-        <div className='w-full mx-auto px-12 py-4'>
+        <div className='w-full mx-auto px-2 md:px-6 lg:px-12 py-4'>
             <div className='flex justify-between items-center text-gray-600 border-b border-gray-300 py-2'>
                 <h1 className='text-2xl'>Today <span className='text-blue-600 font-semibold'>Top Deals</span></h1>
-                <NavLink to="" className="flex items-center">View All <KeyboardArrowRightIcon color="primary" m /></NavLink>
+                <NavLink to="" className="flex items-center">View All <KeyboardArrowRightIcon color="primary" /></NavLink>
             </div>
 
-            <Swiper modules={[Navigation, Autoplay]}
+            <Swiper
+                modules={[Navigation, Autoplay]}
                 autoplay={{ delay: 3000 }}
-                loop={true}
-                slidesPerView={5}
+                
                 spaceBetween={20}
                 navigation={false}
                 pagination={{ clickable: true }}
+                breakpoints={{
+                    320: {
+                        slidesPerView: 1.2,
+                    },
+                    768: {
+                        slidesPerView: 2.5,
+                    },
+                    1024: {
+                        slidesPerView: 3.5,
+                    },
+                    1200: {
+                        slidesPerView: 5,
+                    },
+                }}
 
                 className='mySwiper py-5 p-5 w-full'
             >
@@ -51,12 +65,12 @@ const TodayDeals = () => {
                         const firstImage = productImageArray.slice(0, 1)[0]
                         const percentOff = Math.round(((items.price - items.discount_price) / items.price) * 100);
                         return (
-                            <SwiperSlide key={items.id} >
-                                <div className="bg-white text-left rounded-xl shadow-md border cursor-pointer overflow-hidden relative group hover:shadow-lg transition-all duration-300 hover:border-blue-400">
+                            <SwiperSlide  key={items.id} >
+                                <div className="w-full bg-white text-left rounded-xl shadow-md border cursor-pointer overflow-hidden relative group hover:shadow-lg transition-all duration-300 hover:border-blue-400">
 
                                     {/* Top Discount Badge */}
                                     <div className="absolute top-0 right-0 bg-blue-500 text-white text-sm font-semibold px-2 py-3 rounded-bl-lg z-10">
-                                       {percentOff}% OFF
+                                        {percentOff}% OFF
                                     </div>
 
                                     {/* Product Image */}
@@ -68,7 +82,7 @@ const TodayDeals = () => {
 
                                     {/* Product Info */}
                                     <div className="px-4 py-3 border-t">
-                                        <h4 className="text-gray-800 font-semibold text-lg">{items.name.slice(0,20)}..</h4>
+                                        <h4 className="text-gray-800 font-semibold text-md">{items.name.slice(0, 20)}..</h4>
 
                                         <div className="flex gap-2 mt-1">
                                             <span className="text-lg font-bold text-black">₹{items.discount_price}</span>

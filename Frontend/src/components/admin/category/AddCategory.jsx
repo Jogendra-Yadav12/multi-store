@@ -75,7 +75,7 @@ const AddCategory = () => {
     const data = new FormData();
     data.append('name', formData.name);
     data.append('slug', formData.slug);
-    data.append('parent_id', formData.parent_id || null);
+    data.append('parent_id', formData.parent_id || 0);
     data.append('status', formData.status || '1');
     data.append('description', formData.description);
     data.append('meta_title', formData.meta_title);
@@ -85,6 +85,7 @@ const AddCategory = () => {
       console.log(`${key}:`, value);
     }
     try {
+
       await axios.post("http://localhost:5000/api/add-category", data, {
         headers: {
           'Content-Type': 'multipart/form-data'
