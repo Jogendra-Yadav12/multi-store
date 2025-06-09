@@ -19,6 +19,7 @@ import Homepage from './components/website/pages/Homepage';
 import WebsiteLogin from './components/website/pages/Login';
 import SignUp from './components/website/pages/SignUp';
 import ProductListByCategory from './components/website/pages/ProductListByCategory';
+import ProductDetail from './components/website/pages/ProductDetail';
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
 
         {/* productlistbyCategory */}
 
-        <Route path='/category/:id' element={<ProductListByCategory />} />
+        <Route path='/category-list/:id' element={<ProductListByCategory />} />
+        <Route path='product-detail/:id' element={<ProductDetail />} />
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />

@@ -45,7 +45,7 @@ export const getCategories = (req, res) => {
   getAllCategories((err, results) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json(results);
-    console.log(results);
+    // console.log(results);
     
   });
 };
