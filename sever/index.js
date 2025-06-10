@@ -2,6 +2,8 @@ import express from "express";
 import Category from "./Routes/category.js";
 import Product from "./Routes/product.js";
 import Customers from "./Routes/customers.js";
+import Brand from "./Routes/brand.js";
+import Address from "./Routes/address.js";
 import cors from "cors"; 
 const port = 5000;
 const app = express();
@@ -20,6 +22,8 @@ app.use(cors({
 app.use('/api', Category);
 app.use('/api', Product);
 app.use('/api', Customers);
+app.use('/api', Brand);
+app.use('/api', Address);
 
 app.get('/', (req, res) => {
     res.send("Welcome to the Express server");

@@ -8,6 +8,20 @@ import {
   getProductByCategoryById
 } from '../Model/product.js';
 
+export const addBrand = (req, res) => {
+  const {name} = req.body;
+
+  const values = [name];
+  insertBrand(values, (err, result) => {
+    if (err) return res.status(500).json({ error: 'Database error', details: err });
+    res.status(201).json({
+      status: 'success',
+      message: 'Brand added successfully',
+      brandId: result.insertId
+    });
+  });
+}
+
 export const addProduct = (req, res) => {
   const {
     name,
