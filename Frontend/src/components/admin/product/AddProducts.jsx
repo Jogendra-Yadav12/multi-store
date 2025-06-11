@@ -11,13 +11,14 @@ const AddProducts = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const { id } = useParams()
+  const [getBrand, setGetBrand] = useState([])
 
 
 
   const [formData, setFormData] = useState({
     name: '',
     category: '',
-    brand: '',
+    brand_id: '',
     price: '',
     discount_price: '',
     status: '1',
@@ -68,7 +69,7 @@ const AddProducts = () => {
     // Append all fields except images
     data.append('name', formData.name);
     data.append('category', formData.category);
-    data.append('brand', formData.brand);
+    data.append('brand_id', formData.brand);
     data.append('price', formData.price);
     data.append('discount_price', formData.discount_price);
     data.append('status', formData.status);
@@ -96,7 +97,7 @@ const AddProducts = () => {
       setFormData({
         name: '',
         category: '',
-        brand: '',
+        brand_id: '',
         price: '',
         discount_price: '',
         status: '',
@@ -117,6 +118,18 @@ const AddProducts = () => {
       filesInputRef.current.click()
     }
   }
+
+  useEffect(() => {
+        const fetchBrands = async () => {
+        try {
+            const res = await axios.get('http://localhost:5000/api/getbrand');
+            setGetBrand(res.data);
+        } catch (err) {
+            console.error("Brand api Error:", err);
+        }
+    }
+    fetchBrands()
+    }, [])
 
   return (
     <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
@@ -164,7 +177,15 @@ const AddProducts = () => {
               <div className='flex flex-col md:flex-row items-center gap-5'>
                 <div className='w-full md:mb-5'>
                   <label htmlFor="Barnd_name" className='block mb-2 text-gray-600'>Brand Name</label>
-                  <input type='text' id='brand' value={formData.brand} onChange={handleChange} name='brand' className='w-full p-2 border border-gray-300 rounded' required />
+
+                  <select name='brand_id' id='brand_id' value={formData.brand_id} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm placeholder-gray-200' required>
+                    <option value=''>Select Brand Name</option>
+                    {getBrand.map((brand) => (
+                      <option key={brand.id} value={brand.id}>
+                        {brand.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className='w-full md:mb-5'>

@@ -6,7 +6,7 @@ export const insertProduct = (values, callback) => {
     INSERT INTO product (
       name,
       category,
-      brand,
+      brand_id,
       price,
       discount_price,
       stock,
@@ -36,7 +36,7 @@ export const updateProduct = (values, callback) => {
     UPDATE product SET
       name = ?,
       category = ?,
-      brand = ?,
+      brand_id = ?,
       price = ?,
       discount_price = ?,
       stock = ?,

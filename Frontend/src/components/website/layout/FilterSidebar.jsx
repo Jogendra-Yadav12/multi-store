@@ -17,7 +17,7 @@ const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
                 const res = await axios.get(`http://localhost:5000/api/productCategory/${categoryId}`)
                 // console.log(res.data);
 
-                const allBrands = res.data.map(item => item.brand);
+                const allBrands = res.data.map(item => item.brand_id);
                 const uniqueBrand = [...new Set(allBrands)]
                 setBrands(uniqueBrand)
 

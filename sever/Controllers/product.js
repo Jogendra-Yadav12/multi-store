@@ -8,16 +8,16 @@ import {
   getProductByCategoryById
 } from '../Model/product.js';
 
-export const addBrand = (req, res) => {
+export const addbrand_id = (req, res) => {
   const {name} = req.body;
 
   const values = [name];
-  insertBrand(values, (err, result) => {
+  insertbrand_id(values, (err, result) => {
     if (err) return res.status(500).json({ error: 'Database error', details: err });
     res.status(201).json({
       status: 'success',
-      message: 'Brand added successfully',
-      brandId: result.insertId
+      message: 'brand added successfully',
+      brand_Id: result.insertId
     });
   });
 }
@@ -26,7 +26,7 @@ export const addProduct = (req, res) => {
   const {
     name,
     category,
-    brand,
+    brand_id,
     price,
     discount_price,
     stock,
@@ -41,7 +41,7 @@ export const addProduct = (req, res) => {
   const values = [
     name,
     category,
-    brand,
+    brand_id,
     parseFloat(price),
     parseFloat(discount_price),
     stock,
@@ -103,7 +103,7 @@ export const updateProductById = (req, res) => {
   const {
     name,
     category,
-    brand,
+    brand_id,
     price,
     discount_price,
     stock,
@@ -120,7 +120,7 @@ export const updateProductById = (req, res) => {
   const values = [
     name,
     parseInt(category),
-    brand,
+    brand_id,
     parseFloat(price),
     parseFloat(discount_price),
     stock === '1' ? 1 : 0,

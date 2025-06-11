@@ -13,11 +13,11 @@ const EditProduct = () => {
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [existingImageList, setExistingImageList] = useState([]);
-
+    const [getBrand, setGetBrand] = useState([])
     const [formData, setFormData] = useState({
         name: '',
         category: '',
-        brand: '',
+        brand_id: '',
         price: '',
         discount_price: '',
         status: '',
@@ -43,7 +43,7 @@ const EditProduct = () => {
                 setFormData({
                     name: fetchedProduct.name,
                     category: fetchedProduct.category,
-                    brand: fetchedProduct.brand,
+                    brand_id: fetchedProduct.brand_id,
                     price: fetchedProduct.price,
                     discount_price: fetchedProduct.discount_price,
                     status: fetchedProduct.status,
@@ -148,6 +148,18 @@ const EditProduct = () => {
         filesInputRef.current.click();
     };
 
+    useEffect(() => {
+        const fetchBrands = async () => {
+            try {
+                const res = await axios.get('http://localhost:5000/api/getbrand');
+                setGetBrand(res.data);
+            } catch (err) {
+                console.error("Brand api Error:", err);
+            }
+        }
+        fetchBrands()
+    }, [])
+
     if (loading) return <p className="text-center mt-10 text-gray-500">Loading products data...</p>;
 
 
@@ -187,8 +199,15 @@ const EditProduct = () => {
 
                             <div className='flex flex-col md:flex-row items-center gap-5'>
                                 <div className='w-full md:mb-5'>
-                                    <label htmlFor="brand" className='block mb-2 text-gray-600'>Brand Name</label>
-                                    <input type='text' id='brand' value={formData.brand} onChange={handleChange} name='brand' className='w-full p-2 border border-gray-300 rounded' required />
+                                    <label htmlFor="brand_id" className='block mb-2 text-gray-600'>Brand Name</label>
+                                    <select name='brand_id' id='brand_id' value={formData.brand_id} onChange={handleChange} className='w-full p-2.5 border border-gray-300 rounded text-gray-600 text-sm placeholder-gray-200' required>
+                                        {/* <option value=''>Select Brand Name</option> */}
+                                        {getBrand.map((brand) => (
+                                            <option key={brand.id} value={brand.id}>
+                                                {brand.name}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                                 <div className='w-full md:mb-5'>
                                     <label htmlFor="price" className='block mb-2 text-gray-600'>Price</label>

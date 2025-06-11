@@ -9,6 +9,7 @@ const Sidebar = () => {
     {name: 'Category', path: 'view-category', icon: assets.add_icon },
     {name: 'Product', path: 'view-products', icon: assets.add_icon },
     {name: 'Customer', path: 'view-customer', icon: assets.add_icon },
+    {name: 'Brand', path: 'view-brands', icon: assets.add_icon },
     {name: 'My Profile', path: 'profile', icon: assets.user_icon },
     
   ];

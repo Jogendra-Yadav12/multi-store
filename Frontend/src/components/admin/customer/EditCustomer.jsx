@@ -39,7 +39,7 @@ const EditCustomer = () => {
     // form submit function
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('customer full data:', formData);
+        // console.log('customer full data:', formData);
         try {
             const res = await axios.put(`http://localhost:5000/api/customer/${id}`, formData);
             if (res.data.success) {

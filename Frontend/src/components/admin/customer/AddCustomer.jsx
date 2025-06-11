@@ -8,16 +8,23 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 
 const AddCustomer = () => {
 
+    const [activeTab, setActiveTab] = useState("general")
+
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
-    
+
     const [formData, setFormData] = useState({
         f_name: '',
         l_name: '',
         email: '',
         password: '',
         number: '',
-        user_type: ''
+        user_type: '',
+        address:'',
+        country:'',
+        city:'',
+        state:'',
+        postal_code:'',
     })
 
 
@@ -48,63 +55,109 @@ const AddCustomer = () => {
     return (
         <div className='min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8'>
             <HeadingTag title='Customers Management' path='Add Customer' />
-
-            <div className='flex justify-end'>
-                <button type="submit" form="addCustomerForm" className="bg-indigo-600 text-white px-6 py-2 rounded">Save</button>
+            <div className='flex justify-between'>
+                <div className='flex gap-3'>
+                    <button className={`px-4 py-2 rounded ${activeTab === 'general' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`} onClick={() => setActiveTab('general')}>General Info</button>
+                    <button className={`px-4 py-2 rounded ${activeTab === 'address' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`} onClick={() => setActiveTab('address')} >Address</button>
+                </div>
+                <div>
+                    {/* Submit Button */}
+                    <button type="submit" form="addCustomerForm" className="bg-indigo-600 text-white px-6 py-2 rounded">Save</button>
+                </div>
             </div>
+
             <div className="w-full bg-gray-100 p-6 rounded shadow">
                 <form id='addCustomerForm' onSubmit={handleSubmit} className="space-y-5 mt-5">
-                    <div className="flex flex-col md:flex-row items-center gap-5">
-                        <div className="w-full">
-                            <label className="block mb-2 text-gray-600">First Name</label>
-                            <input type="text" name="f_name" value={formData.f_name} onChange={handleChange} required className="w-full p-2 border rounded" />
-                        </div>
-                        <div className="w-full">
-                            <label className="block mb-2 text-gray-600">Last Name</label>
-                            <input type="text" name="l_name" value={formData.l_name} onChange={handleChange} required className="w-full p-2 border rounded" />
-                        </div>
-                    </div>
+                    {
+                        activeTab === 'general' && (
+                            <>
+                                <div className="flex flex-col md:flex-row items-center gap-5">
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">First Name</label>
+                                        <input type="text" name="f_name" value={formData.f_name} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">Last Name</label>
+                                        <input type="text" name="l_name" value={formData.l_name} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                </div>
 
-                    <div className="flex flex-col md:flex-row items-center gap-5">
-                        <div className="w-full">
-                            <label className="block mb-2 text-gray-700">Email</label>
-                            <input type="text" name="email" value={formData.email} onChange={handleChange} className="w-full p-2 border rounded" />
-                        </div>
+                                <div className="flex flex-col md:flex-row items-center gap-5">
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-700">Email</label>
+                                        <input type="text" name="email" value={formData.email} onChange={handleChange} className="w-full p-2 border rounded" />
+                                    </div>
 
-                        <div className="w-full relative">
-                            <label className="block mb-2 text-gray-700">Password</label>
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded pr-10"
-                            />
-                            <span
-                                className="absolute right-3 mt-1 top-12 transform -translate-y-1/2 cursor-pointer text-gray-500"
-                                onClick={() => setShowPassword(prev => !prev)}
-                            >
-                                {showPassword ? <RemoveRedEyeOutlinedIcon fontSize="small" /> : <VisibilityOffOutlinedIcon fontSize="small" />}
-                            </span>
-                        </div>
-                    </div>
+                                    <div className="w-full relative">
+                                        <label className="block mb-2 text-gray-700">Password</label>
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            className="w-full p-2 border rounded pr-10"
+                                        />
+                                        <span
+                                            className="absolute right-3 mt-1 top-12 transform -translate-y-1/2 cursor-pointer text-gray-500"
+                                            onClick={() => setShowPassword(prev => !prev)}
+                                        >
+                                            {showPassword ? <RemoveRedEyeOutlinedIcon fontSize="small" /> : <VisibilityOffOutlinedIcon fontSize="small" />}
+                                        </span>
+                                    </div>
+                                </div>
 
-                    <div className="flex flex-col md:flex-row items-center gap-5">
-                        <div className="w-full">
-                            <label className="block mb-2 text-gray-700">Number</label>
-                            <input type="number" name="number" value={formData.number} onChange={handleChange} className="w-full p-2 border rounded" />
-                        </div>
+                                <div className="flex flex-col md:flex-row items-center gap-5">
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-700">Number</label>
+                                        <input type="number" name="number" value={formData.number} onChange={handleChange} className="w-full p-2 border rounded" />
+                                    </div>
 
-                        <div className="w-full">
-                            <label className="block mb-2 text-gray-600">User Type</label>
-                            <select name="user_type" value={formData.user_type} onChange={handleChange} className="w-full p-2.5 border rounded">
-                                <option value="">Select User Type</option>
-                                <option value="A">Admin</option>
-                                <option value="S">Seller</option>
-                                <option value="C">Customer</option>
-                            </select>
-                        </div>
-                    </div>
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">User Type</label>
+                                        <select name="user_type" value={formData.user_type} onChange={handleChange} className="w-full p-2.5 border rounded">
+                                            <option value="">Select User Type</option>
+                                            <option value="A">Admin</option>
+                                            <option value="S">Seller</option>
+                                            <option value="C">Customer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
+
+                    {/* Address tab */}
+
+                    {
+                        activeTab === 'address' && (
+                            <>
+                                <div className="flex flex-col md:flex-row items-center gap-5">
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">Address</label>
+                                        <input type="text" name="address" value={formData.address} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">Country</label>
+                                        <input type="text" name="country" value={formData.country} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col md:flex-row items-center gap-5">
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">City</label>
+                                        <input type="text" name="city" value={formData.city} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">State</label>
+                                        <input type="text" name="state" value={formData.state} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                    <div className="w-full">
+                                        <label className="block mb-2 text-gray-600">Postal Code</label>
+                                        <input type="number" name="postal_code" value={formData.postal_code} onChange={handleChange} required className="w-full p-2 border rounded" />
+                                    </div>
+                                </div>  
+                            </>
+                        )
+                    }
                 </form>
             </div>
         </div>

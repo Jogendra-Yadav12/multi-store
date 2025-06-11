@@ -9,7 +9,7 @@ import NavCategories from '../layout/NavCategories'
 
 const Homepage = () => {
     return (
-        <div className='flex flex-col items-center text-center overflow-hidden'>
+        <div className='text-center overflow-hidden'>
             <NavBar />
             <NavCategories/>
             <Hero/>

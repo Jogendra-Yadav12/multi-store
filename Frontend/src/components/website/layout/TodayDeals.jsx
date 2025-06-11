@@ -38,7 +38,7 @@ const TodayDeals = () => {
             <Swiper
                 modules={[Navigation, Autoplay]}
                 autoplay={{ delay: 3000 }}
-                
+
                 spaceBetween={20}
                 navigation={false}
                 pagination={{ clickable: true }}
@@ -65,35 +65,37 @@ const TodayDeals = () => {
                         const firstImage = productImageArray.slice(0, 1)[0]
                         const percentOff = Math.round(((items.price - items.discount_price) / items.price) * 100);
                         return (
-                            <SwiperSlide  key={items.id} >
-                                <div className="w-full bg-white text-left rounded-xl shadow-md border cursor-pointer overflow-hidden relative group hover:shadow-lg transition-all duration-300 hover:border-blue-400">
+                            <SwiperSlide key={items.id} >
+                                <NavLink to={`/product-detail/${items.id}`}  >
+                                    <div className="w-full bg-white text-left rounded-xl shadow-md border cursor-pointer overflow-hidden relative group hover:shadow-lg transition-all duration-300 hover:border-blue-400">
 
-                                    {/* Top Discount Badge */}
-                                    <div className="absolute top-0 right-0 bg-blue-500 text-white text-sm font-semibold px-2 py-3 rounded-bl-lg z-10">
-                                        {percentOff}% OFF
-                                    </div>
-
-                                    {/* Product Image */}
-                                    <img
-                                        src={`http://localhost:5000/uploads/${firstImage}`}
-                                        alt={items.name}
-                                        className="w-full rounded-xl h-52 object-contain p-4"
-                                    />
-
-                                    {/* Product Info */}
-                                    <div className="px-4 py-3 border-t">
-                                        <h4 className="text-gray-800 font-semibold text-md">{items.name.slice(0, 20)}..</h4>
-
-                                        <div className="flex gap-2 mt-1">
-                                            <span className="text-lg font-bold text-black">₹{items.discount_price}</span>
-                                            <span className="text-sm text-gray-500 line-through">₹{items.price}</span>
+                                        {/* Top Discount Badge */}
+                                        <div className="absolute top-0 right-0 bg-blue-500 text-white text-sm font-semibold px-2 py-3 rounded-bl-lg z-10">
+                                            {percentOff}% OFF
                                         </div>
 
-                                        <p className="text-green-600 text-sm mt-1 font-medium">
-                                            Save - ₹{items.price - items.discount_price}
-                                        </p>
+                                        {/* Product Image */}
+                                        <img
+                                            src={`http://localhost:5000/uploads/${firstImage}`}
+                                            alt={items.name}
+                                            className="w-full rounded-xl h-52 object-contain p-4"
+                                        />
+
+                                        {/* Product Info */}
+                                        <div className="px-4 py-3 border-t">
+                                            <h4 className="text-gray-800 font-semibold text-md">{items.name.slice(0, 20)}..</h4>
+
+                                            <div className="flex gap-2 mt-1">
+                                                <span className="text-lg font-bold text-black">₹{items.discount_price}</span>
+                                                <span className="text-sm text-gray-500 line-through">₹{items.price}</span>
+                                            </div>
+
+                                            <p className="text-green-600 text-sm mt-1 font-medium">
+                                                Save - ₹{items.price - items.discount_price}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
+                                </NavLink>
                             </SwiperSlide>
                         )
                     })

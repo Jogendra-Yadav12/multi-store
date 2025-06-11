@@ -20,6 +20,10 @@ import WebsiteLogin from './components/website/pages/Login';
 import SignUp from './components/website/pages/SignUp';
 import ProductListByCategory from './components/website/pages/ProductListByCategory';
 import ProductDetail from './components/website/pages/ProductDetail';
+import UserProfile from './components/website/pages/UserProfile';
+import BrandList from './components/admin/brands/BrandList';
+import AddBrands from './components/admin/brands/AddBrands';
+import EditBrand from './components/admin/brands/EditBrand';
 
 function App() {
   return (
@@ -33,7 +37,8 @@ function App() {
         {/* productlistbyCategory */}
 
         <Route path='/category-list/:id' element={<ProductListByCategory />} />
-        <Route path='product-detail/:id' element={<ProductDetail />} />
+        <Route path='/product-detail/:id' element={<ProductDetail />} />
+        <Route path='/my-profile' element={<UserProfile/>} />
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />
@@ -51,6 +56,9 @@ function App() {
           <Route path='add-customer' element={<AddCustomer/>} />
           <Route path="edit-customer/:id" element={<EditCustomer />} />
           <Route path="profile" element={<Profile />} />
+          <Route path='view-brands' element={<BrandList/>} />
+          <Route path='add-brands' element={<AddBrands/>} />
+          <Route path='edit-brand/:id' element={<EditBrand/>} />
         </Route>
       </Routes>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, } from 'react-router-dom'
 import { assets } from '../../../assets/assets'
 import SearchBar from './SearchBar'
 import PersonIcon from '@mui/icons-material/Person';
@@ -7,9 +7,11 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import { useAuth } from '../../../context/AuthContext';
 import { toast } from 'react-toastify';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 const NavBar = () => {
 
+   
     const { user } = useAuth()
     const { logoutCustomer } = useAuth()
     const navigate = useNavigate()
@@ -62,13 +64,18 @@ const NavBar = () => {
                                 </div>
 
                                 {/* Dropdown */}
-                                <div className="absolute top-10 left-0 bg-white shadow-lg border rounded px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-50 min-w-[120px]">
+                                <div className="absolute top-10 left-0 text-gray-500 bg-white shadow-lg border rounded px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-50 min-w-[150px] text-left">
+                                    <NavLink to="/my-profile">
+                                        <button>My Profile</button>
+                                    </NavLink>
                                     <button
                                         onClick={handleLogout}
-                                        className="block w-full text-left text-gray-700 hover:text-red-600"
+                                        className="block w-full text-left hover:text-red-600"
                                     >
                                         Logout
                                     </button>
+
+                                   
                                 </div>
                             </div>
                         ) : (
@@ -82,11 +89,15 @@ const NavBar = () => {
 
                 <div className='h-6 w-px bg-gray-300'></div>
                 <div className='flex items-center gap-2'>
-                    <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: {xs:24, md:30} }} /><span className='hidden md:block'>Cart</span>
+                    <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: {xs:24, md:30} }} /><span className='hidden lg:block'>Cart</span>
                 </div>
                 <div className='h-6 w-px bg-gray-300'></div>
                 <div className='flex items-center gap-2'>
-                    <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize:{xs:24, md:30} }} /><span className='hidden md:block'>Become a Seller</span>
+                    <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize:{xs:24, md:30} }} /><span className='hidden lg:block'>Become a Seller</span>
+                </div>
+                <div className='h-6 w-px xl:hidden md:hidden bg-gray-300'></div>
+                <div className='md:hidden '>
+                    <MenuOpenIcon color="primary"/>
                 </div>
             </div>
         </div>

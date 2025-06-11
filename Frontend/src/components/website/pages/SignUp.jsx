@@ -48,7 +48,7 @@ const SignUp = () => {
     return (
         <>
             <NavBar />
-            <div className="flex items-center justify-center bg-gray-100 px-4 pt-20 pb-5">
+            <div className="flex items-center justify-center bg-gray-100 px-4 py-2">
                 <div className="bg-white rounded-2xl shadow-lg max-w-4xl w-full grid md:grid-cols-2 overflow-hidden">
 
                     {/* Left Side - Form */}
