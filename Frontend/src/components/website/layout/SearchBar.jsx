@@ -3,9 +3,9 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const SearchBar = () => {
     return (
-        <div className=''>
+        <div className='w-44 md:w-full'>
 
-            <form className="max-w-md mx-auto ">
+            <form className="w-full">
                
                 <div className="relative flex items-center">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pt-1 pointer-events-none">

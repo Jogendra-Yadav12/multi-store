@@ -26,6 +26,7 @@ const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
 
             }
         }
+        
 
         if (categoryId) {
             fetchCategory();
