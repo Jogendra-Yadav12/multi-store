@@ -4,6 +4,7 @@ import Product from "./Routes/product.js";
 import Customers from "./Routes/customers.js";
 import Brand from "./Routes/brand.js";
 import Address from "./Routes/address.js";
+import Cart from "./Routes/cart.js";
 import cors from "cors"; 
 const port = 5000;
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api', Product);
 app.use('/api', Customers);
 app.use('/api', Brand);
 app.use('/api', Address);
+app.use('/api', Cart);
 
 app.get('/', (req, res) => {
     res.send("Welcome to the Express server");

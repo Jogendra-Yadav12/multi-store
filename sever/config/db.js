@@ -139,5 +139,25 @@ db.query(sql, (err) => {
 };
 createBrandTable();
 
+const Cart = () =>{
+  const sql = `
+  CREATE TABLE IF NOT EXISTS cart (
+    id INT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id int(50) NOT NULL,
+    customer_id int(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `;
+  db.query(sql, (err) => {
+    if (err) {
+      console.error('Error creating Brand table:', err.message);
+    } else {
+      console.log('cart table ready (if not already existing)');
+    }
+  });
+}
+
+Cart();
+
 
 export default db;
