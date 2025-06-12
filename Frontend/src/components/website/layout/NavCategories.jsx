@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import axios from 'axios';
+import MobileCategorySidebar from './MobileCategorySidebar';
+
+
 
 const NavCategories = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     const [allCategories, setAllCategories] = useState([]);
     const [activeChildId, setActiveChildId] = useState(null);
+  
 
     const fetchAllCategories = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/category-tree');
-            if(response){
+            if (response) {
                 setAllCategories(response.data.data);
-            }else{
+            } else {
                 <div>No Product </div>
             }
         } catch (error) {
@@ -27,7 +31,8 @@ const NavCategories = () => {
 
     const renderAllCategories = (categories) => {
         return categories.map((cat) => (
-            <div key={cat.id} className="relative group text-left">
+
+            <div key={cat.id} className="relative group text-left hidden lg:block">
                 <NavLink
                     to={`/category-list/${cat.id}`}
                     className="px-4 py-1 text-xs md:text-lg rounded-full text-gray-700 bg-blue-100 flex items-center gap-1 whitespace-nowrap"
@@ -87,9 +92,15 @@ const NavCategories = () => {
     };
 
     return (
-        <div className="flex items-center flex-wrap gap-2 md:gap-5 w-full px-2 md:px-6 lg:px-12 py-5 border-b border-gray-200">
-            {renderAllCategories(allCategories)}
-        </div>
+        <>
+            <div className="lg:flex hidden lg:block items-center flex-wrap gap-2 md:gap-5 w-full px-2 md:px-6 lg:px-12 py-5 border-b border-gray-200">
+                {renderAllCategories(allCategories)}
+
+            </div>
+            <div className='w-full'>
+                <MobileCategorySidebar />
+            </div>
+        </>
     );
 };
 
