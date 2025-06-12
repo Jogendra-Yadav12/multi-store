@@ -17,6 +17,6 @@ export const updateCartByCustomerId = (values ,callback) => {
 }
 
 export const deleteCartData = (values,callback)=>{
-    const sql = `DELETE FROM cart WHERE id = ? AND product_id = ?`;
+    const sql = `DELETE FROM cart WHERE id = ?`;
     db.query(sql,values,callback);
 }

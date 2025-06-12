@@ -34,8 +34,8 @@ export const updateCartById = (req,res) => {
 }
 
 export const deleteCartById  = (req,res) => {
-    const { id,product_id } = req.params;
-    const values = [id,product_id];
+    const { id } = req.params;
+    const values = [id];
     deleteCartData(values,(err,results)=> {
         if (err) return res.status(500).json({error:'Database errro'});
         res.json({ message: 'Delete Data' });

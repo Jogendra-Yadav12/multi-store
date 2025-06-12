@@ -15,7 +15,7 @@ const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
         const fetchCategory = async () => {
             try {
                 const res = await axios.get(`http://localhost:5000/api/productCategory/${categoryId}`)
-                console.log(res)
+
                 const allBrands = res.data.map(item => ({
                     brand_id: item.brand_id,
                     name: item.brand_name
