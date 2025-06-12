@@ -12,7 +12,7 @@ export const getCartByCustomerId = (id,callback) => {
 }
 
 export const updateCartByCustomerId = (values ,callback) => {
-    const sql = `UPDATE cart SET quantity = ?, price = ? WHERE id = ? AND product_id = ?`;
+    const sql = `UPDATE cart SET quantity = ? WHERE id = ?`;
     db.query(sql,values,callback)
 }
 

@@ -24,9 +24,9 @@ export const getCartById = (req,res) => {
 }
 
 export const updateCartById = (req,res) => {
-    const { cart_id,product_id } = req.params;
-    const { quantity , price} = req.body;
-    const values = [quantity,price,cart_id,product_id];
+    const { cart_id } = req.params;
+    const { quantity} = req.body;
+    const values = [quantity,cart_id];
     updateCartByCustomerId(values,(err,results)=> {
         if (err) return res.status(500).json({error:'Database errro'});
         res.json({ message: 'Category updated' });
