@@ -28,7 +28,15 @@ export const getProductById = (id, callback) => {
 };
 
 export const getProductByCategoryById = (id, callback) => {
-  db.query('SELECT * FROM product WHERE category = ?', [id], callback);
+  db.query(
+    `SELECT product.*, brand.name AS brand_name 
+     FROM product 
+     JOIN brand ON product.brand_id = brand.id 
+     WHERE product.category = ?`,
+    [id],
+    callback
+  );
+  
 };
 
 export const updateProduct = (values, callback) => {

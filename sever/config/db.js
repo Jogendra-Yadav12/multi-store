@@ -144,6 +144,10 @@ const Cart = () =>{
   CREATE TABLE IF NOT EXISTS cart (
     id INT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     product_id int(50) NOT NULL,
+    name VARCHAR (255) NOT NULL,
+    image VARCHAR (255) NOT NULL,
+    quantity int(50) NOT NULL,
+    price float(50) NOT NULL,
     customer_id int(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

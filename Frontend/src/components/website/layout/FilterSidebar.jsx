@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { all } from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
@@ -15,10 +15,14 @@ const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
         const fetchCategory = async () => {
             try {
                 const res = await axios.get(`http://localhost:5000/api/productCategory/${categoryId}`)
-                // console.log(res.data);
-
-                const allBrands = res.data.map(item => item.brand_id);
-                const uniqueBrand = [...new Set(allBrands)]
+                console.log(res)
+                const allBrands = res.data.map(item => ({
+                    brand_id: item.brand_id,
+                    name: item.brand_name
+                  }));
+                  const uniqueBrand = Array.from(
+                    new Map(allBrands.map(item => [item.brand_id, item])).values()
+                  );
                 setBrands(uniqueBrand)
 
             } catch (err) {
@@ -26,8 +30,7 @@ const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
 
             }
         }
-        
-
+       
         if (categoryId) {
             fetchCategory();
         }
@@ -48,11 +51,11 @@ const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {
                         {
                             fetchBrands.map((items, index) => (
                                 <li key={index} className="flex items-center">
-                                    <input id={`brand-${index}`} type="checkbox" value={items}
+                                    <input id={`brand-${index}`} type="checkbox" value={items.brand_id}
                                         className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500" />
 
-                                    <label htmlFor="apple" className="ml-2 text-sm font-medium text-gray-600">
-                                        {items}
+                                    <label htmlFor={items.name} className="ml-2 text-sm font-medium text-gray-600">
+                                        {items.name}
                                     </label>
                                 </li>
                             ))
