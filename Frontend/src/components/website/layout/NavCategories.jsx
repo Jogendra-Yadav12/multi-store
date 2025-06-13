@@ -35,7 +35,7 @@ const NavCategories = () => {
             <div key={cat.id} className="relative group text-left hidden lg:block">
                 <NavLink
                     to={`/category-list/${cat.id}`}
-                    className="px-4 py-1 text-xs md:text-lg rounded-full text-gray-700 bg-blue-100 flex items-center gap-1 whitespace-nowrap"
+                    className="px-4 py-1 text-md rounded-full text-gray-700 bg-blue-100 flex items-center gap-1 whitespace-nowrap"
                 >
                     {cat.name}
                     {cat.children && cat.children.length > 0 && (

@@ -131,10 +131,10 @@ const NavBar = () => {
 
             <div className={`fixed top-0 left-0 w-80 h-screen text-left text-white z-50 transition-transform duration-500 ease-in-out px-4
     ${menuOpen ? 'translate-x-0' : '-translate-x-full'} 
-    backdrop-blur-sm bg-black/80 shadow`}>
+    backdrop-blur-sm bg-blue-900/50 shadow`}>
 
-                <div className='flex items-center justify-end p-2'>
-                    <CloseIcon color="primary" onClick={closeMenu} />
+                <div className='flex items-center justify-end pt-4'>
+                    <CloseIcon color="" onClick={closeMenu} />
                 </div>
 
                 {
@@ -142,18 +142,18 @@ const NavBar = () => {
                         <NavLink to="/my-profile">
                             <div className='flex fixed top-3 left-3 items-center gap-2'>
                                 <div className='flex items-center border rounded-full p-1'>
-                                    <PersonIcon sx={{ fontSize: { xs: 20, md: 30, }, color: '#3FA8E9' }} />
+                                    <PersonIcon sx={{ fontSize: { xs: 20, md: 30, }, color: '#ffcc18' }} />
                                 </div>
                                 <div className='leading-3 flex items-center gap-1'>
                                     <p className='text-md'>Hello</p>
-                                    <p className='text-blue-400 text-md'>{user.f_name}</p>
+                                    <p className='text-orange-400 text-md'>{user.f_name}</p>
                                 </div>
                             </div>
                         </NavLink>
                     ) : (
                         <NavLink to="/login" className="flex fixed top-3 left-3 items-center gap-2">
                             <div className='flex items-center border rounded-full p-1'>
-                                <PersonIcon sx={{ fontSize: { xs: 20, md: 30, }, color: '#3FA8E9' }} />
+                                <PersonIcon sx={{ fontSize: { xs: 20, md: 30, }, color: '#ffcc18' }} />
                             </div>
                             <span className=''>Sign Up/Sign In</span>
                         </NavLink>
@@ -161,11 +161,11 @@ const NavBar = () => {
                 }
 
                 <div className='flex fixed bottom-12 items-center gap-2 '>
-                    <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className=''>Become a Seller</span>
+                    <StorefrontOutlinedIcon sx={{ color: '#ffcc18', fontSize: { xs: 24, md: 30 } }} /><span className=''>Become a Seller</span>
                 </div>
                 <div className='flex fixed bottom-3 items-center gap-2 '>
                     <div className="flex items-center">
-                        <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'><ExitToAppIcon /> <span className='text-white'>LogOut</span></button>
+                        <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'><ExitToAppIcon  sx={{color: '#ffcc18'}} /> <span className='text-white'>LogOut</span></button>
                     </div>
                 </div>
                 <ul className="mt-5">

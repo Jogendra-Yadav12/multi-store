@@ -38,7 +38,6 @@ const TodayDeals = () => {
             <Swiper
                 modules={[Navigation, Autoplay]}
                 autoplay={{ delay: 3000 }}
-
                 spaceBetween={20}
                 navigation={false}
                 pagination={{ clickable: true }}

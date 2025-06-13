@@ -35,7 +35,7 @@ const ProductListByCategory = () => {
         <div className='flex flex-col items-center text-center'>
             <NavBar />
     
-                 <NavCategories />
+            <NavCategories />
     
 
             <div className='w-full mx-auto px-2 md:px-6 lg:px-12 flex justify-between items-center text-gray-600 border-b border-gray-300 py-6'>

@@ -8,7 +8,7 @@ import {
   
   export const addBrand = (req, res) => {
     const {name} = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const values = [name];
     insertBrand(values, (err, result) => {
       if (err) return res.status(500).json({ error: 'Database error', details: err });
