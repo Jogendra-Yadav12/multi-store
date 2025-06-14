@@ -7,9 +7,9 @@ import {
   } from '../Model/brand.js';
   
   export const addBrand = (req, res) => {
-    const {name} = req.body;
+    const {name,status} = req.body;
     // console.log(req.body);
-    const values = [name];
+    const values = [name,status];
     insertBrand(values, (err, result) => {
       if (err) return res.status(500).json({ error: 'Database error', details: err });
       res.status(201).json({
@@ -38,9 +38,9 @@ export const getBrands = (req, res) => {
 
 export const updateBrandById = (req, res) => {
     const { id } = req.params;
-    const {name} = req.body;
+    const {name,status} = req.body;
 
-    const values = [name,id];
+    const values = [name,status,id];
     updateBrand(values, (err) => {
         if (err) return res.status(500).json({ error: 'Database error' });
         res.json({ message: 'Brand updated successfully' });

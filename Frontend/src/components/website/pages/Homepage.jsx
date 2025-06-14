@@ -6,6 +6,7 @@ import TodayDeals from '../layout/TodayDeals'
 import Footer from '../layout/Footer'
 import TopElectronicBrands from '../layout/TopElectronicBrands'
 import NavCategories from '../layout/NavCategories'
+import UserLocation from './UserLocation'
 
 const Homepage = () => {
     return (

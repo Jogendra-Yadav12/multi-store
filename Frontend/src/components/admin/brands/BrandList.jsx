@@ -54,6 +54,7 @@ const BrandList = () => {
                     <tr>
                         <th className='px-3 py-3 font-semibold truncate'>S.No</th>
                         <th className='px-2 py-3 font-semibold truncate'>Brand Name</th>
+                        <th className='px-2 py-3 font-semibold truncate'>Status</th>
 
                         {/* <th className='px-3 py-3 font-semibold truncate'>Meta Title </th>
                         <th className='px-3 py-3 font-semibold truncate'>Meta Description</th> */}
@@ -72,6 +73,9 @@ const BrandList = () => {
                                 </td>
                                 <td className='px-2 py-3'>
                                     {item.name}
+                                </td>
+                                <td className='px-2 py-3'>
+                                {item.status === 1 ? "Active" : "Disabled"}
                                 </td>
 
                                 <td className='px-3'>

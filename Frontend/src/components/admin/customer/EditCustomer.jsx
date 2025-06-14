@@ -3,9 +3,12 @@ import HeadingTag from '../layout/HeadingNav';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../context/AuthContext'
 
 const EditCustomer = () => {
 
+    const user = useAuth();
+    const userType = user.adminUser.user_type;
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate()
@@ -103,16 +106,25 @@ const EditCustomer = () => {
 
                         </div>
 
-                        <div className="w-full">
-                            <label className="block mb-2 text-gray-600">User Type</label>
-                            <select name="user_type" value={formData.user_type} onChange={handleChange} className="w-full p-2.5 border rounded">
-                                <option value="">Select User Type</option>
-                                <option value="A">Admin</option>
-                                <option value="S">Seller</option>
-                                <option value="C">Customer</option>
-
-                            </select>
-                        </div>
+                        {userType !== 'S' && (
+                            <div className="w-full">
+                                <label className="block mb-2 text-gray-600">User Type</label>
+                                <select name="user_type" value={formData.user_type} onChange={handleChange} className="w-full p-2.5 border rounded">
+                                    <option value="">Select User Type</option>
+                                    <option value="A">Admin</option>
+                                    <option value="S">Seller</option>
+                                    <option value="C">Customer</option>
+                                </select>
+                            </div>
+                        )}
+                        
+                        {userType === 'S' && (
+                            <div className="w-full">
+                                <label className="block mb-2 text-gray-600">User Type</label>
+                                <input type="text" value={formData.user_type === 'C' ? 'Customer' : formData.user_type} disabled className="w-full p-2.5 border rounded bg-gray-100 cursor-not-allowed text-gray-600" />
+                            </div>
+                        )}
+                        
                     </div>
              
                 </form>

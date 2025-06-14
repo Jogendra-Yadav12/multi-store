@@ -21,6 +21,7 @@ const createProductTable = () => {
   const sql = `
     CREATE TABLE IF NOT EXISTS product (
         id INT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        seller_id INT(20) NOT NULL,
         name VARCHAR(255) NOT NULL,
         category INT(20) NOT NULL,
         brand INT(20) NOT NULL,
@@ -126,6 +127,7 @@ const createBrandTable = () => {
   CREATE TABLE IF NOT EXISTS brand (
       id INT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
+      status int(20) DEFAULT 1,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 `;

@@ -5,26 +5,14 @@ import {
   updateProduct,
   deleteProduct,
   getBestDeals,
-  getProductByCategoryById
+  getProductByCategoryById,
+  brandProduct
 } from '../Model/product.js';
-
-export const addbrand_id = (req, res) => {
-  const {name} = req.body;
-
-  const values = [name];
-  insertbrand_id(values, (err, result) => {
-    if (err) return res.status(500).json({ error: 'Database error', details: err });
-    res.status(201).json({
-      status: 'success',
-      message: 'brand added successfully',
-      brand_Id: result.insertId
-    });
-  });
-}
 
 export const addProduct = (req, res) => {
   const {
     name,
+    seller_id,
     category,
     brand_id,
     price,
@@ -40,6 +28,7 @@ export const addProduct = (req, res) => {
 
   const values = [
     name,
+    seller_id,
     category,
     brand_id,
     parseFloat(price),
@@ -102,6 +91,7 @@ export const updateProductById = (req, res) => {
   const { id } = req.params;
   const {
     name,
+    seller_id,
     category,
     brand_id,
     price,
@@ -119,6 +109,7 @@ export const updateProductById = (req, res) => {
 
   const values = [
     name,
+    parseInt(seller_id),
     parseInt(category),
     brand_id,
     parseFloat(price),
@@ -142,5 +133,14 @@ export const deleteProductById = (req, res) => {
   deleteProduct(id, (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ message: 'Product deleted successfully' });
+  });
+};
+
+
+export const brandProducts = (req, res) => {
+  const { id } = req.params;
+  brandProduct(id, (err,results) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    res.json(results);
   });
 };

@@ -5,6 +5,7 @@ export const insertProduct = (values, callback) => {
   const sql = `
     INSERT INTO product (
       name,
+      seller_id,
       category,
       brand_id,
       price,
@@ -14,7 +15,7 @@ export const insertProduct = (values, callback) => {
       status,
       description,
       images
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   db.query(sql, values, callback);
 };
@@ -39,10 +40,18 @@ export const getProductByCategoryById = (id, callback) => {
   
 };
 
+export const brandProduct = (id,callback) => {
+  const sql = (`
+    SELECT * FROM product WHERE brand_id = ?  
+  `)
+  db.query(sql,[id],callback);
+}
+
 export const updateProduct = (values, callback) => {
   const sql = `
     UPDATE product SET
       name = ?,
+      seller_id = ?,
       category = ?,
       brand_id = ?,
       price = ?,
