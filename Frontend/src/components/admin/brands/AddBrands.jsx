@@ -10,14 +10,15 @@ const AddBrands = () => {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
+        status:''
     })
     const handleSubmit = async (e) => {
-         e.preventDefault()
+        e.preventDefault()
         try {
 
             const res = await axios.post('http://localhost:5000/api/add-brand', formData);
             // console.log(formData);
-            
+
             if (res.data && (res.data.success === true || res.data.status === 'success')) {
                 toast.success("Brand Added Successfully!");
                 navigate("/view-brands")
@@ -31,7 +32,7 @@ const AddBrands = () => {
         }
     }
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
@@ -51,6 +52,16 @@ const AddBrands = () => {
                             <label className="block mb-2 text-gray-600">Brand Name</label>
                             <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border rounded" />
                         </div>
+
+                        <div className="w-full">
+                            <label className="block mb-2 text-gray-600">Status</label>
+                            <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
+                                <option value="">select status</option>
+                                <option value={1}>Active</option>
+                                <option value={0}>Disabled</option>
+                            </select>
+                        </div>
+
                     </div>
                 </form>
             </div>

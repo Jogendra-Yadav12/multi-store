@@ -29,3 +29,20 @@
     }
 }
   
+@keyframes bounceDrop {
+  0% {
+    transform: translateY(-30px) scale(1.2);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(5px) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-bounce-drop {
+  animation: bounceDrop 0.6s ease;
+}

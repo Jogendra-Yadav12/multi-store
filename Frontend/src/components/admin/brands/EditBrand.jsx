@@ -62,7 +62,15 @@ const EditBrand = () => {
                             <label className="block mb-2 text-gray-600">Brand Name</label>
                             <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border rounded" />
                         </div>
+                        <div className="w-full">
+                            <label className="block mb-2 text-gray-600">Status</label>
+                            <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2.5 border rounded text-gray-600">
+                                <option value={1}>Active</option>
+                                <option value={0}>Inactive</option>
+                            </select>
+                        </div>
                     </div>
+
                 </form>
             </div>
         </div>

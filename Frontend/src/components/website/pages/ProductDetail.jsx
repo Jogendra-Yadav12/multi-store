@@ -13,8 +13,11 @@ import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { useAuth } from '../../../context/AuthContext'
 import { toast } from 'react-toastify'
+import { useApp } from '../../../context/AppContext'
 
 const ProductDetail = () => {
+
+    const { setCartCount, fetchCartCount } = useApp()
     const { user } = useAuth()
     const { id } = useParams()
     const [fetchProduct, setFetchProducts] = useState([]);
@@ -42,7 +45,14 @@ const ProductDetail = () => {
 
             if (response.data.status === 'success') {
                 toast.success(response.data.message);
-            } else if (response.data.status === 'fail') {
+                setCartCount(prev => prev + 1);
+
+            } else if (response.data.status === 'updated') {
+                toast.info(response.data.message);
+                fetchCartCount(user.id);
+            }
+
+            else if (response.data.status === 'fail') {
                 toast.info(response.data.message);
             }
 

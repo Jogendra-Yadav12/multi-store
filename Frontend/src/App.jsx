@@ -24,6 +24,7 @@ import UserProfile from './components/website/pages/UserProfile';
 import BrandList from './components/admin/brands/BrandList';
 import AddBrands from './components/admin/brands/AddBrands';
 import EditBrand from './components/admin/brands/EditBrand';
+import MyCart from './components/website/pages/MyCart';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path='/category-list/:id' element={<ProductListByCategory />} />
         <Route path='/product-detail/:id' element={<ProductDetail />} />
         <Route path='/my-profile' element={<UserProfile/>} />
+        <Route path='my-cart' element={<MyCart/>} />
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />

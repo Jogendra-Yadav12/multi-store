@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import CloseIcon from '@mui/icons-material/Close';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useApp } from '../../../context/AppContext';
 
 const NavBar = () => {
 
@@ -17,13 +18,25 @@ const NavBar = () => {
     const { user } = useAuth()
     const { logoutCustomer } = useAuth()
     const navigate = useNavigate()
-
     const [menuOpen, setMenuOpen] = useState(false);
-
-
     const [isSticky, setSticky] = useState(false);
-
+    const { cartCount, fetchCartCount, } = useApp()
+    const [animateCart, setAnimateCart] = useState(false);
     // menu 
+
+    useEffect(() => {
+        if (user) {
+            fetchCartCount(user.id);
+        }
+
+        if (cartCount > 0) {
+            setAnimateCart(true);
+            const timeout = setTimeout(() => setAnimateCart(false), 600); // animation duration
+            return () => clearTimeout(timeout);
+        }
+    }, [user, cartCount]);
+
+
 
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
@@ -82,7 +95,7 @@ const NavBar = () => {
 
                                     {/* Dropdown */}
                                     <div className="absolute hidden md:block top-0 left-0">
-                                        <div className='mt-10 text-gray-500 bg-white shadow-lg border rounded px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-50 min-w-[180px] text-left'>
+                                        <div className='mt-10 text-gray-500 bg-white shadow-lg border rounded px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-50 min-w-[160px] text-left'>
                                             <NavLink to="/my-profile">
                                                 <p className='pb-2 hover:text-blue-500'>My Profile</p>
                                             </NavLink>
@@ -105,9 +118,24 @@ const NavBar = () => {
                     </div>
 
                     <div className='h-6 w-px  md:block bg-gray-300'></div>
-                    <div className='flex items-center gap-2'>
-                        <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className='hidden lg:block'>Cart</span>
+                    <NavLink to="/my-cart">
+                    <div className="flex items-center gap-2 relative">
+                        
+                            <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} />
+                            <span className='hidden lg:block'>Cart</span>
+
+
+                            {cartCount > 0 && (
+                                <span
+                                    className={`absolute -top-2 left-3 bg-gray-900/70 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full transition-transform duration-500 ease-out
+            ${animateCart ? 'animate-bounce-drop' : ''}`}
+                                >
+                                    {cartCount}
+                                </span>
+                            )}
+                       
                     </div>
+                     </NavLink>
                     <div className='h-6 w-px bg-gray-300 hidden md:block'></div>
                     <div className='lg:flex items-center gap-2 hidden md:block'>
                         <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className='hidden lg:block'>Become a Seller</span>
@@ -165,7 +193,7 @@ const NavBar = () => {
                 </div>
                 <div className='flex fixed bottom-3 items-center gap-2 '>
                     <div className="flex items-center">
-                        <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'><ExitToAppIcon  sx={{color: '#ffcc18'}} /> <span className='text-white'>LogOut</span></button>
+                        <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'><ExitToAppIcon sx={{ color: '#ffcc18' }} /> <span className='text-white'>LogOut</span></button>
                     </div>
                 </div>
                 <ul className="mt-5">
