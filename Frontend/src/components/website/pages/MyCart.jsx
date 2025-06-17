@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from '../layout/NavBar'
 import NavCategories from '../layout/NavCategories'
 import Footer from '../layout/Footer'
@@ -6,34 +6,94 @@ import { useApp } from '../../../context/AppContext'
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import axios from 'axios'
+import AddSharpIcon from '@mui/icons-material/AddSharp';
+import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { toast } from 'react-toastify'
 const MyCart = () => {
 
-    const { cartItems,fetchCartCount } = useApp();
+    const { cartItems, fetchCartCount } = useApp();
+    const [CartItem, setCartItems] = useState([]);
 
+    // const totlaItems = cartItems.length;
+    const platformFee = 5;
+    const deliveryFee = 50;
+    const totalQty = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    const totalPrice1 = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    const totalPrice = platformFee + deliveryFee + totalPrice1;
     const removeCartItme = async (id) => {
-        if (window.confirm('Are you sure you want to delete this category')) {
-            try {
-                await axios.delete(`http://localhost:5000/api/deleteCart/${id}`)
-                toast.error('product remove from cart!');
-                fetchCartCount()
-            } catch (err) {
-                console.error('Delete error:', err);
-                toast.error("Failed to delete cart itme.");
-            }
+
+        try {
+            await axios.delete(`http://localhost:5000/api/deleteCart/${id}`)
+            toast.error('product remove from your cart');
+            fetchCartCount()
+        } catch (err) {
+            console.error('Delete error:', err);
+            toast.error("Failed to delete cart itme.");
+        }
+
+    }
+
+    const handleDecrease = async (item) => {
+        if (item.quantity <= 1) return; // don't go below 1
+
+        const updatedQty = item.quantity - 1;
+
+        try {
+            await axios.put(`http://localhost:5000/api/updateCart/${item.id}`, {
+                product_id: item.product_id,
+                customer_id: item.customer_id,
+                quantity: updatedQty
+            });
+
+            // Update local state
+            setCartItems(prev =>
+                prev.map(cartItem =>
+                    cartItem.product_id === item.product_id
+                        ? { ...cartItem, quantity: updatedQty }
+                        : cartItem
+                )
+            );
+            fetchCartCount()
+        } catch (err) {
+            console.error("Error decreasing quantity", err);
         }
     }
+
+    const handleIncrease = (item) => {
+        if(item.quantity >= 5) {
+            return toast.warn("you can add only 5 items")
+        }
+        const updateQuantity = item.quantity + 1;
+
+        try {
+            axios.put(`http://localhost:5000/api/updateCart/${item.id}`, {
+                product_id: item.product_id,
+                customer_id: item.customer_id,
+                quantity: updateQuantity
+            });
+
+            setCartItems(prev =>
+                prev.map(CartItem => CartItem.product_id === item.product_id ?
+                    { ...CartItem, quantity: updateQuantity } : CartItem)
+            )
+            toast.success("Quantity updated!");
+            fetchCartCount()
+        } catch (err) {
+            console.error("Error increasing quantity", err);
+        }
+    }
+
 
     return (
         <div className='text-center flex flex-col'>
             <NavBar />
             <NavCategories />
-            <section className="py-8 antialiased md:py-6 bg-indigo-50 text-left">
+            <section className="py-8 antialiased md:py-6 bg-green-100 text-left">
                 <div className="mx-auto px-2 lg:px-12 md:px-6">
                     <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">Shopping Cart</h2>
 
                     <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-                        <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                        <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-5xl">
                             <div className="space-y-6">
 
                                 {
@@ -44,31 +104,34 @@ const MyCart = () => {
                                             {
                                                 cartItems.map((items, index) => {
 
+                                                    const qtyTotalPrice = items.quantity * items.price;
+
                                                     return (
-                                                        <div key={index} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                                            <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                                                        <div key={index} className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+                                                            <div className="w-full space-y-4 md:flex md:items-center md:flex-start md:gap-6 md:space-y-0">
                                                                 <a href="#" className="h-20 w-20 shrink-0 md:order-1">
 
                                                                     <img className="h-full w-full object-contain" src={items.image} alt={items.name.slice(0, 50)} />
                                                                 </a>
 
-                                                                <label for="counter-input" className="sr-only">Choose quantity:</label>
-                                                                <div className="flex items-center justify-between md:order-3 md:justify-end">
-                                                                    <div className="flex items-center">
-                                                                        <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                                            <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
-                                                                            </svg>
+                                                    
+                                                                <div className="flex md:w-2/5 items-end justify-between md:order-3">
+                                                                    <div className="flex items-center w-full">
+                                                                        <button type="button" onClick={() => handleDecrease(items)} id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
+                                                                            <RemoveSharpIcon />
                                                                         </button>
-                                                                        <input type="text" id="counter-input" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value="2" required />
-                                                                        <button type="button" id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                                            <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" strokewidth="2" d="M9 1v16M1 9h16" />
-                                                                            </svg>
+                                                                        <p className='px-3'>{items.quantity}</p>
+                                                                        <button type="button" onClick={() => handleIncrease(items)} id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
+                                                                            <AddSharpIcon />
                                                                         </button>
                                                                     </div>
-                                                                    <div className="text-end md:order-4 md:w-32">
+                                                                    <div className="md:order-4 w-full">
+                                                                        <span className='text-sm text-green-500 font-semibold'>Price</span>
                                                                         <p className="text-base font-bold text-gray-700">₹{items.price}</p>
+                                                                    </div>
+                                                                    <div className="md:order-4 w-full">
+                                                                        <span className='text-sm text-red-500 font-semibold'>Total Price</span>
+                                                                        <p className="text-base font-bold text-gray-700">₹{qtyTotalPrice}/-</p>
                                                                     </div>
                                                                 </div>
 
@@ -207,47 +270,45 @@ const MyCart = () => {
                         </div>
 
                         <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
-                            <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm  sm:p-6">
-                                <p className="text-xl font-semibold text-gray-900">Order summary</p>
+                            <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-lg sm:p-6">
+                                <p className="text-xl font-semibold text-gray-900 border-b-2 border-dashed border-gray-300 py-3">Order summary</p>
 
                                 <div className="space-y-4">
                                     <div className="space-y-2">
                                         <dl className="flex items-center justify-between gap-4">
-                                            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Original price</dt>
-                                            <dd className="text-base font-medium text-gray-900">$7,592.00</dd>
+                                            <dt className="text-base font-normal text-gray-600">Price ({totalQty} item)</dt>
+                                            <dd className="text-base font-medium text-gray-900">₹{totalPrice1}</dd>
                                         </dl>
 
                                         <dl className="flex items-center justify-between gap-4">
-                                            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
-                                            <dd className="text-base font-medium text-green-600">-$299.00</dd>
+                                            <dt className="text-base font-normal text-gray-500">Savings</dt>
+                                            <dd className="text-base font-medium text-green-600">-₹299.00</dd>
                                         </dl>
 
                                         <dl className="flex items-center justify-between gap-4">
-                                            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
-                                            <dd className="text-base font-medium text-gray-900">$99</dd>
+                                            <dt className="text-base font-normal text-gray-500">Delivery charge</dt>
+                                            <dd className="text-base font-medium text-gray-900">₹50</dd>
                                         </dl>
 
                                         <dl className="flex items-center justify-between gap-4">
-                                            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-                                            <dd className="text-base font-medium text-gray-900">$799</dd>
+                                            <dt className="text-base font-normal text-gray-500">Platform Fee</dt>
+                                            <dd className="text-base font-medium text-gray-900">₹5</dd>
                                         </dl>
                                     </div>
 
                                     <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
                                         <dt className="text-base font-bold text-gray-900">Total</dt>
-                                        <dd className="text-base font-bold text-gray-900">$8,191.00</dd>
+                                        <dd className="text-base font-bold text-gray-900">₹{totalPrice}</dd>
                                     </dl>
                                 </div>
 
-                                <a href="#" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
+                                <a href="#" className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
 
                                 <div className="flex items-center justify-center gap-2">
-                                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>
-                                    <a href="#" title="" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
+                                    <span className="text-sm font-normal text-gray-500"> or </span>
+                                    <a href="#" title="" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:text-blue-500  hover:no-underline">
                                         Continue Shopping
-                                        <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
-                                        </svg>
+                                       
                                     </a>
                                 </div>
                             </div>
@@ -259,7 +320,7 @@ const MyCart = () => {
                                         <input type="text" id="voucher" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="" required />
                                     </div>
                                     <div>
-                                        <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Apply Code</button>
+                                        <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-[#f1c422] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#ffd849] focus:outline-none focus:ring-4 focus:ring-primary-300">Apply Code</button>
                                     </div>
                                 </form>
                             </div>

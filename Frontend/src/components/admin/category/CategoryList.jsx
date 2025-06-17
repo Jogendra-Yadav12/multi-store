@@ -40,8 +40,6 @@ const CategoryList = () => {
           try {
             await axios.delete(`http://localhost:5000/api/categories/${id}`);
             toast.error('Category deleted successfully!');
-      
-            
             fetchCategories();
       
           } catch (err) {
