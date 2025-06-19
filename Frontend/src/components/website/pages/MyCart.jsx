@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NavBar from '../layout/NavBar'
 import NavCategories from '../layout/NavCategories'
 import Footer from '../layout/Footer'
@@ -10,9 +10,9 @@ import AddSharpIcon from '@mui/icons-material/AddSharp';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { toast } from 'react-toastify'
 const MyCart = () => {
+    const { cartItems, setCartItems } = useApp();
 
-    const { cartItems, fetchCartCount } = useApp();
-    const [CartItem, setCartItems] = useState([]);
+    const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
 
     // const totlaItems = cartItems.length;
     const platformFee = 5;
@@ -20,21 +20,25 @@ const MyCart = () => {
     const totalQty = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     const totalPrice1 = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
     const totalPrice = platformFee + deliveryFee + totalPrice1;
-    const removeCartItme = async (id) => {
 
+
+
+    const removeCartItme = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/deleteCart/${id}`)
-            toast.error('product remove from your cart');
-            fetchCartCount()
+            await axios.delete(`http://localhost:5000/api/deleteCart/${id}`);
+            toast.error('Product removed from your cart');
+
+            // Remove from context state directly
+            setCartItems(prev => prev.filter(item => item.id !== id));
         } catch (err) {
             console.error('Delete error:', err);
-            toast.error("Failed to delete cart itme.");
+            toast.error("Failed to delete cart item.");
         }
+    };
 
-    }
 
     const handleDecrease = async (item) => {
-        if (item.quantity <= 1) return; // don't go below 1
+        if (item.quantity <= 1) return;
 
         const updatedQty = item.quantity - 1;
 
@@ -45,43 +49,50 @@ const MyCart = () => {
                 quantity: updatedQty
             });
 
-            // Update local state
             setCartItems(prev =>
                 prev.map(cartItem =>
-                    cartItem.product_id === item.product_id
+                    cartItem.id === item.id
                         ? { ...cartItem, quantity: updatedQty }
                         : cartItem
                 )
             );
-            fetchCartCount()
+
+          
         } catch (err) {
             console.error("Error decreasing quantity", err);
         }
-    }
+    };
 
-    const handleIncrease = (item) => {
-        if(item.quantity >= 5) {
-            return toast.warn("you can add only 5 items")
+
+    const handleIncrease = async (item) => {
+        if (item.quantity >= 5) {
+            return toast.warn("You can add only 5 items");
         }
-        const updateQuantity = item.quantity + 1;
+
+        const updatedQty = item.quantity + 1;
 
         try {
-            axios.put(`http://localhost:5000/api/updateCart/${item.id}`, {
+            await axios.put(`http://localhost:5000/api/updateCart/${item.id}`, {
                 product_id: item.product_id,
                 customer_id: item.customer_id,
-                quantity: updateQuantity
+                quantity: updatedQty
             });
 
             setCartItems(prev =>
-                prev.map(CartItem => CartItem.product_id === item.product_id ?
-                    { ...CartItem, quantity: updateQuantity } : CartItem)
-            )
+                prev.map(cartItem =>
+                    cartItem.id === item.id
+                        ? { ...cartItem, quantity: updatedQty }
+                        : cartItem
+                )
+            );
+
             toast.success("Quantity updated!");
-            fetchCartCount()
+        
         } catch (err) {
             console.error("Error increasing quantity", err);
         }
-    }
+    };
+
 
 
     return (
@@ -97,7 +108,7 @@ const MyCart = () => {
                             <div className="space-y-6">
 
                                 {
-                                    cartItems.length === 0 ? (
+                                   safeCartItems && cartItems.length === 0 ? (
                                         <p className='text-4xl w-full border text-red-400 bg-white rounded-xl p-5 text-center'>Your Cart is Empty</p>
                                     ) : (
                                         <div className='space-y-3'>
@@ -114,7 +125,7 @@ const MyCart = () => {
                                                                     <img className="h-full w-full object-contain" src={items.image} alt={items.name.slice(0, 50)} />
                                                                 </a>
 
-                                                    
+
                                                                 <div className="flex md:w-2/5 items-end justify-between md:order-3">
                                                                     <div className="flex items-center w-full">
                                                                         <button type="button" onClick={() => handleDecrease(items)} id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
@@ -308,7 +319,7 @@ const MyCart = () => {
                                     <span className="text-sm font-normal text-gray-500"> or </span>
                                     <a href="#" title="" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:text-blue-500  hover:no-underline">
                                         Continue Shopping
-                                       
+
                                     </a>
                                 </div>
                             </div>

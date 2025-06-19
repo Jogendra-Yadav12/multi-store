@@ -43,6 +43,9 @@ import lesson_icon from './lesson_icon.svg'
 import bg_1 from './bg1.jpg'
 import bg_2 from './bg2.jpg'
 import bg_3 from './bg3.jpg'
+import tab from  './tab.png'
+import lapi from  './lapi.png'
+
 
 
 
@@ -92,6 +95,7 @@ export const assets = {
     bg_1,
     bg_2,
     bg_3,
-
+    tab,
+    lapi,
 }
 

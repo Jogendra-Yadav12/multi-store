@@ -16,11 +16,10 @@ export const AppContextProvider = ({ children }) => {
 
     } catch (err) {
       console.error("Cart fetch error:", err);
+      setCartItems([]);
     }
   };
 
-
-  // fetct cart products
 
 
   const value = {

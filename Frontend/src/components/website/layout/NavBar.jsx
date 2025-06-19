@@ -22,21 +22,23 @@ const NavBar = () => {
     const [isSticky, setSticky] = useState(false);
     const { cartCount, fetchCartCount, } = useApp()
     const [animateCart, setAnimateCart] = useState(false);
+    const {setCartItems} = useApp()
     // menu 
 
     useEffect(() => {
         if (user) {
             fetchCartCount(user.id);
         }
+    }, [user]);
 
+
+    useEffect(() => {
         if (cartCount > 0) {
             setAnimateCart(true);
             const timeout = setTimeout(() => setAnimateCart(false), 600); // animation duration
             return () => clearTimeout(timeout);
         }
-    }, [user, cartCount]);
-
-
+    },[cartCount])
 
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
@@ -48,10 +50,11 @@ const NavBar = () => {
 
     const handleLogout = () => {
         logoutCustomer();
+        localStorage.removeItem('cartItems')
         toast.success("Logged out");
         navigate('/');
-
-
+        setCartItems([])
+        fetchCartCount(0)
     }
 
     const handleScroll = () => {
@@ -137,9 +140,11 @@ const NavBar = () => {
                     </div>
                      </NavLink>
                     <div className='h-6 w-px bg-gray-300 hidden md:block'></div>
-                    <div className='lg:flex items-center gap-2 hidden md:block'>
+                    <NavLink to="/seller-form" >
+                        <div className='lg:flex items-center gap-2 hidden md:block'>
                         <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className='hidden lg:block'>Become a Seller</span>
                     </div>
+                    </NavLink>
                     <div className='h-6 w-px xl:hidden md:hidden bg-gray-300'></div>
                     <div className='md:hidden '>
                         <MenuOpenIcon sx={{ color: '#3FA8E9', fontSize: { xs: 28, md: 30, } }} onClick={toggleMenu} />
