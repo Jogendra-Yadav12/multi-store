@@ -9,8 +9,9 @@ import axios from 'axios'
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { toast } from 'react-toastify'
+import TodayDeals from '../layout/TodayDeals'
 const MyCart = () => {
-    const { cartItems, setCartItems } = useApp();
+    const { cartItems, setCartItems, setCartCount } = useApp();
 
     const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
 
@@ -30,6 +31,7 @@ const MyCart = () => {
 
             // Remove from context state directly
             setCartItems(prev => prev.filter(item => item.id !== id));
+            setCartCount(prev => prev - 1);
         } catch (err) {
             console.error('Delete error:', err);
             toast.error("Failed to delete cart item.");
@@ -57,7 +59,7 @@ const MyCart = () => {
                 )
             );
 
-          
+
         } catch (err) {
             console.error("Error decreasing quantity", err);
         }
@@ -65,9 +67,9 @@ const MyCart = () => {
 
 
     const handleIncrease = async (item) => {
-        if (item.quantity >= 5) {
-            return toast.warn("You can add only 5 items");
-        }
+        // if (item.quantity >= 5) {
+        //     return toast.warn("You can add only 5 items");
+        // }
 
         const updatedQty = item.quantity + 1;
 
@@ -87,7 +89,7 @@ const MyCart = () => {
             );
 
             toast.success("Quantity updated!");
-        
+
         } catch (err) {
             console.error("Error increasing quantity", err);
         }
@@ -108,7 +110,7 @@ const MyCart = () => {
                             <div className="space-y-6">
 
                                 {
-                                   safeCartItems && cartItems.length === 0 ? (
+                                    safeCartItems && cartItems.length === 0 ? (
                                         <p className='text-4xl w-full border text-red-400 bg-white rounded-xl p-5 text-center'>Your Cart is Empty</p>
                                     ) : (
                                         <div className='space-y-3'>
@@ -126,7 +128,7 @@ const MyCart = () => {
                                                                 </a>
 
 
-                                                                <div className="flex md:w-2/5 items-end justify-between md:order-3">
+                                                                <div className="flex md:w-2/5 flex-col md:flex-row gap-5 items-end justify-between md:order-3">
                                                                     <div className="flex items-center w-full">
                                                                         <button type="button" onClick={() => handleDecrease(items)} id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
                                                                             <RemoveSharpIcon />
@@ -136,18 +138,20 @@ const MyCart = () => {
                                                                             <AddSharpIcon />
                                                                         </button>
                                                                     </div>
-                                                                    <div className="md:order-4 w-full">
-                                                                        <span className='text-sm text-green-500 font-semibold'>Price</span>
-                                                                        <p className="text-base font-bold text-gray-700">₹{items.price}</p>
-                                                                    </div>
-                                                                    <div className="md:order-4 w-full">
-                                                                        <span className='text-sm text-red-500 font-semibold'>Total Price</span>
-                                                                        <p className="text-base font-bold text-gray-700">₹{qtyTotalPrice}/-</p>
+                                                                    <div className='w-full flex items-end gap-5 justify-between'>
+                                                                        <div className="md:order-4 w-full">
+                                                                            <span className='text-xs text-green-500 font-semibold'>Price</span>
+                                                                            <p className="text-base font-bold text-gray-700">₹{items.price}</p>
+                                                                        </div>
+                                                                        <div className="md:order-4 w-full">
+                                                                            <span className='text-xs text-red-500 font-semibold'>Total Price</span>
+                                                                            <p className="text-base font-bold text-gray-700">₹{qtyTotalPrice}/-</p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
 
                                                                 <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                                                    <a href="#" className="text-base font-medium text-gray-800 hover:underline">{items.name}</a>
+                                                                    <a href="#" className="md:text-sm lg:text-base text-md font-medium md:line-clamp-2 text-gray-800 hover:underline">{items.name}</a>
 
                                                                     <div className="flex items-center gap-4">
                                                                         <button type="button" className=" bg-[#ffcc18] flex gap-1 items-center text-sm font-medium text-gray-50 px-2 py-1 rounded ">
@@ -173,111 +177,7 @@ const MyCart = () => {
                                 }
 
                             </div>
-                            <div className="hidden xl:mt-8 xl:block">
-                                <h3 className="text-2xl font-semibold text-gray-900">People also bought</h3>
-                                <div className="mt-6 grid grid-cols-3 gap-4 sm:mt-8">
-                                    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm ">
-                                        <a href="#" className="overflow-hidden rounded">
-                                            <img className="mx-auto h-44 w-44 dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="imac image" />
-                                            <img className="mx-auto hidden h-44 w-44 dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="imac image" />
-                                        </a>
-                                        <div>
-                                            <a href="#" className="text-lg font-semibold leading-tight text-gray-900 hover:underline">iMac 27”</a>
-                                            <p className="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">This generation has some improvements, including a longer continuous battery life.</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-lg font-bold text-gray-900">
-                                                <span className="line-through"> $399,99 </span>
-                                            </p>
-                                            <p className="text-lg font-bold leading-tight text-red-600 dark:text-red-500">$299</p>
-                                        </div>
-                                        <div className="mt-6 flex items-center gap-2.5">
-                                            <button data-tooltip-target="favourites-tooltip-1" type="button" className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white p-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
-                                                <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"></path>
-                                                </svg>
-                                            </button>
-                                            <div id="favourites-tooltip-1" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
-                                                Add to favourites
-                                                <div className="tooltip-arrow" data-popper-arrow></div>
-                                            </div>
-                                            <button type="button" className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 ">
-                                                <svg className="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
-                                                </svg>
-                                                Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm ">
-                                        <a href="#" className="overflow-hidden rounded">
-                                            <img className="mx-auto h-44 w-44 dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ps5-light.svg" alt="imac image" />
-                                            <img className="mx-auto hidden h-44 w-44 dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ps5-dark.svg" alt="imac image" />
-                                        </a>
-                                        <div>
-                                            <a href="#" className="text-lg font-semibold leading-tight text-gray-900 hover:underline">Playstation 5</a>
-                                            <p className="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">This generation has some improvements, including a longer continuous battery life.</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-lg font-bold text-gray-900">
-                                                <span className="line-through"> $799,99 </span>
-                                            </p>
-                                            <p className="text-lg font-bold leading-tight text-red-600 dark:text-red-500">$499</p>
-                                        </div>
-                                        <div className="mt-6 flex items-center gap-2.5">
-                                            <button data-tooltip-target="favourites-tooltip-2" type="button" className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white p-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
-                                                <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"></path>
-                                                </svg>
-                                            </button>
-                                            <div id="favourites-tooltip-2" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 ">
-                                                Add to favourites
-                                                <div className="tooltip-arrow" data-popper-arrow></div>
-                                            </div>
-                                            <button type="button" className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
-                                                <svg className="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
-                                                </svg>
-                                                Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm ">
-                                        <a href="#" className="overflow-hidden rounded">
-                                            <img className="mx-auto h-44 w-44 dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/apple-watch-light.svg" alt="imac image" />
-                                            <img className="mx-auto hidden h-44 w-44 dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/apple-watch-dark.svg" alt="imac image" />
-                                        </a>
-                                        <div>
-                                            <a href="#" className="text-lg font-semibold leading-tight text-gray-900 hover:underline">Apple Watch Series 8</a>
-                                            <p className="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">This generation has some improvements, including a longer continuous battery life.</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-lg font-bold text-gray-900">
-                                                <span className="line-through"> $1799,99 </span>
-                                            </p>
-                                            <p className="text-lg font-bold leading-tight text-red-600 dark:text-red-500">$1199</p>
-                                        </div>
-                                        <div className="mt-6 flex items-center gap-2.5">
-                                            <button data-tooltip-target="favourites-tooltip-3" type="button" className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white p-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
-                                                <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"></path>
-                                                </svg>
-                                            </button>
-                                            <div id="favourites-tooltip-3" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
-                                                Add to favourites
-                                                <div className="tooltip-arrow" data-popper-arrow></div>
-                                            </div>
 
-                                            <button type="button" className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
-                                                <svg className="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
-                                                </svg>
-                                                Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
@@ -327,7 +227,7 @@ const MyCart = () => {
                             <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm  sm:p-6">
                                 <form className="space-y-4">
                                     <div>
-                                        <label for="voucher" className="mb-2 block text-sm font-medium text-gray-900"> Do you have a voucher or gift card? </label>
+                                        <label htmlFor="voucher" className="mb-2 block text-sm font-medium text-gray-900"> Do you have a voucher or gift card? </label>
                                         <input type="text" id="voucher" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="" required />
                                     </div>
                                     <div>
@@ -337,6 +237,11 @@ const MyCart = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+
+
+                <div className="">
+                    <TodayDeals />
                 </div>
             </section>
 

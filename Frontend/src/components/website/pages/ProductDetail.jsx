@@ -17,19 +17,40 @@ import { useApp } from '../../../context/AppContext'
 
 const ProductDetail = () => {
 
-    const { setCartCount, fetchCartCount } = useApp()
+    const { cartItems, setCartItems,fetchCartCount } = useApp()
     const { user } = useAuth()
     const { id } = useParams()
     const [fetchProduct, setFetchProducts] = useState([]);
     const [mainImage, setMainImage] = useState('');
 
-    const handleAddToCart = async () => {
+   const handleAddToCart = async () => {
+    try {
+        const product = fetchProduct[0];
+        const imagesArray = product.images ? product.images.split(",") : [];
+        const mainImageUrl = `http://localhost:5000/uploads/${imagesArray[0]}`;
 
-        try {
-            const product = fetchProduct[0];
-            const imagesArray = product.images ? product.images.split(",") : [];
-            const mainImageUrl = `http://localhost:5000/uploads/${imagesArray[0]}`;
+        const existingItem = cartItems.find(item => item.product_id === product.id);
 
+        if (existingItem) {
+            // ✅ Already in cart – increase quantity (no max limit)
+            const updatedQty = existingItem.quantity + 1;
+
+            await axios.put(`http://localhost:5000/api/updateCart/${existingItem.id}`, {
+                product_id: existingItem.product_id,
+                customer_id: existingItem.customer_id,
+                quantity: updatedQty
+            });
+
+            // Update local state
+            setCartItems(prev =>
+                prev.map(item =>
+                    item.id === existingItem.id ? { ...item, quantity: updatedQty } : item
+                )
+            );
+
+            toast.success("Quantity increased in your cart.");
+        } else {
+            // Not in cart – add as new
             const addCartData = {
                 product_id: product.id,
                 name: product.name,
@@ -39,33 +60,20 @@ const ProductDetail = () => {
                 customer_id: user.id,
             };
 
-            // console.log("Sending cartData: ", addCartData);
-
             const response = await axios.post('http://localhost:5000/api/add-cart', addCartData);
 
             if (response.data.status === 'success') {
                 toast.success(response.data.message);
-                setCartCount(prev => prev + 1);
-
-            } else if (response.data.status === 'updated') {
-                toast.info(response.data.message);
-                fetchCartCount(user.id);
-            }
-
-            else if (response.data.status === 'fail') {
-                toast.info(response.data.message);
-            }
-
-        } catch (error) {
-            console.error("Cart API Error:", error);
-            if (error.response?.data?.message) {
-                toast.warning(error.response.data.message);
+                fetchCartCount(user.id); // optional: update cartItems
             } else {
-                toast.error("Something went wrong while adding to cart.");
+                toast.error(response.data.message);
             }
         }
-
+    } catch (error) {
+        console.error("Cart API Error:", error);
+        toast.error("Something went wrong while adding to cart.");
     }
+};
 
     // Add to Cart Api 
 
@@ -101,9 +109,9 @@ const ProductDetail = () => {
                             <div className='flex flex-col md:flex-row items-start text-left justify-start w-full gap-5 ' key={item.id}>
 
 
-                                <div className='w-[500px]'>
+                                <div className='md:w-[500px] w-full'>
                                     {/* Main Image Display */}
-                                    <div className="w-[500px] h-[450px] relative overflow-hidden flex items-center justify-center bg-white">
+                                    <div className="md:w-[500px] w-full h-full md:h-[450px] relative overflow-hidden flex items-center justify-center bg-white">
                                         {/* Top wishList icon */}
                                         <div className="absolute -top-3 right-1 cursor-pointer  text-gray-500 text-sm font-semibold px-2 py-3  z-10">
                                             <FavoriteBorderIcon />
@@ -151,7 +159,7 @@ const ProductDetail = () => {
                                             :
                                             <span className='bg-red-400 px-3 p-1 rounded-md text-gray-50'>Out Of Stcok</span>}
                                         </div>
-                                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">
+                                        <h1 className="md:text-xl text-md font-semibold text-gray-900 sm:text-2xl">
                                             {item.name}
                                         </h1>
 
@@ -249,11 +257,11 @@ const ProductDetail = () => {
                                             <span className="text-lg text-gray-500 line-through">₹{item.price}</span>
                                             <span className='text-green-500 font-sans font-medium'>{percentOff}% Off</span>
                                         </div>
-                                        <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+                                        <div className="mt-6 flex  items-center gap-2">
 
 
                                             <button
-                                                className="text-white bg-[#fa664c] mt-4 sm:mt-0 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 hover:text-gray-700 transition-all duration-300 ease"
+                                                className="text-white bg-[#fa664c] sm:mt-0 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center border-gray-200 hover:bg-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-100 hover:text-gray-700 transition-all duration-300 ease"
                                                 role="button"
                                                 onClick={handleAddToCart}
                                             >
@@ -263,7 +271,7 @@ const ProductDetail = () => {
                                             </button>
 
                                             <button
-                                                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium hover:text-gray-700 focus:outline-none bg-[#f4c620] text-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all duration-300 ease"
+                                                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium hover:text-gray-700 focus:outline-none bg-[#f4c620] text-white rounded-lg border border-gray-200 hover:bg-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all duration-300 ease"
                                                 role="button"
                                             >
                                                 <ShoppingBagIcon sx={{ fontSize: { xs: 24, md: 24 } }} />

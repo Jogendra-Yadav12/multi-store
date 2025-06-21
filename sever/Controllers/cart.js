@@ -35,7 +35,7 @@ export const addCart = (req, res) => {
 
 export const getCartById = (req,res) => {
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
     getCartByCustomerId(id,(err,results)=> {
         if (err) return res.status(500).json({error:'Database errro'});
         res.json(results);

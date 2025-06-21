@@ -22,7 +22,7 @@ const NavBar = () => {
     const [isSticky, setSticky] = useState(false);
     const { cartCount, fetchCartCount, } = useApp()
     const [animateCart, setAnimateCart] = useState(false);
-    const {setCartItems} = useApp()
+    const { setCartItems } = useApp()
     // menu 
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const NavBar = () => {
             const timeout = setTimeout(() => setAnimateCart(false), 600); // animation duration
             return () => clearTimeout(timeout);
         }
-    },[cartCount])
+    }, [cartCount])
 
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
@@ -78,7 +78,7 @@ const NavBar = () => {
         <>
             <div className={`${isSticky ? 'fixed top-0 left-0 w-full shadow-md z-50 bg-white/50' : ''} flex items-center w-full justify-between backdrop-blur-sm  gap-2 md:gap-10 px-2 md:px-6 lg:px-12 py-1 pt-1 border-b border-gray-200 transition-all duration-500 ease`}>
                 <div className='w-full'>
-                    <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-52 cursor-pointer ' />
+                    <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-34 md:w-48 cursor-pointer ' />
                 </div>
                 <div className='w-full'>
                     <SearchBar />
@@ -122,28 +122,28 @@ const NavBar = () => {
 
                     <div className='h-6 w-px  md:block bg-gray-300'></div>
                     <NavLink to="/my-cart">
-                    <div className="flex items-center gap-2 relative">
-                        
+                        <div className="flex items-center gap-2 relative">
+
                             <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} />
                             <span className='hidden lg:block'>Cart</span>
 
 
                             {cartCount > 0 && (
                                 <span
-                                    className={`absolute -top-2 left-3 bg-gray-900/70 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full transition-transform duration-500 ease-out
+                                    className={`absolute -top-2 left-3 bg-gray-900/70 text-white md:w-5 md:h-5 text-[10px] md:text-sm w-4 h-4 flex items-center justify-center rounded-full transition-transform duration-500 ease-out
             ${animateCart ? 'animate-bounce-drop' : ''}`}
                                 >
                                     {cartCount}
                                 </span>
                             )}
-                       
-                    </div>
-                     </NavLink>
+
+                        </div>
+                    </NavLink>
                     <div className='h-6 w-px bg-gray-300 hidden md:block'></div>
                     <NavLink to="/seller-form" >
                         <div className='lg:flex items-center gap-2 hidden md:block'>
-                        <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className='hidden lg:block'>Become a Seller</span>
-                    </div>
+                            <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className='hidden lg:block'>Become a Seller</span>
+                        </div>
                     </NavLink>
                     <div className='h-6 w-px xl:hidden md:hidden bg-gray-300'></div>
                     <div className='md:hidden '>
@@ -193,19 +193,22 @@ const NavBar = () => {
                     )
                 }
 
-                <div className='flex fixed bottom-12 items-center gap-2 '>
-                    <StorefrontOutlinedIcon sx={{ color: '#ffcc18', fontSize: { xs: 24, md: 30 } }} /><span className=''>Become a Seller</span>
-                </div>
-                <div className='flex fixed bottom-3 items-center gap-2 '>
-                    <div className="flex items-center">
-                        <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'><ExitToAppIcon sx={{ color: '#ffcc18' }} /> <span className='text-white'>LogOut</span></button>
-                    </div>
-                </div>
+
                 <ul className="mt-5">
                     <li className="py-1 cursor-pointer">Home</li>
                     <li className="py-1 cursor-pointer">About</li>
                     <li className="py-1 cursor-pointer">Contact</li>
                 </ul>
+                <div className='w-full absolute bottom-3' >
+                    <div className='flex items-center gap-2 py-3'>
+                        <StorefrontOutlinedIcon sx={{ color: '#ffcc18', fontSize: { xs: 24, md: 30 } }} /><span className=''>Become a Seller</span>
+                    </div>
+                    <div className='flex items-center gap-2 '>
+                        <div className="flex items-center">
+                            <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'><ExitToAppIcon sx={{ color: '#ffcc18' }} /> <span className='text-white'>LogOut</span></button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </>
