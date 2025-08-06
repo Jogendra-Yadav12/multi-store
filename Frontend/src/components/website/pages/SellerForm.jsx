@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../layout/NavBar'
 import Footer from '../layout/Footer'
-import { assets } from '../../../assets/assets'
+// import { assets } from '../../../assets/assets'
 import SouthTwoToneIcon from '@mui/icons-material/SouthTwoTone';
 
 const SellerForm = () => {
@@ -9,9 +9,9 @@ const SellerForm = () => {
         <div className="w-full">
             <NavBar />
 
-            <div className="flex items-end flex-col lg:flex-row justify-between gap-16 md:gap-5 lg:px-12 md:px-6 px-2 pb-12 bg-cover bg-center bg-no-repeat bg-[url('assets/bg-4.jpg')] bg-gray-600 bg-blend-multiply">
-                <div className='w-full text-left bg-gray-900/75 rounded-lg flex justify-center py-8 shadow-md shadow-slate-600 backdrop-blur-sm px-5 order-2 sm:mt-12'>
-                    <form className="md:max-w-xl w-full">
+            <div className="flex items-end flex-col lg:flex-row justify-center gap-16 md:gap-5 lg:px-12 md:px-6 px-2 pb-12 bg-cover bg-center bg-no-repeat bg-[url('assets/bg-4.jpg')] bg-gray-400 bg-blend-multiply">
+                <div className='text-left bg-gray-900/75 rounded-lg flex justify-center py-8 shadow-md shadow-slate-600 backdrop-blur-sm px-5 order-2 sm:mt-12'>
+                    <form className="md:max-w-xxl w-full">
 
                         <div className="grid md:grid-cols-2 md:gap-6">
                             <div className="relative z-0 w-full mb-5 group">
@@ -98,16 +98,14 @@ const SellerForm = () => {
                     </form>
                 </div>
 
-                <div className='text-center relative flex flex-col items-center justify-center order-1 md:order-2'>
-                    {/* <div class="w-12 h-12 absolute top-0  flex items-center justify-center text-blue-400 border border-blue-800 rounded-full p-2">
-                            <SouthTwoToneIcon className='animate-bounce' />
-                    </div> */}
-                    <h1 className='py-12 text-4xl drop-shadow-md  text-gray-50'>Register <span className='text-blue-700 text-6xl font-serif'><i>SabMilega </i></span> Seller Account </h1>
+                {/* <div className='text-center relative flex flex-col items-center justify-center order-1 md:order-2'>
+                   
+                   
                     <div className='w-full flex items-end justify-center'>
                         <img src={assets.tab} className='float-animation w-20 md:w-40 absolute left-1 md:left-5  -bottom-4' alt='Seller img' />
                         <img src={assets.lapi} className='w-10/12' alt='laptop' />
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <Footer />

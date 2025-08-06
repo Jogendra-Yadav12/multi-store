@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 
 import { assets } from '../../../assets/assets';
 
-const images = [assets.bg_1, assets.bg_2, assets.bg_3];
+const images = [assets.bg_5, assets.bg_6, assets.bg_7, assets.bg_8, assets.bg_1, assets.bg_2, assets.bg_3];
 
 const Hero = () => {
   const swiperRef = useRef(null);
@@ -26,7 +26,7 @@ const Hero = () => {
 
   return (
     <div className="relative w-full mx-auto px-2 md:px-6 lg:px-12 py-4 ">
-      <div className="relative md:h-96 rounded-lg">
+      <div className="relative rounded-lg">
         <Swiper
           pagination={{
           dynamicBullets: true,
@@ -34,14 +34,14 @@ const Hero = () => {
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           modules={[Autoplay,Pagination]}
           autoplay={{ delay: 5000 }}
-          className="w-full h-full rounded-lg"
+          className="w-full md:max-h-[490px] rounded-lg"
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover rounded-md transition-all duration-500 ease-in-out"
+                className="w-full h-full object-cover align-middle rounded-md transition-all duration-500 ease-in-out"
               />
             </SwiperSlide>
           ))}

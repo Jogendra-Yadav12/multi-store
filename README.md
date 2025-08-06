@@ -5,6 +5,13 @@ Frontend themes
 
 3. https://multikart-frontend-next-json.vercel.app/?theme=medical
 
+4. axios for api
+5. framer motion for animation
+6. react-tostify for notification
+7. swiper for slider
+8. tailwind for styling components
+9. mui icons-material
+
 
 Backend 
 

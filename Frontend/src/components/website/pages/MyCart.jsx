@@ -10,19 +10,15 @@ import AddSharpIcon from '@mui/icons-material/AddSharp';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { toast } from 'react-toastify'
 import TodayDeals from '../layout/TodayDeals'
+import { useAuth } from '../../../context/AuthContext'
 const MyCart = () => {
-    const { cartItems, setCartItems, setCartCount } = useApp();
+    const { cartItems, setCartItems, setCartCount, calculateSummary } = useApp();
+    const { user } = useAuth()
 
     const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
 
     // const totlaItems = cartItems.length;
-    const platformFee = 5;
-    const deliveryFee = 50;
-    const totalQty = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-    const totalPrice1 = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
-    const totalPrice = platformFee + deliveryFee + totalPrice1;
-
-
+    const {platformFee, deliveryFee, saving, totalQty, totalPrice, totalPrice1} = calculateSummary(cartItems, user);
 
     const removeCartItme = async (id) => {
         try {
@@ -119,6 +115,8 @@ const MyCart = () => {
 
                                                     const qtyTotalPrice = items.quantity * items.price;
 
+
+
                                                     return (
                                                         <div key={index} className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                                                             <div className="w-full space-y-4 md:flex md:items-center md:flex-start md:gap-6 md:space-y-0">
@@ -193,17 +191,17 @@ const MyCart = () => {
 
                                         <dl className="flex items-center justify-between gap-4">
                                             <dt className="text-base font-normal text-gray-500">Savings</dt>
-                                            <dd className="text-base font-medium text-green-600">-₹299.00</dd>
+                                            <dd className="text-base font-medium text-green-600">-₹{saving}</dd>
                                         </dl>
 
                                         <dl className="flex items-center justify-between gap-4">
                                             <dt className="text-base font-normal text-gray-500">Delivery charge</dt>
-                                            <dd className="text-base font-medium text-gray-900">₹50</dd>
+                                            <dd className="text-base font-medium text-gray-900">₹{deliveryFee}</dd>
                                         </dl>
 
                                         <dl className="flex items-center justify-between gap-4">
                                             <dt className="text-base font-normal text-gray-500">Platform Fee</dt>
-                                            <dd className="text-base font-medium text-gray-900">₹5</dd>
+                                            <dd className="text-base font-medium text-gray-900">₹{platformFee}</dd>
                                         </dl>
                                     </div>
 
@@ -213,34 +211,24 @@ const MyCart = () => {
                                     </dl>
                                 </div>
 
-                                <a href="#" className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
+                                <a href="checkout" className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
 
                                 <div className="flex items-center justify-center gap-2">
                                     <span className="text-sm font-normal text-gray-500"> or </span>
-                                    <a href="#" title="" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:text-blue-500  hover:no-underline">
+                                    <a href="/" title="" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:text-blue-500  hover:no-underline">
                                         Continue Shopping
 
                                     </a>
                                 </div>
                             </div>
 
-                            <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm  sm:p-6">
-                                <form className="space-y-4">
-                                    <div>
-                                        <label htmlFor="voucher" className="mb-2 block text-sm font-medium text-gray-900"> Do you have a voucher or gift card? </label>
-                                        <input type="text" id="voucher" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="" required />
-                                    </div>
-                                    <div>
-                                        <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-[#f1c422] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#ffd849] focus:outline-none focus:ring-4 focus:ring-primary-300">Apply Code</button>
-                                    </div>
-                                </form>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
 
 
-                <div className="">
+                <div className="mt-10">
                     <TodayDeals />
                 </div>
             </section>

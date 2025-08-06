@@ -26,6 +26,7 @@ import AddBrands from './components/admin/brands/AddBrands';
 import EditBrand from './components/admin/brands/EditBrand';
 import MyCart from './components/website/pages/MyCart';
 import SellerForm from './components/website/pages/SellerForm';
+import CheckoutPage from './components/website/pages/CheckoutPage';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path='/my-profile' element={<UserProfile/>} />
         <Route path='/my-cart' element={<MyCart/>} />
         <Route path='/seller-form' element={<SellerForm />} />
+        <Route path='/checkout' element={<CheckoutPage/>} />
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />
