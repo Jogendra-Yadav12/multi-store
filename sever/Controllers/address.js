@@ -8,9 +8,9 @@ import {
   } from '../Model/address.js';
   
   export const addAddress = (req, res) => {
-    const { address, country, city, state, postal_code, customer_id } = req.body;
-  
-    const values = [address, country, city, state, postal_code, customer_id];
+    const {address,shop_name, city, state,country, postal_code, bank_details, ifsc_code, customer_id } = req.body;
+    
+    const values = [address,shop_name, city, state,country, postal_code, bank_details, ifsc_code, customer_id];
   
     insertAddress(values, (err, result) => {
       if (err) return res.status(500).json({ error: 'Database error', details: err });

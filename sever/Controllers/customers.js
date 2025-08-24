@@ -9,6 +9,8 @@ import {
   getCustomerLoginByEmail 
 } from '../Model/customers.js';
 
+import {} from '../Model/address.js'
+
 const SALT_ROUNDS = 10;
 
 export const loginFrontend = async (req, res) => {
@@ -138,4 +140,34 @@ export const deleteCustomerById = (req, res) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ message: 'Customer deleted successfully' });
   });
+};
+
+export const addSeller = async(req,res) => {
+  const { name, email, password, number, user_type, address,shop_name,city,state,country,postal_code,bank_details,ifsc_code } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const values = [name, email, hashedPassword, number,user_type];
+
+    insertCustomer(values, (err, result) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      const customerId = result.insertId;
+
+      // Insert seller profile details
+      const profileValues = [
+        address, shop_name, city, state,country, postal_code, bank_details, ifsc_code, customer_id
+      ];
+      
+      insertAddress(profileValues, (err2) => {
+        if (err2) return res.status(500).json({ error: 'Profile insert failed', details: err2.message });
+
+        res.status(201).json({
+          status: 'success',
+          message: 'Seller added successfully with profile details',
+          customerId: customerId
+        });
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Password hashing failed', details: error.message });
+  }
 };

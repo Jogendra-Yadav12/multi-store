@@ -96,28 +96,32 @@ const createCategoryTable = () => {
 createCategoryTable();
 
 // Address Table
-const AddressTable = () =>{
+const AddressTable = () => {
   const sql = `
-  CREATE TABLE IF NOT EXISTS address (
+    CREATE TABLE IF NOT EXISTS address (
       id INT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       address VARCHAR(255) NOT NULL,
-      country VARCHAR(100) NOT NULL,
+      shop_name VARCHAR(255) NULL,
       city VARCHAR(100) NOT NULL,
       state VARCHAR(100) NOT NULL,
+      country VARCHAR(100) NOT NULL,
       postal_code VARCHAR(20) NOT NULL,
+      bank_details VARCHAR(255) NULL,
+      ifsc_code VARCHAR(50) NULL,
       customer_id INT(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-    `;
-    db.query(sql, (err) => {
-      if (err) {
-        console.error('Error creating category table:', err.message);
-      } else {
-        console.log('Address table ready (if not already existing)');
-      }
-    });
-  }
+  `;
+  
+  db.query(sql, (err) => {
+    if (err) {
+      console.error('Error creating address table:', err.message);
+    } else {
+      console.log('Address table ready (if not already existing)');
+    }
+  });
+};
 
   AddressTable();
 

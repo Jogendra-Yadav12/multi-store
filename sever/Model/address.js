@@ -1,10 +1,11 @@
 import db from '../config/db.js';
 
+// customerId, shop_name, address, city, state, country, postal_code, bank_details, ifsc_code
 export const insertAddress = (values, callback) => {
     const sql = `
       INSERT INTO address (
-        address, country, city, state, postal_code, customer_id
-      ) VALUES (?, ?, ?, ?, ?, ?)
+        address,shop_name, city, state,country, postal_code, bank_details, ifsc_code, customer_id
+      ) VALUES (?, ?, ?, ?, ?, ? ,? ,? ,?)
     `;
     db.query(sql, values, callback);
   };
