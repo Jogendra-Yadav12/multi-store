@@ -77,8 +77,8 @@ const NavBar = () => {
     return (
         <>
             <div className={`${isSticky ? 'fixed top-0 left-0 w-full shadow-md z-50 bg-white/50' : ''} flex items-center w-full justify-between backdrop-blur-sm  gap-2 md:gap-10 px-2 md:px-6 lg:px-12 py-1 pt-1 border-b border-gray-200 transition-all duration-500 ease`}>
-                <div className='w-full'>
-                    <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-34 md:w-48 cursor-pointer ' />
+                <div className='w-34 md:w-96'>
+                    <img onClick={() => navigate('/')} src={assets.logo} alt='Logo' className='w-full cursor-pointer ' />
                 </div>
                 <div className='w-full'>
                     <SearchBar />

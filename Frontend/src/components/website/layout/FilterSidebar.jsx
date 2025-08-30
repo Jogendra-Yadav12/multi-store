@@ -1,4 +1,4 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const FilterSidebar = ({ categoryId, min = 0, max = 50000, onChange }) => {

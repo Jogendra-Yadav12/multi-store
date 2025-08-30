@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Footer from '../layout/Footer'
-import NavBar from '../layout/NavBar'
-import NavCategories from '../layout/NavCategories'
+import Footer from '../../layout/Footer'
+import NavBar from '../../layout/NavBar'
+import NavCategories from '../../layout/NavCategories'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -11,9 +11,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { useAuth } from '../../../context/AuthContext'
+import { useAuth } from '../../../../context/AuthContext'
 import { toast } from 'react-toastify'
-import { useApp } from '../../../context/AppContext'
+import { useApp } from '../../../../context/AppContext'
 
 const ProductDetail = () => {
 

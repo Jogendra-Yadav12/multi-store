@@ -35,7 +35,7 @@ const NavCategories = () => {
             <div key={cat.id} className="relative group text-left hidden lg:block">
                 <NavLink
                     to={`/category-list/${cat.id}`}
-                    className="px-4 py-1 text-md rounded-full text-gray-700 bg-blue-100 flex items-center gap-1 whitespace-nowrap"
+                    className="px-4 py-1 text-md rounded-full text-gray-600 font-bold flex items-center gap-1 whitespace-nowrap"
                 >
                     {cat.name}
                     {cat.children && cat.children.length > 0 && (
@@ -58,7 +58,7 @@ const NavCategories = () => {
                             >
                                 <NavLink
                                     to={`/category-list/${child.id}`}
-                                    className="px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 rounded flex justify-between items-center"
+                                    className="px-3 py-1 text-sm text-gray-700 hover:bg-indigo-100 rounded flex justify-between items-center"
                                 >
                                     {child.name}
                                     {child.children && child.children.length > 0 && (
@@ -76,7 +76,7 @@ const NavCategories = () => {
                                             <NavLink
                                                 key={subChild.id}
                                                 to={`/category-list/${subChild.id}`}
-                                                className="block text-sm px-3 py-1 text-gray-700 hover:bg-gray-100 rounded"
+                                                className="block text-sm px-3 py-1 text-gray-700 hover:bg-indigo-100 rounded"
                                             >
                                                 {subChild.name}
                                             </NavLink>

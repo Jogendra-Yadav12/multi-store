@@ -38,9 +38,9 @@ const Categories = () => {
                 {
                     Categories.map((cate) => (
                         <NavLink to={`/category-list/${cate.id}`} key={cate.id} >
-                            <div className="flex items-center flex-col w-32 h-32 border p-5 md:p-4 md:w-40 md:h-40 cursor-pointer rounded-full overflow-hidden shadow-md text-center bg-gray-50 hover:border-amber-500 transition-all duration-100 ease-in">
+                            <div className="flex items-center flex-col w-32 h-32 border p-5 md:p-4 md:w-36 md:h-36 cursor-pointer rounded overflow-hidden shadow-md text-center bg-gray-50 hover:border-amber-500 transition-all duration-100 ease-in">
 
-                                <img src={`http://localhost:5000/uploads/${cate.image}`} alt={cate.name} className="h-16 w-16 md:w-24 md:h-24 mx-auto mb-2 rounded-full object-cover" />
+                                <img src={`http://localhost:5000/uploads/${cate.image}`} alt={cate.name} className="h-16 w-16 md:w-24 md:h-24 mx-auto mb-2 rounded object-cover" />
                                 <p className="text-xs md:text-xs">{cate.name}</p>
 
                             </div>

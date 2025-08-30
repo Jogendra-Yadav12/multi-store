@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import NavBar from '../layout/NavBar'
-import Footer from '../layout/Footer'
+import NavBar from '../../layout/NavBar'
+import Footer from '../../layout/Footer'
 import { NavLink, useParams } from 'react-router-dom'
 import axios from 'axios'
-import ProductCard from '../layout/ProductCard'
-import NavCategories from '../layout/NavCategories'
-import FilterSidebar from '../layout/FilterSidebar'
+import ProductCard from '../../layout/ProductCard'
+import NavCategories from '../../layout/NavCategories'
+import FilterSidebar from '../../layout/FilterSidebar'
 
 const ProductListByCategory = () => {
     const { id } = useParams();

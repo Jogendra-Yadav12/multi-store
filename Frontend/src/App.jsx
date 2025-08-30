@@ -16,17 +16,18 @@ import AddCustomer from './components/admin/customer/AddCustomer';
 import CustomerList from './components/admin/customer/CustomerList';
 import EditCustomer from './components/admin/customer/EditCustomer';
 import Homepage from './components/website/pages/Homepage';
-import WebsiteLogin from './components/website/pages/Login';
-import SignUp from './components/website/pages/SignUp';
-import ProductListByCategory from './components/website/pages/ProductListByCategory';
-import ProductDetail from './components/website/pages/ProductDetail';
-import UserProfile from './components/website/pages/UserProfile';
+import ProductListByCategory from './components/website/pages/products/ProductListByCategory';
+import ProductDetail from './components/website/pages/products/ProductDetail';
+import UserProfile from './components/website/pages/users/UserProfile';
 import BrandList from './components/admin/brands/BrandList';
 import AddBrands from './components/admin/brands/AddBrands';
 import EditBrand from './components/admin/brands/EditBrand';
-import MyCart from './components/website/pages/MyCart';
-import SellerForm from './components/website/pages/SellerForm';
-import CheckoutPage from './components/website/pages/CheckoutPage';
+import MyCart from './components/website/pages/cart/MyCart';
+import SellerForm from './components/website/pages/seller/SellerForm';
+import CheckoutPage from './components/website/pages/checkout/CheckoutPage';
+import Login from './components/website/pages/login/Login';
+import SignUp from './components/website/pages/login/SignUp';
+
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
       <Routes>
         {/* website routes */}
         <Route path='/' element={<Homepage/>} />
-        <Route path='/login' element={<WebsiteLogin />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/sign-up' element={<SignUp/>} />
 
         {/* productlistbyCategory */}
@@ -48,6 +49,8 @@ function App() {
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />
+
+
 
         {/* Protected Admin Layout with nested routes */}
         <Route path="/" element={<PrivateRoute><Admin /></PrivateRoute>}>

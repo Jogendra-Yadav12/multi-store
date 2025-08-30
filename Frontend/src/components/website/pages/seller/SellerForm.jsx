@@ -1,6 +1,6 @@
 import React from 'react'
-import NavBar from '../layout/NavBar'
-import Footer from '../layout/Footer'
+import NavBar from '../../layout/NavBar'
+import Footer from '../../layout/Footer'
 // import { assets } from '../../../assets/assets'
 import SouthTwoToneIcon from '@mui/icons-material/SouthTwoTone';
 

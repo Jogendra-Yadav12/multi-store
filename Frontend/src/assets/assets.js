@@ -40,14 +40,14 @@ import profile_img from './profile_img.png'
 import profile_img2 from './profile_img2.png'
 import profile_img3 from './profile_img3.png'
 import lesson_icon from './lesson_icon.svg'
-import bg_1 from './bg1.jpg'
-import bg_2 from './bg2.jpg'
-import bg_3 from './bg3.jpg'
-import bg_4 from './bg4.jpg'
-import bg_5 from './bg5.jpg'
-import bg_6 from './bg6.jpg'
-import bg_7 from './bg7.jpg'
-import bg_8 from './bg8.jpg'
+import bg_1 from './bg1.webp'
+import bg_2 from './bg2.webp'
+import bg_3 from './bg3.webp'
+import bg_4 from './bg4.webp'
+// import bg_5 from './bg5.jpg'
+// import bg_6 from './bg6.jpg'
+// import bg_7 from './bg7.jpg'
+// import bg_8 from './bg8.jpg'
 
 import tab from './tab.png'
 import lapi from './lapi.png'
@@ -102,10 +102,7 @@ export const assets = {
     bg_2,
     bg_3,
     bg_4,
-    bg_5,
-    bg_6,
-    bg_7,
-    bg_8,
+  
     tab,
     lapi,
 }

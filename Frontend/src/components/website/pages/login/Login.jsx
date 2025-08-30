@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import NavBar from '../layout/NavBar'
-import Footer from '../layout/Footer'
+import NavBar from '../../layout/NavBar'
+import Footer from '../../layout/Footer'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useAuth } from '../../../context/AuthContext'
+import { useAuth } from '../../../../context/AuthContext'
 import axios from 'axios'
 
 const Login = () => {

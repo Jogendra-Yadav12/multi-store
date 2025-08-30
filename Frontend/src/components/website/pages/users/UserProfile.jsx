@@ -1,10 +1,10 @@
 import React from 'react'
-import NavBar from '../layout/NavBar'
-import Footer from '../layout/Footer'
-import NavCategories from '../layout/NavCategories'
-import { assets } from '../../../assets/assets'
+import NavBar from '../../layout/NavBar'
+import Footer from '../../layout/Footer'
+import NavCategories from '../../layout/NavCategories'
+import { assets } from '../../../../assets/assets'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { useAuth } from '../../../context/AuthContext'
+import { useAuth } from '../../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 

@@ -62,11 +62,11 @@ const Footer = () => {
           </div>
         </div>
         <div className='w-full bg-black border-b border-gray-400 my-5'></div>
-        <div className='flex w-full items-center justify-between'>
-          <p className="text-md text-gray-600">
+        <div className='w-full flex-row md:flex items-center justify-center md:justify-between'>
+          <p className="w-full text-md text-gray-600 text-center md:text-left">
             <strong className='text-blue-500 text-lg'>SabMilega</strong> © 2025 All Rights Reserved
           </p>
-          <div className="flex space-x-6 text-gray-600">
+          <div className="w-full flex mt-5 md:mt-0 justify-center md:justify-end space-x-6 text-gray-600">
             <a className="hover:opacity-75" target="_blank" rel="noreferrer">
               <span className="sr-only"> Facebook </span>
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

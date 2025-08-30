@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import NavBar from '../layout/NavBar'
-import Footer from '../layout/Footer'
+import NavBar from '../../layout/NavBar'
+import Footer from '../../layout/Footer'
 import { NavLink, useNavigate } from 'react-router-dom'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
