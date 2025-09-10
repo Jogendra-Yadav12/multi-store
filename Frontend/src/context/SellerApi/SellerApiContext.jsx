@@ -9,9 +9,7 @@ export const SellerApiContextProvider = ({children}) => {
     // add Seller data and address
 
     const addSellerAndCustomerAddress = () => {
-
-        
-
+             
     }
 
 

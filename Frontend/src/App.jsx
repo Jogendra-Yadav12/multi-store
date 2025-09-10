@@ -27,6 +27,7 @@ import SellerForm from './components/website/pages/seller/SellerForm';
 import CheckoutPage from './components/website/pages/checkout/CheckoutPage';
 import Login from './components/website/pages/login/Login';
 import SignUp from './components/website/pages/login/SignUp';
+import UserInfo from './components/website/pages/users/UserInfo';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path='/my-cart' element={<MyCart/>} />
         <Route path='/seller-form' element={<SellerForm />} />
         <Route path='/checkout' element={<CheckoutPage/>} />
+      
 
         {/* Public login route */}
         <Route path="/admin-login" element={<AdminLogin />} />
