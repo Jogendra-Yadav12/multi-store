@@ -26,7 +26,7 @@ export const AddressApiProvider = ({ children }) => {
       const res = await axios.post("http://localhost:5000/api/add-address", payload);
 
       if (res.data) {
-        toast.success("Address Added Successfully ✅");
+        toast.success("Address Added Successfully");
 
         await fetchAddress(customerId);
 
