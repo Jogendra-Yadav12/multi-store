@@ -57,11 +57,7 @@ const UserInfo = () => {
                     <div className='flex items-center gap-2'>
                         <button className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-100 hover:text-gray-800">
 
-                            Edit
-                        </button>
-                        <button className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-100 hover:text-gray-800">
-
-                            Delete
+                            Update
                         </button>
                     </div>
                 </div>
