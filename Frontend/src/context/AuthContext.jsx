@@ -1,8 +1,11 @@
+import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   let storedAdminUser = localStorage.getItem("adminUser");
   let storedCustomerUser = localStorage.getItem("user");
 
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginCustomer = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
-    
+
     setUser(userData);
   };
 
@@ -54,10 +57,36 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     setUser(null)
   }
+
+  // update users details 
+
+  // AuthContext.js
+  const updateUserDetails = async (userId, updatedData) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/api/customer/${userId}`,
+        {
+          ...user,         
+          ...updatedData,  
+        }
+      );
+
+      if (res.data) {
+        setUser(res.data); // context update
+        localStorage.setItem("user", JSON.stringify(res.data)); // storage update
+        toast.success("Details updated successfully!");
+      }
+    } catch (err) {
+      console.error("Update user api error", err);
+      toast.error("Failed to update details");
+    }
+  };
+
+
   return (
     <AuthContext.Provider value={{
       adminUser, login, logout,
-      user, loginCustomer, logoutCustomer
+      user, loginCustomer, logoutCustomer, updateUserDetails
     }}>
       {children}
     </AuthContext.Provider>
