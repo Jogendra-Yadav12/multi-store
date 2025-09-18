@@ -56,14 +56,14 @@ const UserInfo = () => {
                                             name="f_name"
                                             value={formData.f_name}
                                             onChange={handleChange}
-                                            className="border p-2 rounded w-full"
+                                            className="border p-1 text-gray-600 rounded w-full"
                                         />
                                         <input
                                             type="text"
-                                            name="f_name"
+                                            name="l_name"
                                             value={formData.l_name}
                                             onChange={handleChange}
-                                            className="border p-2 rounded w-full"
+                                            className="border p-1 text-gray-600 rounded w-full"
                                         />
                                     </div>
                                 ) : (
@@ -80,7 +80,7 @@ const UserInfo = () => {
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="border p-2 rounded w-full"
+                                        className="border p-1 text-gray-600 rounded w-full"
                                     />
                                 ) : (
                                     <p className="text-sm font-medium text-gray-800">
@@ -96,7 +96,7 @@ const UserInfo = () => {
                                         name="number"
                                         value={formData.number}
                                         onChange={handleChange}
-                                        className="border p-2 rounded w-full"
+                                        className="border p-1 text-gray-600 rounded w-full"
                                     />
                                 ) : (
                                     <p className="text-sm font-medium text-gray-800">

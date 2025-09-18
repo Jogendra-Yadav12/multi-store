@@ -89,10 +89,10 @@ const NavBar = () => {
                             user ? (
                                 <div className="cursor-pointer relative">
                                     <div className='flex flex-col gap-0 items-center md:gap-2  md:flex-row'>
-                                        <PersonIcon sx={{ fontSize: { xs: 25, md: 30, }, color: '#3FA8E9' }} />
+                                        <PersonIcon sx={{ fontSize: { xs: 25, md: 25, }, color: '#3FA8E9' }} />
                                         <div className='leading-3 flex items-center gap-1'>
-                                            <p className='text-sm md:text-lg hidden md:block'>Hello</p>
-                                            <p><i className='text-blue-400 hidden md:block text-xs md:text-lg'>{user.f_name}</i></p>
+                                            <p className='text-sm hidden md:block'>Hello,</p>
+                                            <p className='text-orange-400 hidden md:block text-sm'>{user.f_name}</p>
                                         </div>
                                     </div>
 
@@ -113,7 +113,7 @@ const NavBar = () => {
                                 </div>
                             ) : (
                                 <NavLink to="/login" className="flex items-center gap-2">
-                                    <PersonIcon sx={{ color: '#3FA8E9', fontSize: { xs: 25, md: 30, } }} />
+                                    <PersonIcon sx={{ color: '#3FA8E9', fontSize: { xs: 25, md: 25, } }} />
                                     <span className='hidden md:block'>Sign Up/Sign In</span>
                                 </NavLink>
                             )
@@ -124,7 +124,7 @@ const NavBar = () => {
                     <NavLink to="/my-cart">
                         <div className="flex items-center gap-2 relative">
 
-                            <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} />
+                            <ShoppingCartOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 25 } }} />
                             <span className='hidden lg:block'>Cart</span>
 
 
@@ -142,7 +142,7 @@ const NavBar = () => {
                     <div className='h-6 w-px bg-gray-300 hidden md:block'></div>
                     <NavLink to="/seller-form" >
                         <div className='lg:flex items-center gap-2 hidden md:block'>
-                            <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 30 } }} /><span className='hidden lg:block'>Become a Seller</span>
+                            <StorefrontOutlinedIcon sx={{ color: '#3FA8E9', fontSize: { xs: 24, md: 25 } }} /><span className='hidden lg:block'>Become a Seller</span>
                         </div>
                     </NavLink>
                     <div className='h-6 w-px xl:hidden md:hidden bg-gray-300'></div>
@@ -178,7 +178,7 @@ const NavBar = () => {
                                     <PersonIcon sx={{ fontSize: { xs: 20, md: 30, }, color: '#ffcc18' }} />
                                 </div>
                                 <div className='leading-3 flex items-center gap-1'>
-                                    <p className='text-md'>Hello</p>
+                                    <p className='text-sm'>Hello</p>
                                     <p className='text-orange-400 text-md'>{user.f_name}</p>
                                 </div>
                             </div>

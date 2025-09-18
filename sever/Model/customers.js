@@ -33,6 +33,8 @@ export const getCustomerById = (id, callback) => {
 
 // Update Customer
 export const updateCustomer = (values, callback) => {
+  // console.log(values);
+  
   const sql = `
     UPDATE customers 
     SET f_name = ?, l_name = ?, email = ?, number = ?,user_type=?

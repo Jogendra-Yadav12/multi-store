@@ -59,8 +59,6 @@ export const AuthProvider = ({ children }) => {
   }
 
   // update users details 
-
-  // AuthContext.js
   const updateUserDetails = async (userId, updatedData) => {
     try {
       const res = await axios.put(
@@ -70,11 +68,13 @@ export const AuthProvider = ({ children }) => {
           ...updatedData,  
         }
       );
-
       if (res.data) {
-        setUser(res.data); // context update
-        localStorage.setItem("user", JSON.stringify(res.data)); // storage update
-        toast.success("Details updated successfully!");
+        const customerData = await axios.get(`http://localhost:5000/api/customer/${userId}`);
+        console.log(customerData);
+
+        setUser(customerData.data); 
+        localStorage.setItem("user", JSON.stringify(customerData.data)); // storage update
+        toast.success("Your Details updated successfully!");
       }
     } catch (err) {
       console.error("Update user api error", err);

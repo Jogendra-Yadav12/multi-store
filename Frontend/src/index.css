@@ -63,3 +63,11 @@
     transform: translatey(0px);
   }
 }
+
+.custom-toast {
+  min-width: 400px !important;
+  max-width: 600px !important;
+  text-align: left;
+  font-size: 15px;
+  color: #eee;
+}
