@@ -5,7 +5,8 @@ import Customers from "./Routes/customers.js";
 import Brand from "./Routes/brand.js";
 import Address from "./Routes/address.js";
 import Cart from "./Routes/cart.js";
-import Payment from "./Routes/payment.js"
+import Payment from "./Routes/payment.js";
+import Order from "./Routes/order.js";
 import cors from "cors"; 
 const port = 5000;
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api', Brand);
 app.use('/api', Address);
 app.use('/api', Cart);
 app.use('/api', Payment);
+app.use('/api', Order);
 
 app.get('/', (req, res) => {
     res.send("Welcome to the Express server");

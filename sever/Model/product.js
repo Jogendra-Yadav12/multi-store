@@ -2,6 +2,7 @@
 import db from '../config/db.js';
 
 export const insertProduct = (values, callback) => {
+  console.log(values)
   const sql = `
     INSERT INTO product (
       name,
