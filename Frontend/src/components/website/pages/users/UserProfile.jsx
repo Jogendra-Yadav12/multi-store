@@ -34,7 +34,7 @@ const UserProfile = () => {
                         <div className="w-100 bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-6">
                             <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
                                 <div className="flex flex-row items-center w-full gap-6 xl:flex-row">
-                                    <div className="w-18 h-18 overflow-hidden border border-gray-200 rounded-full">
+                                    <div className="w-16 h-16 md:w-18 md:h-18 overflow-hidden border border-gray-200 rounded-full">
                                         <img src={assets.profile_img} alt="user" />
                                     </div>
                                     <div className="order-3 xl:order-2">
@@ -57,19 +57,19 @@ const UserProfile = () => {
                             </div>
                         </div>
                         <div className='flex overflow-y-hidden gap-2 md:gap-0 md:flex-col'>
-                            <button onClick={() => setActiveTab('user-info')} className={`w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-4 text-left ${activeTab === 'user-info' ? 'text-blue-600 border-blue-500' : ''}`}>
+                            <button onClick={() => setActiveTab('user-info')} className={`w-full bg-white p-2 mb-2 text-xs text-center md:text-lg border border-gray-200 rounded-2xl md:p-4 md:text-left ${activeTab === 'user-info' ? 'text-blue-600 border-blue-500' : ''}`}>
                                 Personal Information
                             </button>
 
-                            <button onClick={() => setActiveTab('user-address')} className={`w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-4 text-left ${activeTab === 'user-address' ? 'text-blue-600 border-blue-500' : ''}`}>
+                            <button onClick={() => setActiveTab('user-address')} className={`w-full bg-white p-2 text-xs md:text-lg mb-2 border border-gray-200 rounded-2xl md:p-4 text-center md:text-left ${activeTab === 'user-address' ? 'text-blue-600 border-blue-500' : ''}`}>
                                 Address Information
                             </button>
 
-                            <div className="w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-4">
-                                <div className="flex items-center">
-                                    <button onClick={handleLogout} className='text-red-500 flex items-center gap-2 hover:opacity-50'>LogOut <ExitToAppIcon /></button>
-                                </div>
+
+                            <div className="flex items-center justify-center md:justify-start w-full bg-white p-2 mb-2 border border-gray-200 text-sm md:text-lg rounded-2xl md:p-4">
+                                <button onClick={handleLogout} className='text-red-500  flex items-center gap-2 hover:opacity-50'>LogOut <ExitToAppIcon /></button>
                             </div>
+
                         </div>
 
                     </div>

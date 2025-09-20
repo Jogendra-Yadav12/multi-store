@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../../context/AuthContext";
+import CreateIcon from '@mui/icons-material/Create'; 
 
 const UserInfo = () => {
     const { user, updateUserDetails } = useAuth();
@@ -42,7 +43,7 @@ const UserInfo = () => {
             <div className="w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-6">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                     <div className="w-full">
-                        <h4 className="text-lg font-semibold text-gray-800 lg:mb-6">
+                        <h4 className="text-lg font-semibold mb-3 text-gray-800 lg:mb-6">
                             Personal Information
                         </h4>
 
@@ -128,7 +129,7 @@ const UserInfo = () => {
                                 onClick={() => setIsEditing(true)}
                                 className="flex items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-100 hover:text-gray-800"
                             >
-                                Update
+                               <CreateIcon color="primary"/>
                             </button>
                         )}
                     </div>

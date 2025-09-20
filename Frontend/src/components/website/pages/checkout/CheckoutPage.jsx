@@ -59,7 +59,7 @@ const CheckoutPage = () => {
                                     </dl>
                                 </div>
 
-                                <a href="checkout" className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Payment</a>
+                                <a href="checkout" className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Place Order</a>
 
 
                             </div>
