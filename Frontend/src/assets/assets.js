@@ -51,6 +51,8 @@ import bg_4 from './bg4.webp'
 
 import tab from './tab.png'
 import lapi from './lapi.png'
+import productNotF from './noproduct.png'
+import emptyCart from './emptyCart.jpg'
 
 
 
@@ -105,5 +107,7 @@ export const assets = {
   
     tab,
     lapi,
+    productNotF,
+    emptyCart,
 }
 

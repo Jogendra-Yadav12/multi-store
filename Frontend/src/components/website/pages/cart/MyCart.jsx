@@ -11,6 +11,7 @@ import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { toast } from 'react-toastify'
 import TodayDeals from '../../layout/TodayDeals'
 import { useAuth } from '../../../../context/AuthContext'
+import { assets } from '../../../../assets/assets'
 const MyCart = () => {
     const { cartItems, setCartItems, setCartCount, calculateSummary } = useApp();
     const { user } = useAuth()
@@ -84,7 +85,7 @@ const MyCart = () => {
                 )
             );
 
-            toast.success("Quantity updated!");
+            toast.success(`Quantity updated! ${item.name} Quantity to '${item.quantity + 1}' `);
 
         } catch (err) {
             console.error("Error increasing quantity", err);
@@ -97,8 +98,8 @@ const MyCart = () => {
         <div className='text-center flex flex-col'>
             <NavBar />
             <NavCategories />
-            <section className="py-8 antialiased md:py-6 bg-green-100 text-left">
-                <div className="mx-auto px-2 lg:px-12 md:px-6">
+            <section className="py-8 antialiased md:py-6 bg-green-50 text-left">
+                <div className="mx-auto px-2 lg:px-12 md:px-6 ">
                     <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">Shopping Cart</h2>
 
                     <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
@@ -107,7 +108,10 @@ const MyCart = () => {
 
                                 {
                                     safeCartItems && cartItems.length === 0 ? (
-                                        <p className='text-4xl w-full border text-red-400 bg-white rounded-xl p-5 text-center'>Your Cart is Empty</p>
+                                        <div className='w-full h-100 flex flex-col text-center items-center justify-center'>
+                                            <img src={assets.emptyCart} className='w-80 mix-blend-multiply' alt='emptyCart' />
+                                            <p className='text-gray-500 text-xl'>Cart is empty</p>
+                                        </div>
                                     ) : (
                                         <div className='space-y-3'>
                                             {

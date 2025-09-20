@@ -6,75 +6,81 @@ import { useAuth } from "../AuthContext";
 const AddressApiContext = createContext();
 
 export const AddressApiProvider = ({ children }) => {
-  const [addresses, setAddresses] = useState([]);
   const [getAddress, setGetAddress] = useState([]);
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const customerId = user?.id;
 
   //  Add Address
-  const addAddress = async (newAddress, customerId) => {
+  const saveAndUpdateAddress = async (addressData, customerId) => {
     try {
       if (!customerId) {
         console.error("Customer ID missing!");
         return;
       }
+      let res;
 
-      const payload = { ...newAddress, customer_id: customerId };
-      console.log("Payload sending:", payload); 
 
-      const res = await axios.post("http://localhost:5000/api/add-address", payload);
+
+      if (addressData.id) {
+        res = await axios.put(`http://localhost:5000/api/address/${addressData.id}`, { ...addressData, customer_id: customerId });
+        // console.log(res);
+
+        toast.success("Address Updated Successfully");
+      } else {
+        res = await axios.post("http://localhost:5000/api/add-address", { ...addressData, customer_id: customerId });
+        // console.log(res);
+
+        toast.success("Address Added Successfully");
+      }
 
       if (res.data) {
-        toast.success("Address Added Successfully ✅");
-
         await fetchAddress(customerId);
-
-       
       }
     } catch (err) {
-      console.error("Error adding address", err);
-      toast.error("Failed to add address");
+      console.error("Error saving/updating address", err);
+      toast.error("Failed to save/update address");
+
     }
   };
 
 
 
-  //  Update Address
-  const updateAddress = (id, updatedData) => {
-    setAddresses((prev) =>
-      prev.map((addr) => (addr.id === id ? { ...addr, ...updatedData } : addr))
-    );
-
-  };
-
   //  Delete Address
-  const deleteAddress = (id) => {
-    setAddresses((prev) => prev.filter((addr) => addr.id !== id));
-
+  const deleteAddress = async (id, customerId) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/api/address/${id}`)
+      if (res.data) {
+        toast.success("Address Deleted Successfully")
+        setGetAddress((prev) => prev.filter((addr) => addr.id !== id))
+        await fetchAddress(customerId)
+      }
+    }
+    catch (err) {
+      console.error("Delete api error", err)
+      toast.error("Failed to delete address");
+    }
   };
 
 
   const fetchAddress = async (customer_id) => {
-      try{
-        const res  = await axios.get(`http://localhost:5000/api/cus_address/${customer_id}`)
-        console.log("Fetched addresses:", res.data);
-        setGetAddress(res.data)
-      }catch(err) {
-        console.error("Address Fetch error!", err);
-      }
+    try {
+      const res = await axios.get(`http://localhost:5000/api/cus_address/${customer_id}`)
+      // console.log("Fetched addresses:", res.data);
+      setGetAddress(res.data)
+    } catch (err) {
+      console.error("Address Fetch error!", err);
+    }
   }
 
   useEffect(() => {
-    if(customerId){
+    if (customerId) {
       fetchAddress(customerId)
     }
   }, [customerId])
 
   const value = {
-    addresses,
-    addAddress,
-    updateAddress,
+    saveAndUpdateAddress,
     deleteAddress,
     fetchAddress,
     getAddress

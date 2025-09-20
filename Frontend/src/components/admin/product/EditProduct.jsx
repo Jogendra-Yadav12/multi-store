@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import HeadingTag from '../layout/HeadingNav';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../context/AuthContext';
 
 const EditProduct = () => {
     const [activeTab, setActiveTab] = useState('general');
@@ -14,6 +15,17 @@ const EditProduct = () => {
     const [categories, setCategories] = useState([]);
     const [existingImageList, setExistingImageList] = useState([]);
     const [getBrand, setGetBrand] = useState([])
+
+    const { adminUser } = useAuth()
+
+    const seller = adminUser.user_type;
+    let seller_id = 0;
+
+    if (seller !== "A") {
+        seller_id = adminUser.id
+    }
+
+
     const [formData, setFormData] = useState({
         name: '',
         category: '',
@@ -44,6 +56,7 @@ const EditProduct = () => {
                     name: fetchedProduct.name,
                     category: fetchedProduct.category,
                     brand_id: fetchedProduct.brand_id,
+                    seller_id: seller_id,
                     price: fetchedProduct.price,
                     discount_price: fetchedProduct.discount_price,
                     status: fetchedProduct.status,

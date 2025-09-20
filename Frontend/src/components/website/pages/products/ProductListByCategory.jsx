@@ -6,6 +6,7 @@ import axios from 'axios'
 import ProductCard from '../../layout/ProductCard'
 import NavCategories from '../../layout/NavCategories'
 import FilterSidebar from '../../layout/FilterSidebar'
+import { assets } from '../../../../assets/assets'
 
 const ProductListByCategory = () => {
     const { id } = useParams();
@@ -56,8 +57,9 @@ const ProductListByCategory = () => {
                         <div className='grid grid-cols-1 md:grid-cols-5 gap-4 py-2 p-2'>
                             {
                                 products.length === 0 ? (
-                                    <div className="w-full col-span-full text-center text-lg text-red-500 font-semibold">
-                                        No Products Found in This Category.
+                                    <div className="w-full h-100 flex flex-col items-center justify-center col-span-full text-center text-lg text-red-500 font-semibold">
+                                        <img src={assets.productNotF} className='w-5/5 md:w-3/5' alt='product Not Found....' />
+                                         <p className='text-xl'>Sorry! No products available in this category.</p>
                                     </div>
                                 ) : (
                                     products.map((pitems) => (

@@ -23,6 +23,9 @@ export const addProduct = (req, res) => {
     description
   } = req.body;
 
+  // console.log(req.body);
+  
+
   // ✅ Handle multiple images from multer
   const images = req.files ? req.files.map(file => file.filename).join(',') : '';
 

@@ -3,6 +3,7 @@ import HeadingTag from '../layout/HeadingNav';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 
 const AddProducts = () => {
   const [activeTab, setActiveTab] = useState('general');
@@ -12,13 +13,20 @@ const AddProducts = () => {
   const [categories, setCategories] = useState([]);
   const { id } = useParams()
   const [getBrand, setGetBrand] = useState([])
+  const {adminUser} = useAuth()
 
+  const seller = adminUser.user_type;
+  let seller_id = 0;
 
+  if(seller !== "A"){
+      seller_id = adminUser.id
+  }
 
   const [formData, setFormData] = useState({
     name: '',
     category: '',
     brand_id: '',
+    seller_id:'',
     price: '',
     discount_price: '',
     status: '1',
@@ -27,6 +35,9 @@ const AddProducts = () => {
     description: '',
     images: []
   })
+
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -69,7 +80,8 @@ const AddProducts = () => {
     // Append all fields except images
     data.append('name', formData.name);
     data.append('category', formData.category);
-    data.append('brand_id', formData.brand);
+    data.append('brand_id', formData.brand_id);
+    data.append('seller_id', seller_id);
     data.append('price', formData.price);
     data.append('discount_price', formData.discount_price);
     data.append('status', formData.status);
@@ -77,6 +89,7 @@ const AddProducts = () => {
     data.append('quantity', formData.quantity);
     data.append('description', formData.description);
   
+        
     // Append images separately
     if (formData.images && formData.images.length > 0) {
       formData.images.forEach((img) => {
@@ -98,6 +111,7 @@ const AddProducts = () => {
         name: '',
         category: '',
         brand_id: '',
+        seller_id:'',
         price: '',
         discount_price: '',
         status: '',
@@ -156,6 +170,7 @@ const AddProducts = () => {
           {activeTab === 'general' && (
             <>
               <div className='flex flex-col md:flex-row items-center gap-5'>
+                {/* <input type='hidden' name='seller_id' id='seller_id' value={formData.seller_id}/> */}
                 <div className='w-full md:mb-5'>
                   <label htmlFor="product_name" className='block mb-2 text-gray-600'>Product Name</label>
                   <input type='text' id='name' value={formData.name} onChange={handleChange} name='name' className='w-full p-2 border border-gray-300 rounded' required />

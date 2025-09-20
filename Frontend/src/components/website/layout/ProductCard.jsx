@@ -33,8 +33,8 @@ const ProductCard = ({ product }) => {
         <h4 className="text-gray-800 font-semibold text-md">{product.name.slice(0, 25)}..</h4>
 
         <div className="flex gap-2 mt-1">
-          <span className="text-lg font-bold text-black">₹{product.discount_price}</span>
-          <span className="text-sm text-red-400 line-through">₹{product.price}</span>
+          <span className="text-lg font-bold text-black">₹{product.discount_price.toLocaleString('en-IN')}</span>
+          <span className="text-sm text-red-400 line-through">₹{product.price.toLocaleString('en-IN')}</span>
         </div>
 
         <p className="text-green-600 text-sm mt-1 font-medium">

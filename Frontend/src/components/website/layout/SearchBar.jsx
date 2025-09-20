@@ -16,7 +16,7 @@ const SearchBar = () => {
                         id="default-search"
                         className="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-0 focus:border-gray-300 focus:shadow-none"
                         placeholder="Search for Products and More..."
-                        autoComplete="off"
+                        autoComplete="on"
                     />
 
 

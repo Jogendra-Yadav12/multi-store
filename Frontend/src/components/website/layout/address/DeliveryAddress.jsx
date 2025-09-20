@@ -8,7 +8,7 @@ import { useAddressApi } from "../../../../context/address/AddressApiContaxt";
 const DeliveryAddress = () => {
     const [showModal, setShowModal] = useState(false);
     const { user } = useAuth();
-    const { addAddress } = useAddressApi()
+    const { saveAndUpdateAddress } = useAddressApi()
 
     const [formData, setFormData] = useState({
         f_name: user?.f_name || "",
@@ -39,7 +39,7 @@ const DeliveryAddress = () => {
             postal_code: formData.postal_code,
             
         };
-        await addAddress(finalData, user?.id);
+        await saveAndUpdateAddress(finalData, user?.id);
         setShowModal(false)
     };
 

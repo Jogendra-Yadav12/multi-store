@@ -21,7 +21,7 @@ const AddressCard = () => {
 
                             <div>
                                 <p className='mb-1'>{address.name} <span className='bg-gray-200 px-2 text-gray-500 rounded mx-2'>Home</span> <span>6386567102</span></p>
-                                <address >UPSIDA 12a Officer colony kanpur <span>208005</span></address>
+                                <address >{address.address} <span>{address.postal_code}</span></address>
 
                                 <div className='mt-3'>
                                     <button className='bg-[#ffcc18] py-2 px-5 text-sm rounded hover:opacity-80'>Delivery Here</button>
