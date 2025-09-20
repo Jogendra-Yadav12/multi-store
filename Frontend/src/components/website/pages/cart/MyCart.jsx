@@ -85,7 +85,7 @@ const MyCart = () => {
                 )
             );
 
-            toast.success(`Quantity updated! ${item.name} Quantity to '${item.quantity}' `);
+            toast.success(`Quantity updated! ${item.name} Quantity to '${item.quantity + 1}' `);
 
         } catch (err) {
             console.error("Error increasing quantity", err);

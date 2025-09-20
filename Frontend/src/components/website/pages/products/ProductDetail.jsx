@@ -252,9 +252,9 @@ const ProductDetail = () => {
                                         </div>
                                         <div className='flex items-end gap-2'>
                                             <span className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-                                                ₹{item.discount_price}
+                                                ₹{item.discount_price.toLocaleString('en-IN')}
                                             </span>
-                                            <span className="text-lg text-gray-500 line-through">₹{item.price}</span>
+                                            <span className="text-lg text-gray-500 line-through">₹{item.price.toLocaleString('en-IN')}</span>
                                             <span className='text-green-500 font-sans font-medium'>{percentOff}% Off</span>
                                         </div>
                                         <div className="mt-6 flex  items-center gap-2">

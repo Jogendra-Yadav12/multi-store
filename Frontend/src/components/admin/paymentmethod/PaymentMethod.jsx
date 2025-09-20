@@ -19,7 +19,7 @@ const PaymentMethod = () => {
         setFields([...fields, { name: "", status: "" }]);
     };
 
-    // remove field (kam se kam ek rehna chahiye)
+    // remove field 
     const removeField = (index) => {
         if (fields.length > 1) {
             const newFields = fields.filter((_, i) => i !== index);
