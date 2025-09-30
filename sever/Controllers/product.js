@@ -31,18 +31,18 @@ export const addProduct = (req, res) => {
 
   const values = [
     name,
-    seller_id,
-    category,
-    brand_id,
+    parseInt(seller_id),
+    parseInt(category),
+    parseInt(brand_id),
     parseFloat(price),
     parseFloat(discount_price),
-    stock,
+    parseInt(stock),
     parseInt(quantity),
-    status,
+    parseInt(status),
     description,
     images
   ];
-  
+ 
   insertProduct(values, (err, result) => {
     if (err) return res.status(500).json({ error: 'Database error', details: err });
     res.status(201).json({

@@ -29,6 +29,7 @@ import Login from './components/website/pages/login/Login';
 import SignUp from './components/website/pages/login/SignUp';
 import UserInfo from './components/website/pages/users/UserInfo';
 import PaymentMethod from './components/admin/paymentmethod/PaymentMethod';
+import OrderList from './components/admin/orders/OrderList';
 
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
           <Route path='add-brands' element={<AddBrands/>} />
           <Route path='edit-brand/:id' element={<EditBrand/>} />
           <Route path='payment-method' element={<PaymentMethod/>} />
+          <Route path='order-list' element={<OrderList/>} />
         </Route>
       </Routes>
 

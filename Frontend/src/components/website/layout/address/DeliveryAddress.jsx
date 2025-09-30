@@ -51,8 +51,8 @@ const DeliveryAddress = () => {
                     className="cursor-pointer flex items-center gap-2"
                     onClick={() => setShowModal(true)}
                 >
-                    <AddIcon className="text-blue-500" />
-                    <span className="text-blue-500 text-sm md:text-lg font-medium">
+                    <AddIcon className="text-blue-500" />{" "}
+                    <span className="text-blue-500 text-lg font-medium">
                         Add New Delivery Address
                     </span>
                 </div>
@@ -104,7 +104,6 @@ const DeliveryAddress = () => {
                                             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
                                             value={`${formData.f_name} ${formData.l_name}`} onChange={handleChange}
                                             required
-                                            readOnly
                                         />
                                     </div>
 
@@ -121,7 +120,6 @@ const DeliveryAddress = () => {
                                             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
                                             value={formData.number} onChange={handleChange}
                                             required
-                                            readOnly
                                         />
                                     </div>
 
@@ -154,7 +152,6 @@ const DeliveryAddress = () => {
                                             placeholder="name@gmail.com"
                                             value={formData.email} onChange={handleChange}
                                             required
-                                            readOnly
                                         />
                                     </div>
 

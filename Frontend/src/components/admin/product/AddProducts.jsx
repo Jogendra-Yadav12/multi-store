@@ -73,8 +73,7 @@ const AddProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Final Product Data', formData);
-  
+     
     const data = new FormData();
   
     // Append all fields except images
@@ -96,7 +95,6 @@ const AddProducts = () => {
         data.append('images', img);  // This must match multer field
       });
     }
-  
     try {
       await axios.post('http://localhost:5000/api/add-product', data, {
         headers: {
