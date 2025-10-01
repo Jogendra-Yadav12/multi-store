@@ -60,3 +60,13 @@ export const deleteCartById  = (req,res) => {
         res.json({ message: 'Delete Data' });
     })
 }
+
+
+export const clearCart =  (req, res) => {
+  const { userId } = req.params;
+
+  db.query("DELETE FROM cart WHERE customer_id = ?", [userId], (err, result) => {
+    if (err) return res.status(500).json({ error: "DB error", details: err });
+    res.json({ success: true, message: "Cart cleared" });
+  });
+}

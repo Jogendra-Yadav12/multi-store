@@ -27,9 +27,10 @@ import SellerForm from './components/website/pages/seller/SellerForm';
 import CheckoutPage from './components/website/pages/checkout/CheckoutPage';
 import Login from './components/website/pages/login/Login';
 import SignUp from './components/website/pages/login/SignUp';
-import UserInfo from './components/website/pages/users/UserInfo';
+// import UserInfo from './components/website/pages/users/UserInfo';
 import PaymentMethod from './components/admin/paymentmethod/PaymentMethod';
 import OrderList from './components/admin/orders/OrderList';
+import OrderConfirm from './components/website/pages/ordersummary/OrderConfirm';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         <Route path='/my-cart' element={<MyCart/>} />
         <Route path='/seller-form' element={<SellerForm />} />
         <Route path='/checkout' element={<CheckoutPage/>} />
+        <Route path='/order-confirm/:order_id' element={<OrderConfirm/>} />
       
 
         {/* Public login route */}
@@ -77,7 +79,7 @@ function App() {
         </Route>
       </Routes>
 
-      <ToastContainer position="top-center" theme="dark" autoClose={3000} toastClassName="custom-toast" />
+      <ToastContainer position="top-center" theme="dark" autoClose={1500} toastClassName="custom-toast" />
     </>
   );
 }
