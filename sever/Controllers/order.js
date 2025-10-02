@@ -7,9 +7,7 @@ import {
     insertOrderProduct,
     getOrderProducts
   } from '../Model/order.js';
-  
-  // ===== Orders =====
-  
+ 
   // Create order along with order products
   export const createOrder = (req, res) => {
     const { orderData, orderProducts } = req.body;

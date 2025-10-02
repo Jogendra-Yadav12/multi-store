@@ -14,10 +14,10 @@ router.post("/add-payment", createPayment);
 
 router.get("/getpayments", getPayments);
 
-router.get("/:id", getPaymentById);
+router.get("/getpayment/:id", getPaymentById);
 
-router.put("/:id", editPayment);
+router.put("/editpayment/:id", editPayment);
 
-router.delete("/:id", removePayment);
+router.delete("/removepayment/:id", removePayment);
 
 export default router;

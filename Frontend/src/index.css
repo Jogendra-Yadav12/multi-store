@@ -11,6 +11,11 @@
   font-family: Outfit;
 }
 
+.pac-container {
+  z-index: 10000 !important;
+}
+
+
 @layer base {
   html {
     scroll-behavior: smooth;

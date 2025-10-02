@@ -44,13 +44,14 @@ export const deleteOrder = (id, callback) => {
 
 // ===== Order Product =====
 export const insertOrderProduct = (data, callback) => {
-  const { order_id, product_id, name, image, quantity, price, customer_id } = data;
+  console.log(data);
+  const { order_id, product_id, name, image, quantity, price } = data;
   const sql = `
     INSERT INTO order_product
-      (order_id, product_id, name, image, quantity, price, customer_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+      (order_id, product_id, name, image, quantity, price)
+    VALUES (?, ?, ?, ?, ?, ?)
   `;
-  db.query(sql, [order_id, product_id, name, image, quantity, price, customer_id], callback);
+  db.query(sql, [order_id, product_id, name, image, quantity, price], callback);
 };
 
 export const getOrderProducts = (order_id, callback) => {

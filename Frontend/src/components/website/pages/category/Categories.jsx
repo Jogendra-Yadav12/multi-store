@@ -24,10 +24,6 @@ const Categories = () => {
         fetchCategories();
     }, []);
 
-
-
-
-
     return (
         <div className='w-full mx-auto px-2 md:px-6 lg:px-12 py-4'>
             <div className='text-left text-gray-600 border-b border-gray-300 py-2'>

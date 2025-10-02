@@ -10,14 +10,14 @@ import Categories from './category/Categories'
 
 const Homepage = () => {
     return (
-        <div className='text-center overflow-hidden'>
+        <div className="text-center overflow-hidden">
             <NavBar />
-            <NavCategories/>
-            <Hero/>
-            <Categories/>
+            <NavCategories />
+            <Hero />
+            <Categories />
             <TodayDeals />
             <TopElectronicBrands />
-            <Footer/>
+            <Footer />
         </div>
     )
 }
