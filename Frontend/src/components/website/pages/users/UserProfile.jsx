@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import UserInfo from './UserInfo'
 import UserAddress from './UserAddress'
 import { useState } from 'react'
+import UserOrders from './UserOrders';
 
 
 const UserProfile = () => {
@@ -64,6 +65,9 @@ const UserProfile = () => {
                             <button onClick={() => setActiveTab('user-address')} className={`w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-4 text-left ${activeTab === 'user-address' ? 'text-blue-600 border-blue-500' : ''}`}>
                                 Address Information
                             </button>
+                            <button onClick={() => setActiveTab('user-orders')} className={`w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-4 text-left ${activeTab === 'user-orders' ? 'text-blue-600 border-blue-500' : ''}`}>
+                                My Orders
+                            </button>
 
                             <div className="w-full bg-white p-5 mb-2 border border-gray-200 rounded-2xl lg:p-4">
                                 <div className="flex items-center">
@@ -82,6 +86,9 @@ const UserProfile = () => {
 
                         {activeTab === 'user-address' && (
                             <UserAddress />
+                        )}
+                        {activeTab === 'user-orders' && (
+                            <UserOrders />
                         )}
                     </div>
 

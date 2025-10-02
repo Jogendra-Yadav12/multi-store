@@ -8,6 +8,7 @@ const PaymentMethod = () => {
 
   const [customFields, setCustomFields] = useState([]);
   const [newField, setNewField] = useState("");
+  const [submittedData, setSubmittedData] = useState(null);
 
   // Handle default form inputs
   const handleChange = (e) => {
@@ -29,16 +30,61 @@ const PaymentMethod = () => {
     setCustomFields(updatedFields);
   };
 
+  // Remove custom field
+  const handleRemoveField = (index) => {
+    const updatedFields = [...customFields];
+    updatedFields.splice(index, 1);
+    setCustomFields(updatedFields);
+  };
+
   // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalData = { ...formData, customFields };
+    setSubmittedData(finalData); // store submitted data for table display
     console.log("Form Data:", finalData);
   };
 
   return (
     <div className="min-h-screen flex flex-col gap-6 md:p-5 p-2 pt-8">
       <h2 className="text-xl font-bold">Payment Management</h2>
+
+      {/* Table Preview */}
+      {submittedData && (
+        <div className="overflow-x-auto shadow bg-white rounded p-4">
+          <h3 className="text-lg font-semibold mb-3">Submitted Data</h3>
+          <table className="w-full border border-gray-300">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="border p-2">Field</th>
+                <th className="border p-2">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border p-2">Payment Name</td>
+                <td className="border p-2">{submittedData.name}</td>
+              </tr>
+              <tr>
+                <td className="border p-2">Status</td>
+                <td className="border p-2">
+                  {submittedData.status === "1"
+                    ? "Active"
+                    : submittedData.status === "0"
+                      ? "Disabled"
+                      : ""}
+                </td>
+              </tr>
+              {submittedData.customFields.map((field, index) => (
+                <tr key={index}>
+                  <td className="border p-2">{field.label}</td>
+                  <td className="border p-2">{field.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div className="flex justify-end">
         <button
@@ -97,7 +143,7 @@ const PaymentMethod = () => {
             <button
               type="button"
               onClick={handleAddField}
-              className="bg-green-600 text-white px-4 py-2 rounded"
+              className="bg-green-600 w-1/6 text-white px-4 py-2 rounded"
             >
               + Add Field
             </button>
@@ -105,17 +151,28 @@ const PaymentMethod = () => {
 
           {/* Render Custom Fields */}
           {customFields.map((field, index) => (
-            <div key={index} className="mt-4">
-              <label className="block mb-2 text-gray-600">{field.label}</label>
-              <input
-                type="text"
-                value={field.value}
-                name={field.label}
-                onChange={(e) =>
-                  handleCustomFieldChange(index, e.target.value)
-                }
-                className="w-full p-2 border rounded"
-              />
+            <div key={index} className="mt-4 flex gap-3 items-end">
+              <div className="flex-1">
+                <label className="block mb-2 text-gray-600">{field.label}</label>
+                <input
+                  type="text"
+                  value={field.value}
+                  name={field.label}
+                  onChange={(e) =>
+                    handleCustomFieldChange(index, e.target.value)
+                  }
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveField(index)}
+                  className="bg-red-600 text-white px-3 py-2 rounded"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           ))}
         </form>

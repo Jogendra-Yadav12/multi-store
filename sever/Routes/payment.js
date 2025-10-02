@@ -17,7 +17,7 @@ router.get("/getpayments", getPayments);
 router.get("/getpayment/:id", getPaymentById);
 
 router.put("/editpayment/:id", editPayment);
-
 router.delete("/removepayment/:id", removePayment);
+
 
 export default router;

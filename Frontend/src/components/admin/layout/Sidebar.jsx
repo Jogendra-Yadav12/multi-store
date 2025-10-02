@@ -18,6 +18,7 @@ const Sidebar = () => {
     {name: 'Brand', path: 'view-brands', icon: <AddIcon color="primary"/> },
     {name: 'Payment Method', path: 'payment-method', icon: <AddIcon color="primary"/> },
     {name: 'Customer', path: 'view-customer', icon: <PersonIcon color="primary"/> },
+    {name: 'Order List', path: 'order-list', icon: <PersonIcon color="primary"/> },
     {name: 'My Profile', path: 'profile', icon: <AccountBoxIcon color="primary"/> },
 
     

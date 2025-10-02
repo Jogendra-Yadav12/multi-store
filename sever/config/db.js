@@ -5,7 +5,7 @@ export const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'multi_store',
+  database: 'multi-store',
 });
 
 db.connect((err) => {

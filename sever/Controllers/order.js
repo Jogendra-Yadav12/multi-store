@@ -11,7 +11,8 @@ import {
   // Create order along with order products
   export const createOrder = (req, res) => {
     const { orderData, orderProducts } = req.body;
-  
+    console.log(req.body);
+    
     // Step 1: Insert order
     insertOrder(orderData, (err, result) => {
       if (err) return res.status(500).json({ error: "DB error", details: err });
@@ -45,7 +46,7 @@ import {
   
   // List all orders
   export const listOrders = (req, res) => {
-    getAllOrders((err, results) => {
+    getAllOrders((err, results) => {    
       if (err) return res.status(500).json({ error: "DB error", details: err });
       res.json(results);
     });
