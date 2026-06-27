@@ -19,8 +19,8 @@
 /storage/*.key
 /storage/pail
 /vendor
-implementation_plan
-backend_plan
+implementation_plan.md
+backend_plan.md
 Homestead.json
 Homestead.yaml
 Thumbs.db
