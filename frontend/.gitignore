@@ -18,10 +18,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor directories
+# Editor files
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
