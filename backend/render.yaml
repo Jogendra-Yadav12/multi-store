@@ -1,9 +1,8 @@
 services:
   - type: web
     name: multi-store-backend
-    runtime: php
-    buildCommand: bash render-build.sh
-    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
     envVars:
       - key: APP_NAME
@@ -13,21 +12,23 @@ services:
       - key: APP_DEBUG
         value: false
       - key: APP_KEY
-        generateValue: true
+        value: base64:LXdOy063qHz+PAOOkiJUFbGWtb9JNH6nNcYui7gmLDQ=
+      - key: APP_URL
+        value: https://multi-store-backend.onrender.com
       - key: LOG_CHANNEL
         value: stderr
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        sync: false
+        value: ep-snowy-silence-at80u7ih.c-9.us-east-1.aws.neon.tech
       - key: DB_PORT
-        sync: false
+        value: "5432;options=endpoint=ep-snowy-silence-at80u7ih"
       - key: DB_DATABASE
-        sync: false
+        value: neondb
       - key: DB_USERNAME
-        sync: false
+        value: neondb_owner
       - key: DB_PASSWORD
-        sync: false
+        value: npg_HARLfqMQU5i1
       - key: DB_SSLMODE
         value: require
       - key: SESSION_DRIVER
