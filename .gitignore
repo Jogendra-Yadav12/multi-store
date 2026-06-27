@@ -1,0 +1,19 @@
+# Root-level ignores for the multi-store repo
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# Editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
