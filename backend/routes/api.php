@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\SellerAuthController;
 use App\Http\Controllers\Seller\StoreController;
 use App\Http\Controllers\Admin\PlanController;
 use Illuminate\Support\Facades\Route;
@@ -11,8 +12,9 @@ Route::get('/health', function () {
 });
 
 // ── Public Routes ──
-Route::post('/auth/login', [AuthController::class, 'login']);
-Route::get('/plans',       [StoreController::class, 'plans']); // anyone can view plans
+Route::post('/auth/login',       [AuthController::class,     'login']);
+Route::post('/seller/register',  [SellerAuthController::class, 'register']);
+Route::get('/plans',             [StoreController::class,    'plans']);
 
 // ── Protected Routes (must be logged in) ──
 Route::middleware('auth:sanctum')->group(function () {
