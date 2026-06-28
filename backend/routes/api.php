@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Seller\StoreController;
+use App\Http\Controllers\Admin\PlanController;
 use Illuminate\Support\Facades\Route;
 
 // ── Health Check ──
@@ -30,7 +31,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ── Admin Routes ──
     Route::middleware('role:admin')->prefix('admin')->group(function () {
-        // Phase 3 — coming soon
+        // Plan Management
+        Route::get('/plans',        [PlanController::class, 'index']);
+        Route::post('/plans',       [PlanController::class, 'store']);
+        Route::get('/plans/{id}',   [PlanController::class, 'show']);
+        Route::put('/plans/{id}',   [PlanController::class, 'update']);
+        Route::delete('/plans/{id}',[PlanController::class, 'destroy']);
     });
 
 });

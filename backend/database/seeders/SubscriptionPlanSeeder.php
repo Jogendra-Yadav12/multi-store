@@ -57,7 +57,10 @@ class SubscriptionPlanSeeder extends Seeder
         ];
 
         foreach ($plans as $plan) {
-            SubscriptionPlan::firstOrCreate(['slug' => $plan['slug']], $plan);
+            SubscriptionPlan::updateOrCreate(
+                ['slug' => $plan['slug']], // find by slug
+                $plan                       // update ALL fields
+            );
         }
 
         $this->command->info('Subscription plans seeded!');
