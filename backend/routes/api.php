@@ -82,7 +82,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/categories/{id}',   [\App\Http\Controllers\CategoryController::class, 'update']);
         Route::delete('/categories/{id}',[\App\Http\Controllers\CategoryController::class, 'destroy']);
         
-        // Product Approvals
+        // Product Management & Approvals
+        Route::get('/products',              [\App\Http\Controllers\ProductController::class, 'adminIndex']);
+        Route::post('/products',             [\App\Http\Controllers\ProductController::class, 'adminStore']);
+        Route::get('/products/{id}',         [\App\Http\Controllers\ProductController::class, 'adminShow']);
+        Route::put('/products/{id}',         [\App\Http\Controllers\ProductController::class, 'adminUpdate']);
+        Route::delete('/products/{id}',      [\App\Http\Controllers\ProductController::class, 'adminDestroy']);
         Route::put('/products/{id}/approve', [\App\Http\Controllers\ProductController::class, 'adminApprove']);
         Route::put('/products/{id}/reject',  [\App\Http\Controllers\ProductController::class, 'adminReject']);
         
