@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SellerKyc extends Model
@@ -30,3 +31,4 @@ class SellerKyc extends Model
         return $this->belongsTo(User::class, 'reviewed_by');
     }
 }
+

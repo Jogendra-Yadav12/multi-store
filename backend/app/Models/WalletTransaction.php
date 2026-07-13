@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class WalletTransaction extends Model
@@ -15,3 +16,4 @@ class WalletTransaction extends Model
         return $this->belongsTo(User::class);
     }
 }
+

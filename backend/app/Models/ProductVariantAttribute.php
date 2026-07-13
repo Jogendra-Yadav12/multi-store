@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductVariantAttribute extends Model
@@ -25,3 +26,4 @@ class ProductVariantAttribute extends Model
         return $this->belongsTo(AttributeValue::class, 'attribute_value_id');
     }
 }
+
