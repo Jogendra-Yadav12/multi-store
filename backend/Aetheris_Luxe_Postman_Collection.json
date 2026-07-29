@@ -1,0 +1,711 @@
+{
+  "info": {
+    "name": "Aetheris Luxe Multi-Store API (Complete)",
+    "description": "Complete API collection for the Aetheris Luxe multi-vendor platform, including Public, Admin, Seller, and Buyer routes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://multi-store-r9rk.onrender.com/api",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "seller_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "buyer_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"Admin@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Seller Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/seller/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"New Seller\",\n    \"email\": \"seller1@example.com\",\n    \"password\": \"Password123\",\n    \"password_confirmation\": \"Password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Seller Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"seller1@example.com\",\n    \"password\": \"Password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Authenticated User (Me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": "{{base_url}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Public / Guest APIs",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/health"
+          }
+        },
+        {
+          "name": "List Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/plans"
+          }
+        },
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/categories"
+          }
+        },
+        {
+          "name": "List Attribute Groups",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/attributes/groups"
+          }
+        },
+        {
+          "name": "List Attributes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/attributes"
+          }
+        },
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/products"
+          }
+        },
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/cart"
+          }
+        },
+        {
+          "name": "Add to Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/cart/add",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_id\": 1,\n    \"variant_id\": 1,\n    \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Admin APIs",
+      "item": [
+        {
+          "name": "Plans",
+          "item": [
+            {
+              "name": "List Plans",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/plans"
+              }
+            },
+            {
+              "name": "Create Plan",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/plans",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Gold Pro\",\n    \"slug\": \"gold-pro\",\n    \"description\": \"Premium seller plan\",\n    \"price\": 49.99,\n    \"duration\": \"monthly\",\n    \"commission_rate\": 5,\n    \"features\": [\n        \"priority_support\",\n        \"unlimited_products\"\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Categories",
+          "item": [
+            {
+              "name": "Create Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/categories",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Electronics\",\n    \"slug\": \"electronics\",\n    \"description\": \"Gadgets, devices\",\n    \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Update Category",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/categories/1",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Updated Electronics\",\n    \"slug\": \"updated-electronics\",\n    \"is_active\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Attributes",
+          "item": [
+            {
+              "name": "Create Attribute Group",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/attributes/groups",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Color\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Create Attribute",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/attributes",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"attribute_group_id\": 1,\n    \"category_id\": 1,\n    \"name\": \"Device Color\",\n    \"type\": \"select\",\n    \"is_required\": true,\n    \"is_filterable\": true,\n    \"is_variant_maker\": true,\n    \"values\": [\n        \"Red\",\n        \"Blue\",\n        \"Black\"\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "Admin List Products",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/products"
+              }
+            },
+            {
+              "name": "Admin Create Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/products",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"seller_id\": 2,\n    \"category_id\": 1,\n    \"name\": \"Smartphone X\",\n    \"slug\": \"smartphone-x\",\n    \"short_description\": \"Latest smartphone.\",\n    \"description\": \"Full description...\",\n    \"base_price\": 999.99,\n    \"images\": [\n        \"https://example.com/phone.jpg\"\n    ],\n    \"variants\": [\n        {\n            \"sku\": \"PHONE-RED-01\",\n            \"price\": 999.99,\n            \"stock_quantity\": 50,\n            \"attributes\": [\n                {\n                    \"attribute_id\": 1,\n                    \"attribute_value_id\": 1\n                }\n            ]\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Approve Product",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/products/1/approve"
+              }
+            },
+            {
+              "name": "Reject Product",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/products/1/reject",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"reason\": \"Low quality images.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "KYC & Commissions",
+          "item": [
+            {
+              "name": "List Pending KYC",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/kyc"
+              }
+            },
+            {
+              "name": "Approve KYC",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/kyc/1/approve"
+              }
+            },
+            {
+              "name": "Create Commission Rule",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": "{{base_url}}/admin/commissions",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"category_id\": null,\n    \"rate\": 10.5,\n    \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Seller APIs",
+      "item": [
+        {
+          "name": "Create Store",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/store",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"My Cool Store\",\n    \"slug\": \"my-cool-store\",\n    \"description\": \"Best products\",\n    \"logo\": \"url\",\n    \"banner\": \"url\",\n    \"business_email\": \"contact@coolstore.com\",\n    \"phone\": \"1234567890\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add Product (Seller)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/products",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"category_id\": 1,\n    \"name\": \"Luxury Silk Scarf\",\n    \"slug\": \"luxury-silk-scarf-seller-1\",\n    \"short_description\": \"A beautiful silk scarf.\",\n    \"description\": \"Full description...\",\n    \"base_price\": 89.99,\n    \"images\": [\n        \"https://example.com/image1.jpg\"\n    ],\n    \"variants\": [\n        {\n            \"sku\": \"SCARF-RED-01\",\n            \"price\": 89.99,\n            \"stock_quantity\": 50,\n            \"attributes\": [\n                {\n                    \"attribute_id\": 1,\n                    \"attribute_value_id\": 1\n                }\n            ]\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Submit KYC",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/kyc",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"document_type\": \"passport\",\n    \"document_number\": \"AB1234567\",\n    \"document_path\": \"https://example.com/passport.pdf\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Store Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/store"
+          }
+        },
+        {
+          "name": "List Seller Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/products"
+          }
+        },
+        {
+          "name": "List Seller Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/orders"
+          }
+        },
+        {
+          "name": "Get Wallet",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{seller_token}}"
+              }
+            ],
+            "url": "{{base_url}}/seller/wallet"
+          }
+        }
+      ]
+    }
+  ]
+}

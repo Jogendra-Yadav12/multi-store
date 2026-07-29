@@ -50,55 +50,81 @@ Use this to get an `access_token` to test the Admin APIs.
 
 ---
 
-## 2. Categories
+## Step-by-Step Testing Guide (Admin)
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/admin/categories` | Create new category |
-| `PUT` | `/api/admin/categories/{id}` | Update category |
-| `DELETE` | `/api/admin/categories/{id}` | Delete category |
+To test the multi-store backend properly via Postman, you must create data in a specific sequence because Products rely on Categories and Attributes.
 
-**Example POST/PUT Body:**
+### Step 1: Create a Category
+A product must belong to a category.
+
+* **Method:** `POST`
+* **URL:** `/api/admin/categories`
+* **Body:**
 ```json
 {
     "name": "Electronics",
-    "parent_id": null,
-    "description": "Gadgets and devices",
+    "slug": "electronics",
+    "description": "Gadgets, devices, and accessories.",
     "is_active": true
 }
 ```
+*(Assume this returns `id: 1`)*
 
----
+### Step 2: Create an Attribute Group
+Attributes (like Color, Size) belong to a group.
 
-## 3. Product Management & Approvals
+* **Method:** `POST`
+* **URL:** `/api/admin/attributes/groups`
+* **Body:**
+```json
+{
+    "name": "Color"
+}
+```
+*(Assume this returns `id: 1`)*
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/admin/products` | List all products (can filter with `?status=pending`) |
-| `GET` | `/api/admin/products/{id}` | Get single product details |
-| `POST` | `/api/admin/products` | Admin creates a product for a seller (auto-approved) |
-| `PUT` | `/api/admin/products/{id}` | Update a product |
-| `DELETE` | `/api/admin/products/{id}` | Delete a product |
-| `PUT` | `/api/admin/products/{id}/approve` | Approve a pending product |
-| `PUT` | `/api/admin/products/{id}/reject` | Reject a product |
+### Step 3: Create an Attribute & Values
+Now, assign the Attribute to the Category and Group, and define its values.
 
-**Example POST Body:**
+* **Method:** `POST`
+* **URL:** `/api/admin/attributes`
+* **Body:**
+```json
+{
+    "attribute_group_id": 1,
+    "category_id": 1,
+    "name": "Device Color",
+    "type": "select",
+    "is_required": true,
+    "is_filterable": true,
+    "is_variant_maker": true,
+    "values": ["Red", "Blue", "Black"]
+}
+```
+*(Assume the attribute gets `id: 1` and the values get `id: 1`, `2`, `3`)*
+
+### Step 4: Add a Product!
+Now you can create a product referencing the Category and the Attribute Values you just made.
+
+* **Method:** `POST`
+* **URL:** `/api/admin/products`
+* **Body:**
 ```json
 {
     "seller_id": 2,
     "category_id": 1,
-    "name": "Luxury Silk Scarf",
-    "slug": "luxury-silk-scarf-1",
-    "short_description": "A beautiful silk scarf.",
-    "description": "Full description of the product...",
-    "base_price": 89.99,
+    "name": "Smartphone X",
+    "slug": "smartphone-x",
+    "short_description": "Latest smartphone.",
+    "description": "Full description of the phone...",
+    "base_price": 999.99,
     "images": [
-        "https://example.com/image1.jpg"
+        "https://example.com/phone.jpg"
     ],
     "variants": [
         {
-            "sku": "SCARF-RED-01",
-            "price": 89.99,
+            "sku": "PHONE-RED-01",
+            "price": 999.99,
             "stock_quantity": 50,
             "attributes": [
                 {
@@ -111,49 +137,55 @@ Use this to get an `access_token` to test the Admin APIs.
 }
 ```
 
-**Example Reject Body:**
-```json
-{
-    "reason": "Images are too low resolution, please upload HD images."
-}
-```
-
-**Example PUT (Update) Body:**
-```json
-{
-    "name": "Updated Scarf Name",
-    "base_price": 79.99,
-    "description": "Updated description here"
-}
-```
-
 ---
 
-## 4. KYC & Seller Compliance
+## Other Admin APIs
 
+### Product Management
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/admin/products` | List all products (can filter with `?status=pending`) |
+| `GET` | `/api/admin/products/{id}` | Get single product details |
+| `PUT` | `/api/admin/products/{id}` | Update a product |
+| `DELETE` | `/api/admin/products/{id}` | Delete a product |
+| `PUT` | `/api/admin/products/{id}/approve` | Approve a pending product |
+### Category Management
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/admin/categories` | Create new category |
+| `PUT` | `/api/admin/categories/{id}` | Update category |
+| `DELETE` | `/api/admin/categories/{id}` | Delete category |
+
+**Example PUT Category Body:**
+```json
+{
+    "name": "Updated Electronics",
+    "slug": "updated-electronics",
+    "is_active": false
+}
+```
+
+### KYC & Seller Compliance
 | Method | Endpoint | Description |
 |---|---|---|
 | `GET` | `/api/admin/kyc` | List all pending KYC requests |
 | `PUT` | `/api/admin/kyc/{id}/approve` | Approve seller KYC |
 | `PUT` | `/api/admin/kyc/{id}/reject` | Reject seller KYC |
 
-**Example Reject Body:**
+**Example Reject KYC Body:**
 ```json
 {
-    "rejection_reason": "Business registration document is expired."
+    "rejection_reason": "Business registration document is expired or illegible."
 }
 ```
 
----
-
-## 5. Commission Rules
-
+### Commission Rules
 | Method | Endpoint | Description |
 |---|---|---|
 | `GET` | `/api/admin/commissions` | List all commission rules |
 | `POST` | `/api/admin/commissions` | Create commission rule |
 
-**Example POST Body:**
+**Example POST Commission Body:**
 ```json
 {
     "category_id": null,
@@ -162,10 +194,7 @@ Use this to get an `access_token` to test the Admin APIs.
 }
 ```
 
----
-
-## 6. Attribute Management (Variants like Size, Color)
-
+### Attribute Management
 | Method | Endpoint | Description |
 |---|---|---|
 | `POST` | `/api/admin/attributes/groups` | Create an attribute group |
@@ -174,20 +203,11 @@ Use this to get an `access_token` to test the Admin APIs.
 | `PUT` | `/api/admin/attributes/{id}` | Update an attribute value |
 | `DELETE` | `/api/admin/attributes/{id}` | Delete an attribute value |
 
-**Example Create Group Body:**
+**Example PUT Attribute Value Body:**
 ```json
 {
-    "name": "Color",
-    "is_filterable": true
-}
-```
-
-**Example Create/Update Attribute Value Body:**
-```json
-{
-    "attribute_group_id": 1,
-    "value": "Red",
-    "color_code": "#FF0000"
+    "value": "Crimson Red",
+    "color_code": "#DC143C"
 }
 ```
 
